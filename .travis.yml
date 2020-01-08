@@ -7,21 +7,27 @@ services:
   - docker
 
 env:
-  - SCENARIO=sudoers
-  - SCENARIO=authorized_key
+  global:
+    - COLLECTION_NAMESPACE=devroles
+    - COLLECTION_NAME=system
+  jobs:
+    - SCENARIO=sudoers
+    - SCENARIO=authorized_key
 
 install:
   - pip install -U pip
   - pip --version
   - pip install tox tox-travis
+  - mkdir -p ~/.ssh  # Needed by authorized_key
+  - touch ~/.ssh/id_rsa.pub
+
+before_script:
   - cd ..
   # ansible collections need to be in an ansible_colection path
-  - mkdir -p ansible_collections/devroles
-  - mv system ansible_collections/devroles
-  - cd ansible_collection/devroles/system
+  - mkdir -p ansible_collections/${COLLECTION_NAMESPACE}
+  - mv "$(basename "${TRAVIS_REPO_SLUG}")" ansible_collections/${COLLECTION_NAMESPACE}
+  - cd ansible_collection/${COLLECTION_NAMESPACE}/${COLLECTION_NAME}
 
-  - mkdir -p ~/.ssh
-  - touch ~/.ssh/id_rsa.pub  # Needed by authorized_key
 script:
   - tox
 
