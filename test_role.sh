@@ -11,11 +11,8 @@ if [ ! -z "${VIRTUAL_ENV}" ]; then
 fi
 
 # run all the Docker-based scenarios in a specific role
-function test_role {
-	for scenario_dir in $(find molecule/ -name 'molecule.yml' -exec grep '{}' -e '  name: docker' -l ';'); do
-		scenario="$(basename "$(dirname "${scenario_dir}")")"
-		molecule -c "${MOLECULE}" test -s "${scenario}"
-	done
-}
-
-test_role
+scenarios="$(find molecule/ -name 'molecule.yml' -exec grep '{}' -e '  name: docker' -l ';')"
+for scenario_dir in "${scenarios}"; do
+	scenario="$(basename "$(dirname "${scenario_dir}")")"
+	molecule -c "${MOLECULE}" test -s "${scenario}"
+done
