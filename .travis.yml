@@ -14,9 +14,14 @@ install:
   - pip install -U pip
   - pip --version
   - pip install tox tox-travis
+  - cd ..
+  # ansible collections need to be in an ansible_colection path
+  - mkdir -p ansible_collections/devroles
+  - mv system ansible_collections/devroles
+  - cd ansible_collection/devroles/system
+
   - mkdir -p ~/.ssh
   - touch ~/.ssh/id_rsa.pub  # Needed by authorized_key
-
 script:
   - tox
 
