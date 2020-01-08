@@ -16,7 +16,7 @@ install:
   - pip install tox tox-travis
 
 script:
-  - PS1=hi tox
+  - tox
 
 # Notifications are for galaxy roles - I don't know that they're yet
 # a thing for collections

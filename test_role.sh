@@ -5,9 +5,9 @@ MOLECULE="$(readlink -f "$(dirname "${0}")")/tests/molecule.yml"
 # When invoking from tox, this will indicate the virtualenv to use that includes
 # the necessary Python dependencies
 if [ ! -z "${VIRTUAL_ENV}" ]; then
-	set +x
+	set +xu
 	source "${VIRTUAL_ENV}/bin/activate"
-	set -x
+	set -xu
 fi
 
 # run all the Docker-based scenarios in a specific role
