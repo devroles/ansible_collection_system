@@ -14,6 +14,8 @@ install:
   - pip install -U pip
   - pip --version
   - pip install tox tox-travis
+  - mkdir ~/.ssh
+  - touch ~/.ssh/id_rsa.pub  # Needed by authorized_key
 
 script:
   - tox
