@@ -22,11 +22,12 @@ install:
   - touch ~/.ssh/id_rsa.pub
 
 before_script:
+  - set -x
   - cd ..
   # ansible collections need to be in an ansible_colection path
-  - mkdir -p ansible_collections/${COLLECTION_NAMESPACE}
-  - mv "$(basename "${TRAVIS_REPO_SLUG}")" ansible_collections/${COLLECTION_NAMESPACE}
-  - cd ansible_collection/${COLLECTION_NAMESPACE}/${COLLECTION_NAME}
+  - mkdir -p "ansible_collections/${COLLECTION_NAMESPACE}"
+  - mv "$(basename "${TRAVIS_REPO_SLUG}")" "ansible_collections/${COLLECTION_NAMESPACE}"
+  - cd "ansible_collection/${COLLECTION_NAMESPACE}/${COLLECTION_NAME}"
 
 script:
   - tox
