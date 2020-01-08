@@ -1,0 +1,6 @@
+- name: give myself password-less SSH
+  authorized_key:
+    user: "{{ ansible_user_id }}"
+    key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub') }}"
+    state: present
+  when: ansible_connection != 'local'

@@ -19,11 +19,11 @@ provisioner:
     converge: ../shared/playbook.yml
     cleanup: ../shared/cleanup.yml
     docker:
-      create: ../shared/create-docker.yml
-      destroy: ../shared/destroy-docker.yml
+      create: ../../../../tests/create-docker.yml
+      destroy: ../../../../tests/destroy-docker.yml
     openstack:
-      create: ../shared/create-openstack.yml
-      destroy: ../shared/destroy-docker.yml
+      create: ../../../../tests/create-openstack.yml
+      destroy: ../../../../tests/destroy-docker.yml
   config_options:
     defaults:
       stdout_callback: yaml

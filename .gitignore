@@ -4,3 +4,4 @@
 __pychace__
 *.pyc
 *.pyo
+.tox
