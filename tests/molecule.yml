@@ -1,0 +1,42 @@
+dependency:
+  name: galaxy
+  options:
+    role-file: molecule/shared/requirements.yml  # relative to the role dir
+lint:
+  name: yamllint
+  options:
+    config-file: ../../tests/yamllint.yml  # relative to role dir
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+    options:
+      R: true
+      r: ../../tests/ansible_lint_rules/  # relative to role dir
+      c: ../../tests/ansible-lint
+  playbooks:  # These paths are relative to scenario dir
+    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml
+    cleanup: ../shared/cleanup.yml
+    docker:
+      create: ../shared/create-docker.yml
+      destroy: ../shared/destroy-docker.yml
+    openstack:
+      create: ../shared/create-openstack.yml
+      destroy: ../shared/destroy-docker.yml
+  config_options:
+    defaults:
+      stdout_callback: yaml
+verifier:
+  name: testinfra
+  options:
+    # Add a -v so you see the individual test names,
+    # particularly useful with parameterized tests
+    v: true
+  lint:
+    name: flake8
+  # Using the shared directory is useful for sharing tests across scenarios,
+  # but is not a requirement. For scenario specific tests, add the appropriate
+  # file path to the test or test directory below
+  additional_files_or_dirs:
+    - ../../shared/tests  # relative to the scenario tests dir

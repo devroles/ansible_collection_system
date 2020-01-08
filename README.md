@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/devroles/ansible_collection_system.svg?branch=master)](https://travis-ci.com/devroles/ansible_collection_system)
+
 # Ansible Collection - greg_hellings.system
 
 A collection of Ansible system roles for managing Linux systems.
