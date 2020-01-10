@@ -1,7 +1,12 @@
 #!/bin/bash
 set -eux
 
-MOLECULE="$(readlink -f "$(dirname "${0}")")/tests/molecule.yml"
+# ROLE set externally - e.g by Travis
+TOP="$(readlink -f "$(dirname "${0}")")"
+MOLECULE="${TOP}/tests/molecule.yml"
+
+cd "${TOP}/roles/${ROLE}"
+
 # When invoking from tox, this will indicate the virtualenv to use that includes
 # the necessary Python dependencies
 if [ ! -z "${VIRTUAL_ENV}" ]; then
