@@ -28,7 +28,7 @@ before_script:
   - mkdir -p "ansible_collections/${COLLECTION_NAMESPACE}"
   - mv "$(basename "${TRAVIS_REPO_SLUG}")" "ansible_collections/${COLLECTION_NAMESPACE}/${COLLECTION_NAME}"
   - find . -type d
-  - cd "ansible_collection/${COLLECTION_NAMESPACE}/${COLLECTION_NAME}"
+  - cd "ansible_collections/${COLLECTION_NAMESPACE}/${COLLECTION_NAME}"
 
 script:
   - tox
