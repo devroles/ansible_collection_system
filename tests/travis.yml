@@ -12,6 +12,8 @@ install:
   - pip install tox tox-travis
 
 before_script:
+  # Update submodules - like this one to get the latest
+  - git submodule update --remote --recursive
   - cd ..
   # ansible collections need to be in an ansible_colection path
   - mkdir -p "ansible_collections/${COLLECTION_NAMESPACE}"
