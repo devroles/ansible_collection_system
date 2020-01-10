@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: python_prep
+    image: fedora:latest

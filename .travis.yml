@@ -38,3 +38,4 @@ env:
     - ROLE=sudoers
     - ROLE=authorized_key
     - ROLE=disable_deltarpm
+    - ROLE=python_prep

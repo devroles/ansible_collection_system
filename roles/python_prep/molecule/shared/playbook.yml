@@ -1,0 +1,13 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: python_prep
+  post_tasks:
+    - name: install a package
+      become: true
+      package:
+        name: vim
+        state: present
+      retries: 3
+      register: test_install
+      until: test_install is success

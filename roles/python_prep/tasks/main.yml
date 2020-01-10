@@ -1,0 +1,37 @@
+- name: read the vars
+  include_vars:
+    file: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - default.yml
+
+- name: get python major version
+  command: >-
+    {{ python_prep_interpreter }} -c 'from __future__ import print_function;
+    import platform;
+    print(platform.python_version_tuple()[0])'
+  register: dnf_major
+  changed_when: false
+
+- name: get_python minor version
+  command: >-
+    {{ python_prep_interpreter }} -c 'from __future__ import print_function;
+    import platform;
+    print(platform.python_version_tuple()[1])'
+  register: dnf_minor
+  changed_when: false
+
+- name: set python package versions
+  set_fact:
+    _short_version: "{{ dnf_major.stdout|trim }}"
+    _long_version: "{{ dnf_major.stdout|trim }}.{{ dnf_minor.stdout|trim }}"
+
+- name: install python{{ _short_version }}-dnf
+  become: true
+  shell: dnf install -y python{{ _short_version }}-dnf
+  args:
+    creates: /usr/lib/python{{ _long_version }}/site-packages/dnf
+  when: ansible_distribution == 'Fedora'
+  tags:
+    - skip_ansible_lint

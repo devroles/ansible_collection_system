@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Greg Hellings
+  description: >-
+    Sometimes the Python on a target system needs a little bit of extra
+    massaging before it's completely ready for use on the target host. This
+    role gets Python ready by installing some very necessary packages that
+    are needed before you can even install packages!
+  license: GPLv3
+  min_ansible_version: 2.0
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - all
+
+dependencies: []
