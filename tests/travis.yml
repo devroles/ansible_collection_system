@@ -20,3 +20,8 @@ before_script:
 
 script:
   - tox
+    #
+# Notifications are for galaxy roles - I don't know that they're yet
+# a thing for collections
+#notifications:
+  #webhooks: https://galaxy.ansible.com/api/v1/notifications/
