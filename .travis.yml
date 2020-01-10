@@ -6,9 +6,9 @@ env:
     - COLLECTION_NAMESPACE=devroles
     - COLLECTION_NAME=system
   jobs:
-    - SCENARIO=sudoers
-    - SCENARIO=authorized_key
-    - SCENARIO=disable_deltarpm
+    - ROLE=sudoers
+    - ROLE=authorized_key
+    - ROLE=disable_deltarpm
 
 install:
   - mkdir -p ~/.ssh  # Needed by authorized_key
