@@ -20,5 +20,7 @@
     value: "False"
     create: false
     allow_no_value: true
-  when: _config_path != false
+  when:
+    - _config_path is string
+    - (_config_path | length) != 0
   become: true

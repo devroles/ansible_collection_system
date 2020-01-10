@@ -1,7 +1,7 @@
 dependency:
   name: galaxy
   options:
-    role-file: molecule/shared/requirements.yml  # relative to the role dir
+    role-file: ../../tests/requirements.yml  # relative to the role dir
 lint:
   name: yamllint
   options:

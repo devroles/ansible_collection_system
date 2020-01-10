@@ -1,9 +1,12 @@
 #!/bin/bash
-set -eux
+set -ex
 
 # ROLE set externally - e.g by Travis
 TOP="$(readlink -f "$(dirname "${0}")")"
 MOLECULE="${TOP}/tests/molecule.yml"
+if [ -z "${ROLE}" ]; then
+	ROLE="${1}"
+fi
 
 cd "${TOP}/roles/${ROLE}"
 
