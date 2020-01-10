@@ -1,0 +1,11 @@
+# Elements of the type
+# - mount_point: /path/to/mount/at
+#   device: /dev/somda1
+#   fstype: ext4
+#   owner: some-user # optional - mount point owner
+#   group: mygroup # optional - mount point group
+#   mode: 0755 # optional - mount point file mode
+#   dump: 1 # optional - defaults to Ansible defaults
+#   passno: 3 # optional - defaults to Ansible defaults
+#   opts: noauto # optional - defaults to Ansible defaults
+mounts: []

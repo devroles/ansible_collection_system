@@ -1,0 +1,4 @@
+- name: ensure mount
+  include:
+    file: mount.yml
+  with_items: "{{ mounts }}"

@@ -1,0 +1,20 @@
+- name: mount and save
+  become: true
+  mount:
+    state: mounted
+    fstype: "{{ item.fstype }}"
+    path: "{{ item.mount_point }}"
+    src: "{{ item.device }}"
+    dump: "{{ item.dump | default(omit) }}"
+    passno: "{{ item.passno | default(omit) }}"
+    opts: "{{ item.opts | default(omit) }}"
+
+- name: ensure mount point permissions are correct
+  become: true
+  file:
+    dest: "{{ item.mount_point }}"
+    state: directory
+    owner: "{{ item.owner | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
+    mode: "{{ item.mode | default(omit) }}"
+    recurse: false
