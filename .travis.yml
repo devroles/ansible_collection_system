@@ -26,7 +26,7 @@ before_script:
   - pwd
   # ansible collections need to be in an ansible_colection path
   - mkdir -p "ansible_collections/${COLLECTION_NAMESPACE}"
-  - mv "$(basename "${TRAVIS_REPO_SLUG}")" "ansible_collections/${COLLECTION_NAMESPACE}"
+  - mv "$(basename "${TRAVIS_REPO_SLUG}")" "ansible_collections/${COLLECTION_NAMESPACE}/${COLLECTION_NAME}"
   - find . -type d
   - cd "ansible_collection/${COLLECTION_NAMESPACE}/${COLLECTION_NAME}"
 
