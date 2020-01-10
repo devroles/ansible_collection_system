@@ -9,7 +9,7 @@ services:
 install:
   - pip install -U pip
   - pip --version
-  - pip install tox tox-travis
+  - pip install tox tox-travis tox-factor
   - mkdir -p ~/.ssh  # Needed by authorized_key
   - touch ~/.ssh/id_rsa.pub
 
@@ -35,7 +35,7 @@ env:
     - COLLECTION_NAMESPACE=devroles
     - COLLECTION_NAME=system
   jobs:
-    - ROLE=sudoers
-    - ROLE=authorized_key
-    - ROLE=disable_deltarpm
-    - ROLE=python_prep
+    - TOXFACTOR=sudoers
+    - TOXFACTOR=authorized_key
+    - TOXFACTOR=disable_deltarpm
+    - TOXFACTOR=python_prep
