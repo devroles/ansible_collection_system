@@ -1,6 +1,1 @@
-ansible
-ansible-lint
-yamllint
 flake8
-molecule
-docker

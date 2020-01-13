@@ -9,7 +9,7 @@ services:
 install:
   - pip install -U pip
   - pip --version
-  - pip install tox tox-travis tox-factor
+  - pip install tox https://github.com/greg-hellings/tox-ansible-collection
   - mkdir -p ~/.ssh  # Needed by authorized_key
   - touch ~/.ssh/id_rsa.pub
 
@@ -35,7 +35,8 @@ env:
     - COLLECTION_NAMESPACE=devroles
     - COLLECTION_NAME=system
   jobs:
-    - TOXFACTOR=sudoers
-    - TOXFACTOR=authorized_key
-    - TOXFACTOR=disable_deltarpm
-    - TOXFACTOR=python_prep
+    - TOX_ANSIBLE_ROLE=sudoers TOX_ANSIBLE_SCENARIO=docker
+    - TOX_ANSIBLE_ROLE=sudoers TOX_ANSIBLE_SCENARIO=docker_fedora
+    - TOX_ANSIBLE_ROLE=authorized_key
+    - TOX_ANSIBLE_ROLE=disable_deltarpm
+    - TOX_ANSIBLE_ROLE=python_prep
