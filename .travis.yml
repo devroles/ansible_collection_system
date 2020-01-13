@@ -9,7 +9,7 @@ services:
 install:
   - pip install -U pip
   - pip --version
-  - pip install tox https://github.com/greg-hellings/tox-ansible-collection
+  - pip install tox git+https://github.com/greg-hellings/tox-ansible-collection
   - mkdir -p ~/.ssh  # Needed by authorized_key
   - touch ~/.ssh/id_rsa.pub
 

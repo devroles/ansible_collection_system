@@ -1,9 +1,0 @@
-action: sudoers-openstack, msg: getenv
-cwd: /home/ghelling/src/ansible_collections/devroles/system/.tox
-cmd: /home/ghelling/venv/tools3/bin/python3 -m virtualenv --no-download --python /home/ghelling/venv/tools3/bin/python3 ansible
-Already using interpreter /home/ghelling/venv/tools3/bin/python3
-Using base prefix '/usr'
-New python executable in /home/ghelling/src/ansible_collections/devroles/system/.tox/ansible/bin/python3
-Also creating executable in /home/ghelling/src/ansible_collections/devroles/system/.tox/ansible/bin/python
-Installing setuptools, pip, wheel...
-done.

@@ -1,7 +1,0 @@
-action: sudoers-openstack, msg: getenv
-cwd: /home/ghelling/src/ansible_collections/devroles/system
-cmd: /home/ghelling/src/ansible_collections/devroles/system/.tox/ansible/bin/python -m pip install m o l e c u l e '' d o c k e r '' s h a d e
-ERROR: Invalid requirement: ''
-
-WARNING: You are using pip version 19.1.1, however version 19.3.1 is available.
-You should consider upgrading via the 'pip install --upgrade pip' command.
