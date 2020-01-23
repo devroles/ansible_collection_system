@@ -1,0 +1,6 @@
+driver:
+  name: openstack
+platforms:
+  - name: test-static_ip
+    image: Fedora 30
+    flavor: ci.m1.tiny

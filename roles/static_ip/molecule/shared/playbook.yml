@@ -1,0 +1,8 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: static_ip
+      static_ip_addresses:
+        eth0:
+          address: 172.17.0.100/16
+          gateway: 0.0.0.0

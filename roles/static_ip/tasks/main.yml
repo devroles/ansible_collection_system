@@ -1,0 +1,26 @@
+- name: install tools necessary for IP management
+  become: true
+  package:
+    name: "{{ static_ip_packages }}"
+    state: present
+
+- name: set static IP addresses
+  become: true
+  nmcli:
+    type: ethernet
+    conn_name: "{{ item.key }}"
+    ip4: "{{ item.value.address | default(omit) }}"
+    gw4: "{{ item.value.gateway | default(omit) }}"
+    dns4: "{{ item.value.dns | default(static_ip_dns) }}"
+    state: present
+  with_dict: "{{ static_ip_addresses }}"
+  # This is terrible, but it's here
+  changed_when: false
+
+- name: disable DHCP on interface
+  become: true
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/ifcfg-{{ item.key }}
+    regexp: BOOTPROTO=.*
+    line: BOOTPROTO=static
+  with_dict: "{{ static_ip_addresses }}"

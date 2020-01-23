@@ -1,0 +1,3 @@
+static_ip_packages:
+  - NetworkManager
+  - NetworkManager-glib
