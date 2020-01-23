@@ -1,0 +1,4 @@
+# A list of files in the form { 'src': 'some_file', 'dest': '/some/dest' }
+# Each item may have an optional field "force" which will be used if the mode
+# ends up being a symlink. It defaults to "false"
+copy_or_link_files: []

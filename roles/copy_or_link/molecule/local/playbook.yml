@@ -1,0 +1,10 @@
+- name: converge
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: run ansible over there
+      command: ansible-playbook -i inventory remote_playbook.yml
+      register: results
+      args:
+        chdir: /root/temp
+      changed_when: "'changed=0' not in results.stdout"

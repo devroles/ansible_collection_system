@@ -1,0 +1,39 @@
+- hosts: all
+  tasks:
+    - name: touch file
+      file:
+        state: touch
+        dest: /root/second
+
+    - name: install ansible
+      package:
+        name: ansible
+        state: present
+
+    - name: create target dir
+      file:
+        dest: /root/temp/roles
+        state: directory
+        recurse: true
+
+    - name: create inventory file
+      copy:
+        content: "localhost ansible_connection=local"
+        dest: /root/temp/inventory
+
+    - name: create test files
+      copy:
+        src: "{{ item }}"
+        dest: /root/temp/
+      loop:
+        - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY')
+              }}/../shared/first"
+        - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY')
+              }}/../shared/second"
+        - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY')
+              }}/remote_playbook.yml"
+
+    - name: copy role
+      copy:
+        src: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"
+        dest: /root/temp/roles/

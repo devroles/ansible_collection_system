@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Greg Hellings
+  description: >-
+    If the connection is a remote connection, this role will copy the files
+    to the target machine. If the connection is local, then the role will
+    symlink the files into place.
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+
+dependencies: []

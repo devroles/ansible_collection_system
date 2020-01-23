@@ -1,0 +1,9 @@
+- hosts: all
+  roles:
+    - role: copy_or_link
+      copy_or_link_files:
+        - src: "{{ playbook_dir }}/first"
+          dest: /root/first
+        - src: "{{ playbook_dir }}/second"
+          dest: /root/second
+          force: true

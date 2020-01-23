@@ -1,0 +1,9 @@
+driver:
+  name: docker
+platforms:
+  - name: copy_or_link_local
+    image: fedora:latest
+provisioner:
+  playbooks:
+    converge: playbook.yml
+    prepare: prepare.yml
