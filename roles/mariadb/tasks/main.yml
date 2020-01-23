@@ -19,7 +19,7 @@
     state: present
   when:
     - ansible_distribution in ['CentOS', 'RHEL']
-  changed_when: false  # CentOS 8 doesn't always report changed on this correctly
+  changed_when: false  # CentOS 8 doesn't always correctly handle epel-release
 
 - name: install database
   become: true
