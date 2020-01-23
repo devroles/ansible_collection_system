@@ -1,0 +1,61 @@
+- name: check root password is defined
+  assert:
+    that: mariadb_admin_password is defined
+    msg: You must provide an admin password for install
+
+- name: load distro vars
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "vars/{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+    - "vars/{{ ansible_distribution }}-{{
+          ansible_distribution_major_version }}.yml"
+    - "vars/{{ ansible_distribution }}.yml"
+    - "vars/generic.yml"
+
+- name: install epel-release
+  become: true
+  package:
+    name: epel-release
+    state: present
+  when:
+    - ansible_distribution in ['CentOS', 'RHEL']
+  changed_when: false  # CentOS 8 doesn't always report changed on this correctly
+
+- name: install database
+  become: true
+  package:
+    name: "{{ mariadb_packages }}"
+    state: present
+
+- name: setup mysql data structures for first run
+  become: true
+  command: /usr/libexec/{{ mariadb_setup_dir_command }}
+  args:
+    creates: /var/lib/mysql/mysql
+  register: _first_run
+
+- name: start database
+  become: true
+  service:
+    name: mariadb
+    state: started
+    enabled: true
+  when:
+    - ansible_connection != 'docker'
+
+- name: start database standalone
+  become: true
+  command: mysqld_safe --nowatch
+  args:
+    creates: /var/run/mariadb/mariadb.pid
+  when:
+    - ansible_connection == 'docker'
+
+- name: configure MariaDB access
+  include_tasks:
+    file: configure_access.yml
+
+- name: secure system on first boot
+  include_tasks:
+    file: secure.yml
+  when: _first_run is changed

@@ -1,0 +1,27 @@
+- name: remove anonymous users
+  mysql_user:
+    check_implicit_admin: true
+    name: ""
+    host_all: true
+    state: absent
+
+- name: remove test database
+  mysql_db:
+    name: test
+    state: absent
+
+- name: create admin for localhost only
+  mysql_user:
+    check_implicit_admin: true
+    name: "{{ mariadb_admin_user }}"
+    host: "{{ item }}"
+    state: present
+  with_items: "{{ mariadb_admin_hosts }}"
+
+- name: remove root user, if not admin
+  mysql_user:
+    check_implicit_admin: true
+    name: root
+    host_all: true
+    state: absent
+  when: mariadb_admin_user != 'root'

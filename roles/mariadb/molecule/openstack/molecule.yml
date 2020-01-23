@@ -1,0 +1,6 @@
+driver:
+  name: openstack
+platforms:
+  - name: test-mariadb
+    image: rhel-7.4-server-x86_64-updated
+    flavor: c1.m1.medium

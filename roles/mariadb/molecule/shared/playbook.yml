@@ -1,0 +1,20 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: mariadb
+  vars:
+    mariadb_databases:
+      - testdb
+    mariadb_user_privs:
+      - username: greg
+        password: gr3g_w1nZ
+        database: testdb
+    mariadb_admin_password: s0m3Aw3s0mePW
+  post_tasks:
+    - name: run test command
+      become: true
+      command: >-
+        mysql -u greg --password=gr3g_w1nZ -e
+        'CREATE TABLE abc (id INT)' testdb
+      args:
+        creates: /var/lib/mysql/testdb/abc.frm

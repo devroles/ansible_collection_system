@@ -1,0 +1,5 @@
+mariadb_packages:
+  - mariadb-server
+  - MySQL-python
+
+mariadb_setup_dir_command: mariadb-prepare-db-dir

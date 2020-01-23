@@ -1,0 +1,25 @@
+# A list of database names to create on the target system
+mariadb_databases: []
+# A list of dictionaries of users to grant permisisons to on databases
+# Elements look like
+# - username: someuser
+#   database: rando_database
+#   privs: 'INSERT,UPDATE' # defaults to 'ALL'
+#   password: 'somepassword' # defaults to omit
+# Omitting the password will not delete a user's password, however, if
+# the user does not already exist in the system, it will be created without
+# a password. Additionally, this mehcanism will not recover or update a
+# password for a user.
+mariadb_user_privs: []
+
+mariadb_admin_user: root
+
+mariadb_admin_hosts:
+    - localhost
+    - 127.0.0.1
+    - "::1"
+    - "{{ ansible_hostname }}"
+    - "{{ ansible_fqdn }}"
+
+mariadb_become: true
+mariadb_become_user: root

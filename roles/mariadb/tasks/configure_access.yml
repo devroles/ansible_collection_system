@@ -1,0 +1,41 @@
+- name: set admin password
+  become: "{{ mariadb_become }}"
+  become_user: "{{ mariadb_become_user }}"
+  mysql_user:
+    check_implicit_admin: true
+    login_user: "{{ mariadb_admin_user }}"
+    login_password: "{{ mariadb_admin_password }}"
+    name: "{{ mariadb_admin_user }}"
+    host_all: true
+    password: "{{ mariadb_admin_password }}"
+    state: present
+  register: configure_admin
+  retries: 10
+  delay: 2
+  until: configure_admin is success
+
+- name: configure my.cnf
+  ini_file:
+    path: "{{ ansible_user_dir }}/.my.cnf"
+    section: client
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  with_items:
+    - option: password
+      value: "{{ mariadb_admin_password }}"
+    - option: user
+      value: "{{ mariadb_admin_user }}"
+
+- name: create databases for caller
+  mysql_db:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ mariadb_databases }}"
+
+- name: configure database users
+  mysql_user:
+    check_implicit_admin: true
+    name: "{{ item.username }}"
+    priv: "{{ item.database }}.*:{{ item.privs | default('ALL') }}"
+    password: "{{ item.password | default(omit) }}"
+  with_items: "{{ mariadb_user_privs }}"
