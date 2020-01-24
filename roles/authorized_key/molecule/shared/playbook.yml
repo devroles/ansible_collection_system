@@ -4,5 +4,4 @@
     - role: authorized_key
       # The actual file we're loading doesn't matter for testing
       authorized_key: >-
-        {{ lookup('file', lookup('env', 'MOLECULE_SCENARIO_DIRECTORY')
-        + '/../shared/playbook.yml') }}
+        This is my greatest key, ever

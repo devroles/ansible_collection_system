@@ -17,10 +17,12 @@ jobs:
           - 2.7
           - 3.7
         role:
-          - sudoers
           - authorized_key
+          - copy_or_link
           - disable_deltarpm
+          - mariadb
           - python_prep
+          - sudoers
 
     steps:
       - uses: actions/checkout@v2
