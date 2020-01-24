@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/devroles/ansible_collection_system/workflows/Test with Ansible/badge.svg)](https://github.com/devroles/ansible_collection_system/actions)
+[![Actions Status](https://github.com/devroles/ansible_collection_system/workflows/Test%20with%20Ansible/badge.svg)](https://github.com/devroles/ansible_collection_system/actions)
 
 # Ansible Collection - devroles.system
 
