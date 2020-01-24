@@ -3,5 +3,5 @@
   roles:
     - role: authorized_key
       # The actual file we're loading doesn't matter for testing
-      authorized_key: >-
-        This is my greatest key, ever
+      # yamllint disable-line rule:line-length
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDFlPDE5UV5H3bvkF0lvdWhjLCEu6v3GwIZDBEXyPOw2aiYEDLR6dhM85xm6k1lFhD5+nJB54AYvxmJcwRQZJu+fN1sgQ1nV4Z3fOqxfLw7koNi6BdLzj4/EOzd1ywpqWskhPU0R3OBKvcYCd2JOI0KCW3dQ/R5B37Uq3eikOjYFEaf/sfDlM80qvRVNkzZSYYD5lpivT1aEBNt9TExSfV9AK7hQ/flpXRn0yHTpTgf4SH9+VyEctDea1GdqpBwWsW+cl0giXCM29dV6yaCLplSLe4XZjjIsen7BVxCMTBCMDhXTpjWkaSs5b06Ht2yU6mt3oz7uvcHiE/YD5hI+F3K19SZ50EVrUAUGg2bpsR+bv4CTyGHUTo/n3t6ArjA2yWN8pHqbIcg7TPFql9eHVCmKLgZsFV/p+k+3Yedh8cBAIVZ/Cx3NxItzixHdyhLIHA38R7EjEQGE59qoWZgV3E+dewnz3pPJp2Epae3azGtz463g1aTpZ3g8f8t7V0MJ3k=
