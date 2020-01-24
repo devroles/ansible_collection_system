@@ -1,0 +1,3 @@
+authorized_key: >-
+  {{ lookup('file',
+  lookup('env', 'HOME') + '/.ssh/id_rsa.pub') }}
