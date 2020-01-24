@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/devroles/ansible_collection_system.svg?branch=master)](https://travis-ci.com/devroles/ansible_collection_system)
+[![Actions Status](https://github.com/devroles/ansible_collection_system/workflows/Test with Ansible/badge.svg)](https://github.com/devroles/ansible_collection_system/actions)
 
 # Ansible Collection - devroles.system
 
