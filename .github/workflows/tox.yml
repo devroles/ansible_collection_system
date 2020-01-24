@@ -1,0 +1,48 @@
+name: Test with Ansible
+
+on:
+  - push
+  - pull_request
+
+env:
+  TOX_ANSIBLE_DRIVER: docker
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+          - 2.7
+          - 3.7
+        role:
+          - sudoers
+          - authorized_key
+          - disable_deltarpm
+          - python_prep
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout submodules
+        shell: bash
+        run: |
+          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+          git submodule sync --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --remote --recursive
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Setup pip cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: pip-modules
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox tox-ansible
+      - name: Test with tox
+        run: tox --ansible-role ${{ matrix.role }}
