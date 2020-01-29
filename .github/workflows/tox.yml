@@ -4,7 +4,7 @@ on:
   push: {}
   pull_request: {}
   schedule:
-    - '12 0 * * *'
+    - cron: '12 0 * * *'
 
 env:
   TOX_ANSIBLE_DRIVER: docker
