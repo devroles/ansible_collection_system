@@ -21,6 +21,7 @@ jobs:
         role:
           - authorized_key
           - cli
+          - common
           - copy_or_link
           - disable_deltarpm
           - gui

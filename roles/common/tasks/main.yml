@@ -1,0 +1,33 @@
+- name: update selected packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - vim-minimal
+  tags:
+    - skip_ansible_lint
+
+- name: install shared tools
+  become: true
+  package:
+    name: "{{ common_packages }}"
+    state: present
+
+- name: disable selinux
+  become: true
+  selinux: state=disabled
+  when:
+    - ansible_os_family != 'Darwin'
+    - ansible_connection != 'docker'
+    - ansible_distribution not in ('CentOS', 'RHEL')
+
+- name: enable SSHD
+  become: true
+  service:
+    name: sshd
+    state: started
+    enabled: true
+  when:
+    - ansible_os_family != 'Darwin'
+    - ansible_connection != 'docker'

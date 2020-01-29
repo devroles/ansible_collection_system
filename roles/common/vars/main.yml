@@ -1,0 +1,7 @@
+common_packages:
+  - vim
+  - git
+  - python3-libselinux
+  - mlocate
+  - openssh-server
+  - patch
