@@ -45,11 +45,6 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Setup pip cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.cache/pip
-          key: pip-modules
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -59,8 +54,6 @@ jobs:
           cd ..
           dest="${HOME}/work/ansible_collections/devroles"
           mkdir -p "${dest}"
-          pwd
-          ls
           mv "$(basename "${GITHUB_REPOSITORY}")" "${dest}/${COLLECTION}"
           cd "${dest}/${COLLECTION}"
           tox --ansible-role ${{ matrix.role }}
