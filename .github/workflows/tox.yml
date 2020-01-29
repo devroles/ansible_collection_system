@@ -16,7 +16,6 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - 2.7
           - 3.7
         role:
           - authorized_key
