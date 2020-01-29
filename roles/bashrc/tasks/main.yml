@@ -8,6 +8,8 @@
     dest: "{{ item.dest }}"
     force: "{{ item.force }}"
   loop: "{{ bashrc_files }}"
+  tags:
+    - skip_ansible_lint
 
 - name: set executable file permissions
   file:
