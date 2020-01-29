@@ -1,0 +1,107 @@
+cli_gpg_keys:
+  - https://copr-be.cloud.fedoraproject.org/results/greghellings/Packer/pubkey.gpg
+  # yamllint disable-line rule:line-length
+  - https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_version }}
+  # yamllint disable-line rule:line-length
+  - https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-{{ ansible_distribution_version }}
+cli_repositories:
+  - name: greghellings-packer
+    # yamllint disable-line rule:line-length
+    baseurl: https://copr-be.cloud.fedoraproject.org/results/greghellings/Packer/fedora-$releasever-$basearch/
+    gpgcheck: true
+    # yamllint disable-line rule:line-length
+    gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/Packer/pubkey.gpg
+    description: Greg Hellings's Packer builds
+  # ##########################################################################
+  # Also in the GUI role, update there as well
+  # ##########################################################################
+  - name: rpmfusion-free
+    # yamllint disable-line rule:line-length
+    metalink: https://mirrors.rpmfusion.org/metalink?repo=free-fedora-$releasever&arch=$basearch
+    # yamllint disable-line rule:line-length
+    gpgkey: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-$releasever
+    gpgcheck: true
+    repo_gpgcheck: false
+    description: RPMFusion free
+  - name: rpmfusion-free-updates
+    # yamllint disable-line rule:line-length
+    metalink: https://mirrors.rpmfusion.org/metalink?repo=free-fedora-updates-released-$releasever&arch=$basearch
+    # yamllint disable-line rule:line-length
+    gpgkey: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-$releasever
+    gpgcheck: true
+    repo_gpgcheck: false
+    description: RPMFusion free - updates
+  # ##########################################################################
+  # END DUPLICATION
+  # ##########################################################################
+  - name: rpmfusion-nonfree
+    # yamllint disable-line rule:line-length
+    metalink: https://mirrors.rpmfusion.org/metalink?repo=nonfree-fedora-$releasever&arch=$basearch
+    # yamllint disable-line rule:line-length
+    gpgkey: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever
+    gpgcheck: true
+    repo_gpgcheck: false
+    description: RPMFusion nonfree
+  - name: rpmfusion-nonfree-updates
+    # yamllint disable-line rule:line-length
+    metalink: https://mirrors.rpmfusion.org/metalink?repo=nonfree-fedora-updates-released-$releasever&arch=$basearch
+    # yamllint disable-line rule:line-length
+    gpgkey: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever
+    gpgcheck: true
+    repo_gpgcheck: false
+    description: RPMFusion nonfree - updates
+cli_packages:
+  - HandBrake-cli
+  - libaacs
+  - jq
+  - gnupg2
+  - origin-clients
+  - sword
+  - python3-sword
+  - sword-utils
+  # Python tools
+  - python-virtualenv
+  - entr
+  - python3-flake8
+  - python3-tox
+  - twine
+  - python3-jinja2
+  - python3-shade
+  - python3-ipython
+  - ShellCheck
+  - ansible-lint
+  - pyp2rpm
+  # Dev tools
+  - libcurl-devel
+  - gcc-c++
+  - redhat-rpm-config
+  - cmake
+  - make
+  - rpmdevtools
+  - golang
+  - yamllint
+  - libxml2-devel
+  # Vagrant development
+  - ruby-devel
+  - libvirt-devel
+  - rubygem-bundler
+  # Media tools
+  - ffmpeg
+  # Related to libvirt packages
+  - libvirt
+  - qemu-kvm
+  - seabios-bin
+  # packer
+  - packer
+  # vagrant and its helpers
+  - vagrant
+  - vagrant-sshfs
+  - vagrant-cachier
+  - vagrant-libvirt
+  - vagrant-openstack-provider
+cli_dnf_packages:
+  - dnf-command(system-upgrade)
+cli_remove_packages:
+  - ghc-ghc
+  - PackageKit
+  - thunderbird

@@ -1,0 +1,11 @@
+- name: disable tmpfs for /tmp to make Packer space
+  become: true
+  systemd:
+    masked: true
+    state: stopped
+    enabled: false
+    name: tmp.mount
+  ignore_errors: true
+  when:
+    - ansible_service_mgr == 'systemd'
+    - ansible_connection != 'docker'
