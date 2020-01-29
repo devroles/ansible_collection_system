@@ -37,3 +37,10 @@
       copy:
         src: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"
         dest: /root/temp/roles/
+
+    - name: copy action_plugin
+      copy:
+        src: >-
+          {{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY')
+          }}/../../plugins/action/copy_or_link.py
+        dest: /root/temp/roles/copy_or_link/action_plugins/
