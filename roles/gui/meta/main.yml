@@ -1,0 +1,4 @@
+dependencies:
+  - role: oasis_roles.system_repositories
+    system_repositories_configs: "{{ gui_repositories }}"
+    system_repositories_rpm_keys: "{{ gui_gpg_keys }}"

@@ -1,0 +1,94 @@
+gui_gpg_keys:
+  # yamllint disable-line rule:line-length
+  - https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_version }}
+  - https://swdl.bluejeans.com/repos/bluejeans/bjn-key
+  # yamllint disable-line rule:line-length
+  - https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/pubkey.gpg
+  - https://dl.google.com/linux/linux_signing_key.pub
+gui_repositories:
+  # ##########################################################################
+  # Also present in the CLI role - update there as well
+  # ##########################################################################
+  - name: rpmfusion-free
+    # yamllint disable-line rule:line-length
+    metalink: https://mirrors.rpmfusion.org/metalink?repo=free-fedora-$releasever&arch=$basearch
+    # yamllint disable-line rule:line-length
+    gpgkey: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-$releasever
+    gpgcheck: true
+    repo_gpgcheck: false
+    description: RPMFusion free
+  - name: rpmfusion-free-updates
+    # yamllint disable-line rule:line-length
+    metalink: https://mirrors.rpmfusion.org/metalink?repo=free-fedora-updates-released-$releasever&arch=$basearch
+    # yamllint disable-line rule:line-length
+    gpgkey: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-$releasever
+    gpgcheck: true
+    repo_gpgcheck: false
+    description: RPMFusion free - updates
+  # ##########################################################################
+  # END DUPLICATION
+  # ##########################################################################
+  - name: bluejeans
+    baseurl: https://swdl.bluejeans.com/repos/bluejeans/x86_64/release/rpm
+    gpgcheck: true
+    gpgkey: https://swdl.bluejeans.com/repos/bluejeans/bjn-key
+    description: bluejeans
+  - name: entropypianotuner
+    # yamllint disable-line rule:line-length
+    baseurl: https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/fedora-$releasever-$basearch/
+    # yamllint disable-line rule:line-length
+    gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/pubkey.gpg
+    gpgcheck: true
+    description: Greg Hellings' builds of Entropy Piano Tuner
+  - name: google-chrome
+    baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
+    gpgcheck: true
+    enabled: true
+    description: google-chrome
+    gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+  - name: google-talkplugin
+    baseurl: http://dl.google.com/linux/talkplugin/rpm/stable/x86_64/
+    gpgcheck: true
+    description: Google Talk Plugin
+gui_packages:
+  - /tmp/spideroak.rpm
+  - vim-X11
+  - google-chrome-stable
+  - gnome-tweak-tool
+  - gnome-shell-extension-freon
+  - gnome-shell-extension-gpaste
+  - gnome-shell-extension-pomodoro
+  - gnome-shell-extension-apps-menu
+  - gnome-shell-extension-openweather
+  - gnome-shell-extension-places-menu
+  - gnome-shell-extension-window-list
+  - gnome-shell-extension-dash-to-dock
+  - gnome-shell-extension-topicons-plus
+  - gnome-shell-extension-windowsNavigator
+  - gnome-shell-extension-workspace-indicator
+  - gnome-shell-extension-windowoverlay-icons
+  - gnome-shell-extension-launch-new-instance
+  - gnome-shell-extension-no-topleft-hot-corner
+  - gnome-shell-extension-native-window-placement
+  - hexchat
+  - polkit-gnome
+  - shutter
+  - virt-manager
+  - HandBrake-gui
+  - transmission
+  - vlc
+  - NetworkManager-openvpn
+  - NetworkManager-openvpn-gnome
+  - avidemux-gui
+  - openshot
+  - qwinff
+  - mediawriter
+  - redhat-text-fonts
+  - redhat-display-fonts
+  - virt-viewer
+  # needed for Chrome cast Gnome Shell extensions
+  - npm
+  - node
+  - ffmpeg
+  - nautilus-python
+  - python3-gobject

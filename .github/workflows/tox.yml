@@ -23,6 +23,7 @@ jobs:
           - cli
           - copy_or_link
           - disable_deltarpm
+          - gui
           - mariadb
           - python_prep
           - sudoers

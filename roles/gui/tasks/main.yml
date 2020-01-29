@@ -1,0 +1,30 @@
+- name: download SpiderOak RPM
+  get_url:
+    url: https://spideroak.com/release/spideroak/rpm_x64
+    dest: /tmp/spideroak.rpm
+
+- name: install necessary GUI packages
+  become: true
+  package:
+    name: "{{ gui_packages }}"
+    state: present
+  retries: 3
+  register: install_gui
+  until: install_gui is success
+
+- name: create Chrome kerberos paths
+  file:
+    dest: /etc/opt/chrome/policies/managed
+    state: directory
+    owner: root
+  become: true
+
+- name: configure Chrome for Kerberos
+  template:
+    src: "{{ item }}.json"
+    dest: /etc/opt/chrome/policies/managed/{{ item }}.json
+    owner: root
+    mode: 0755
+  become: true
+  with_items:
+    - redhat-corp
