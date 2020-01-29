@@ -1,0 +1,7 @@
+dns_server_packages:
+  - bind
+  - bind-utils
+dns_server_config_owner: root
+dns_server_config_group: named
+dns_server_config_mode: "0640"
+dns_server_base_dir: /var/named

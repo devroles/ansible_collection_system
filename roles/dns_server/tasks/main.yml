@@ -1,0 +1,28 @@
+- name: install DNS server packages
+  become: true
+  package:
+    name: "{{ dns_server_packages }}"
+    state: present
+
+- name: create zone entries
+  include_tasks: zone.yml
+  with_items: "{{ lookup('dict', dns_server_domains) }}"
+  loop_control:
+    loop_var: domain
+
+- name: template in conf file
+  become: true
+  template:
+    src: named.conf
+    dest: /etc/named.conf
+    owner: "{{ dns_server_config_owner }}"
+    group: "{{ dns_server_config_group }}"
+    mode: "{{ dns_server_config_mode }}"
+  notify: restart named
+
+- name: start/enable named service
+  become: true
+  service:
+    name: named
+    state: started
+    enabled: true

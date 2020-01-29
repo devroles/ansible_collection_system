@@ -1,0 +1,12 @@
+dns_server_addresses:
+  - "127.0.0.1"
+dns_server_addresses_v6:
+  - "::1"
+dns_server_allowed_query:
+  - localhost
+dns_server_allowed_query_cache:
+  - localhost
+dns_server_caching: false
+dns_server_port: 53
+dns_server_port_v6: "{{ dns_server_port }}"
+dns_server_domains: []

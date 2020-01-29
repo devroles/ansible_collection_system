@@ -1,0 +1,10 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: greg_hellings.virtualenv_ansible_python
+      virtualenv_ansible_python_packages:
+        - dnszone
+    - role: dns_server
+      dns_server_domains:
+        - 
+  post_tasks: []
