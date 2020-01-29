@@ -1,0 +1,5 @@
+- name: install mta software
+  become: true
+  package:
+    name: "{{ mta_packages }}"
+    state: present

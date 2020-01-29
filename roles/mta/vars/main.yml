@@ -1,0 +1,6 @@
+mta_packages:
+  - epel-release
+  - file
+  - perl-mail-SPF.noarch
+  - openssl
+  - exim
