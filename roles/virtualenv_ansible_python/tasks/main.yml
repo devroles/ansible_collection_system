@@ -1,0 +1,68 @@
+- name: save original interpreter
+  set_fact:
+    virtualenv_ansible_python_original_interpreter: >-
+      {{ ansible_python_interpreter | default("/usr/bin/python") }}
+
+- name: load system variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - default.yml
+
+- name: ensure the virtualenv package is installed
+  become: true
+  package:
+    name: "{{ virtualenv_ansible_python_system_packages }}"
+    state: present
+  retries: 2
+  register: install_system_packages
+  until: install_system_packages is success
+
+- block:
+    - name: create a virtualenv tempdir
+      tempfile:
+        state: directory
+      register: virtualenv_tempdir
+      changed_when: false
+
+    - name: set virtualenv dir
+      set_fact:
+        virtualenv_ansible_python_dir: "{{ virtualenv_tempdir.path }}"
+  when: virtualenv_ansible_python_dir is undefined
+
+- name: set read/exec permissions on virtualenv dir
+  file:
+    path: "{{ virtualenv_ansible_python_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: install the latest pip
+  pip:
+    name:
+      - pip
+      - setuptools
+    extra_args: "-U"
+    virtualenv_site_packages: "{{ virtualenv_ansible_python_site_packages }}"
+    virtualenv: "{{ virtualenv_ansible_python_dir }}"
+    virtualenv_command: "{{ virtualenv_ansible_python_virtualenv_command
+      | default(omit) }}"
+  retries: 2
+  register: update_pip
+  until: update_pip is success
+  changed_when: false
+
+- name: install pip packages
+  pip:
+    name: "{{ virtualenv_ansible_python_packages }}"
+    virtualenv: "{{ virtualenv_ansible_python_dir }}"
+    extra_args: "-U"
+  retries: 2
+  register: install_pip_packages
+  until: install_pip_packages is success
+  changed_when: false  # Yeah, not actually, but it's basically the case
+
+- name: update ansible_python_interpreter here
+  set_fact:
+    ansible_python_interpreter: "{{ virtualenv_ansible_python_dir }}/bin/python"

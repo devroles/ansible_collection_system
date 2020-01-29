@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: virtualenv_ansible_python
+    image: fedora:latest

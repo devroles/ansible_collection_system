@@ -1,0 +1,13 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: virtualenv_ansible_python
+      virtualenv_ansible_python_packages:
+        - dnspython
+      virtualenv_ansible_python_dir: /tmp/ansible_python
+  post_tasks:
+    - name: make sure it's right
+      assert:
+        that:
+          - ansible_python_interpreter != "/usr/bin/python"
+          - virtualenv_ansible_python_original_interpreter == "/usr/bin/python"

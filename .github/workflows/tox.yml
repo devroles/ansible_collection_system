@@ -23,6 +23,7 @@ jobs:
           - mariadb
           - python_prep
           - sudoers
+          - virtualenv_ansible_python
 
     steps:
       - uses: actions/checkout@v2

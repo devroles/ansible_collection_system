@@ -1,0 +1,16 @@
+galaxy_info:
+  author: Greg Hellings
+  description: |-
+    Creates a temporary virtualenv that contains the packages specified
+    and sets that as the ansible_python_interpreter
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+
+dependencies: []
