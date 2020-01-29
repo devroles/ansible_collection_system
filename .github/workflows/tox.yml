@@ -28,6 +28,7 @@ jobs:
           - python_prep
           - sudoers
           - virtualenv_ansible_python
+          - vimrc
 
     steps:
       - uses: actions/checkout@v2

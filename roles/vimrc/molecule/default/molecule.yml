@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: vimrc
+    image: fedora:latest

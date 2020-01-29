@@ -1,0 +1,53 @@
+- name: ensure vim directory is created
+  file:
+    dest: "{{ item }}"
+    state: directory
+    force: true
+  with_items:
+    - "{{ ansible_user_dir }}/.vim"
+    - "{{ ansible_user_dir }}/.vim/autoload"
+    - "{{ ansible_user_dir }}/.vim/bundle"
+    - "{{ ansible_user_dir }}/.vim/sessions"
+
+- name: install files
+  devroles.system.copy_or_link:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - src: "{{ role_path }}/files/vimrc"
+      dest: "{{ ansible_user_dir }}/.vimrc"
+    - src: "{{ role_path }}/files/ftplugin"
+      dest: "{{ ansible_user_dir }}/.vim/ftplugin"
+
+- name: download pathogen
+  get_url:
+    # yamllint disable-line rule:line-length
+    url: https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+    dest: "{{ ansible_user_dir }}/.vim/autoload"
+    force: true
+
+- name: checkout vim plugins
+  git:
+    dest: "{{ ansible_user_dir }}/.vim/bundle/{{ item.name }}"
+    repo: "{{ item.repo }}"
+    update: true
+    version: master
+  with_items:
+    - repo: https://github.com/jlanzarotta/bufexplorer.git
+      name: bufexplorer
+    - repo: https://github.com/ctrlpvim/ctrlp.vim.git
+      name: ctrlp
+    - repo: https://github.com/scrooloose/nerdtree.git
+      name: nerdtree
+    - repo: https://github.com/pangloss/vim-javascript.git
+      name: vim-javascript
+    - repo: https://github.com/airblade/vim-gitgutter.git
+      name: vim-gitgutter
+    - repo: https://github.com/nvie/vim-flake8.git
+      name: vim-flake8
+    - repo: https://github.com/tpope/vim-fugitive.git
+      name: vim-fugitive
+    - repo: https://github.com/nathanaelkane/vim-indent-guides.git
+      name: vim-indent-guides
+    - repo: https://github.com/morhetz/gruvbox.git
+      name: gruvbox

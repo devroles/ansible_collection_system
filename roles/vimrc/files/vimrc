@@ -1,0 +1,146 @@
+" ============================================================================
+" General editor settings
+" ============================================================================
+set nocompatible
+syntax enable
+set noexpandtab
+set tabstop=4
+" set softtabstop=4
+set shiftwidth=4
+set nowrap
+set showcmd
+set cursorline " highlight the line you're on
+filetype plugin indent on
+set lazyredraw " Only redraw screen when needed
+set showmatch " Show matching parenthesis
+set number " Show line numbers
+" Ignore case on search, unless you use caps
+set ignorecase
+set smartcase
+set hlsearch
+" These two, together, show ends of lines and other npc
+set listchars=tab:→\ ,extends:→,precedes:←,trail:·,eol:¬
+set list
+" Show unwanted whitespace
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+" Call flake8 when saving a python file
+autocmd BufWritePost *.py call flake8#Flake8()
+
+" ============================================================================
+" Plugin-specific settings
+" ============================================================================
+let g:php_folding=2
+set foldmethod=indent
+" CtrlP settings
+set wildignore+=*.git,*.swp,*.pyc,*.class
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_cmd = 'CtrlPMixed'
+" let g:ctrlp_custom_ignore = 'source'
+" NerdTree settings
+let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.class$']
+" indent guides
+let g:indent_guides_enable_on_vim_startup = 1
+autocmd! BufWritePost .vimrc source $MYVIMRC
+
+" ============================================================================
+" Keybindings for necessary plugins
+" ============================================================================
+" bufexplorer
+map <F2>	<Esc>\be
+map <F4> <Esc>:NERDTreeToggle<Cr>
+map <F6> <Esc>:CtrlP<Cr>
+
+" ============================================================================
+" Allows use of Ctrl-hjkl to swich splits without resizing them
+" ============================================================================
+map <C-j> <C-w>j<C-w><Cr>
+map <C-k> <C-w>k<C-w><Cr>
+map <C-h> <C-w>h<C-w><Cr>
+map <C-l> <C-w>l<C-w><Cr>
+
+" ============================================================================
+" Load plugins
+" ============================================================================
+execute pathogen#infect()
+
+colorscheme gruvbox
+if has("gui_running")
+    set mouse=a
+    let g:gruvbox_contrast_light='hard'
+    set background=light
+else
+    let g:gruvbox_contrast_dark='hard'
+    set background=dark
+end
+
+set hidden
+
+" ============================================================================
+" User functions to just make life easier
+" ============================================================================
+" syntax highlighting for Vagrantfiles
+augroup vagrant
+  au!
+  au BufRead,BufNewFile Vagrantfile set filetype=ruby
+augroup END
+" Creates the directory for a file if it doesn't already exist.
+function! s:MkNonExDir(file, buf)
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
+endfunction
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
+
+" Session management
+" Creates a session
+set sessionoptions+=resize,winpos
+function! MakeSession()
+  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+  if (filewritable(b:sessiondir) != 2)
+    exe 'silent !mkdir -p ' b:sessiondir
+    redraw!
+  endif
+  let b:sessionfile = b:sessiondir . '/session.vim'
+  exe "mksession! " . b:sessionfile
+endfunction
+
+" Updates a session, BUT ONLY IF IT ALREADY EXISTS
+function! UpdateSession()
+  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+  let b:sessionfile = b:sessiondir . "/session.vim"
+  if (filereadable(b:sessionfile))
+    exe "mksession! " . b:sessionfile
+    echo "updating session"
+  endif
+endfunction
+
+" Loads a session if it exists
+function! LoadSession()
+    let b:args = []
+    let b:loadsession = 1
+    let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+    let b:sessionfile = b:sessiondir . "/session.vim"
+    for arg in argv()
+        if (!isdirectory(arg) && filereadable(arg))
+            let b:loadsession = 0
+        endif
+    endfor
+    if ( b:loadsession == 1 && filereadable(b:sessionfile) )
+        exe 'source ' b:sessionfile
+    endif
+endfunction
+
+au VimEnter * nested :call LoadSession()
+au VimLeave * :call UpdateSession()
+map <F9> :call MakeSession()<CR>
