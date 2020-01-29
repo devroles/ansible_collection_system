@@ -55,5 +55,7 @@ jobs:
           dest="${HOME}/work/ansible_collections/devroles"
           mkdir -p "${dest}"
           mv "$(basename "${GITHUB_REPOSITORY}")" "${dest}/${COLLECTION}"
+          # We need this for later
+          mkdir -p "$(basename "${GITHUB_REPOSITORY}")"
           cd "${dest}/${COLLECTION}"
           tox --ansible-role ${{ matrix.role }}
