@@ -1,0 +1,14 @@
+galaxy_info:
+  author: Greg Hellings
+  description: >-
+    Sets up a system as a basic development box
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+
+dependencies:
+  - role: oasis_roles.system_repositories
+    system_repositories_configs: "{{ dev_repositories }}"

@@ -1,0 +1,5 @@
+- name: install necessary devel packages
+  become: true
+  package:
+    name: "{{ dev_packages }}"
+    state: present
