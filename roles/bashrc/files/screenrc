@@ -1,0 +1,17 @@
+startup_message off
+#defscrollback 1000000
+
+screen -t vim 0 /usr/bin/bash
+screen -t bash 1 /usr/bin/bash
+
+set-option -g allow-rename off
+
+backtick 1 15 15 bash -c "/bin/cat /proc/loadavg | /bin/cut -f1 -d' '"
+backtick 2 15 15 $HOME/.local/bin/cpuusage
+
+shelltitle "$ |bash"
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%1` load %2`%% CPU][%{B} %d/%m %{W}%c %{g}]'
+
+bind > eval writebuf "exec sh -c 'xsel -bi </tmp/screen-exchange'"
+bind < eval "exec sh -c 'xsel -bo >/tmp/screen-exchange'" readbuf

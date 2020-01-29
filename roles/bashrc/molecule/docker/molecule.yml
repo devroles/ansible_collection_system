@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: bashrc
+    image: fedora:latest

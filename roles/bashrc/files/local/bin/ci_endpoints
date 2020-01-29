@@ -1,0 +1,27 @@
+#!/bin/bash
+
+folders=(~/build/redhat/ci/ci-ops-central ~/build/redhat/ci/ci-ops-projex)
+central='code.engineering.redhat.com\/gerrit\/ci-ops-central'
+projex='code.engineering.redhat.com\/gerrit\/ci-ops-projex'
+devcentral='gitlab.mw.lab.eng.bos.redhat.com\/ghelling\/ci-ops-central.git'
+devprojex='gitlab.mw.lab.eng.bos.redhat.com\/ghelling\/ci-ops-projex.git'
+
+function fix_urls {
+    for folder in "${folders[@]}"; do
+        find "$folder" -type f -not -path '*/\.*' -print0 | xargs -0 sed -i "$1"
+    done
+}
+
+case "$1" in
+    dev) echo "devving"
+        fix_urls "s/$central/$devcentral/"
+        fix_urls "s/$projex/$devprojex/"
+       ;;
+    revert)  echo "reverting"
+        fix_urls "s/$devcentral/$central/"
+        fix_urls "s/$devprojex/$projex/"
+        ;;
+    *)
+        echo $"Usage: $0 {dev|revert}"
+        exit 1
+esac

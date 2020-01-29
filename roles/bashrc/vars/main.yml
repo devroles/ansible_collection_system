@@ -1,0 +1,16 @@
+bashrc_files:
+  - src: "{{ bashrc_role_path }}/files/bashrc"
+    dest: "{{ ansible_user_dir }}/.bashrc"
+    force: true
+  - src: "{{ bashrc_role_path }}/files/bash_profile"
+    dest: "{{ ansible_user_dir }}/.bash_profile"
+    force: true
+  - src: "{{ bashrc_role_path }}/files/bash_shared"
+    dest: "{{ ansible_user_dir }}/.bash_shared"
+    force: true
+  - src: "{{ bashrc_role_path }}/files/screenrc"
+    dest: "{{ ansible_user_dir }}/.screenrc"
+    force: true
+  - src: "{{ bashrc_role_path }}/files/ansible.cfg"
+    dest: "{{ ansible_user_dir }}/.ansible.cfg"
+    force: true

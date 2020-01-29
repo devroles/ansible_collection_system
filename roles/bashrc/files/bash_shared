@@ -1,0 +1,109 @@
+#!/usr/bin/bash .bash_shared
+export JAVA_HOME=/etc/alternatives/java_sdk/
+export MAVEN_OPTS=" -Dmaven.wagon.http.ssl.insecure=true"
+export MAVEN_OPTS
+export TIMEFORMAT='%3Uu %3Ss %3lR %P%%'
+export CLICOLOR=1
+export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+export GOPATH=~/.go
+export EDITOR=/usr/bin/vim
+export GOPATH=${HOME}/build/go
+export PATH=$HOME/.gem/ruby/gems/travis-1.8.10/bin:/$HOME/.local/bin:$HOME/.local/lib/flex/bin:/opt/android-studio/bin:/opt/intellij/bin:/opt/packer:$PATH
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+export SWORD_PATH=$HOME/.sword
+export ANSIBLE_COLLECTIONS_PATHS=${HOME}/.ansible:${HOME}/src/
+#export VAGRANT_DEFAULT_PROVIDER=virtualbox
+color_prompt="yes"
+if [ "$color_prompt" = yes ]; then
+	PS1='[\[\033[01;32m\]\u@\h\[\033[00m\] \[\033[01;31m\]🎩\[\033[00m\] \[\033[01;34m\]\W\[\033[00m\]]\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\$ '
+else
+        PS1='[\u@\h 🎩 \W]$(parse_git_branch)\$ '
+fi
+
+alias ll='ls -l'
+alias calc='bc'
+alias gohome='ssh greg@home.thehellings.com -D localhost:10080'
+alias vup='vagrant up --provision --provider libvirt'
+alias vos='vagrant up --provision --provider openstack'
+alias vssh='vagrant ssh'
+alias vhalt='vagrant halt'
+alias vprov='vagrant provision'
+alias vdown='vagrant destroy'
+alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
+alias acp="rsync --progress -ah"
+alias d='deactivate'
+alias yaml2js="python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'"
+alias roles="cd ~/src/oasis/roles"
+alias origin="cd ~/src/oasis/origin"
+alias packaging="cd ~/config/source/packaging/"
+alias devroles="cd ~/src/ansible_collections/devroles"
+alias molcol="molecule -c ../../tests/molecule.yml"
+
+function parse_git_branch {
+	ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+	echo " ("${ref#refs/heads/}")"
+}
+
+function swordtag {
+	if [ x"$1" == "x" ]; then
+		echo "Please provide tag version"
+		return
+	fi
+	svn cp http://crosswire.org/svn/sword/branches/sword-1-8-x/ http://crosswire.org/svn/sword/tags/sword-$1/
+}
+
+function newdock {
+	if [ x"$1" == "x" -o x"$2" == "x" ]; then
+		echo "expected arguments [name] [source]"
+		return
+	fi
+	docker run -P --privileged=true -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v "`pwd`:/dmnt" -t -i --name="$1" "$2" /bin/bash
+}
+
+function rundock {
+	docker start -a -i "$1"
+}
+
+function ac {
+	source ~/venv/${1}/bin/activate
+}
+
+function py2env {
+	/usr/bin/virtualenv -p /usr/bin/python2 "${HOME}/venv/${1}"
+	"${HOME}/venv/${1}/bin/pip" install -U pip
+}
+
+function py3env {
+	VENV_NAME="${1}"
+	#PYVERSION="$(python3 -c "import sys;print(sys.version[:sys.version.find('.',2)])")"
+	#SITE_PACKAGES_PATH="/usr/lib64/python${PYVERSION}/site-packages/"
+	#VENV_SITE_PACKAGES="${HOME}/venv/${VENV_NAME}/lib64/python${PYVERSION}/site-packages/"
+	# Create the virtualenv and update pip to latest
+	/usr/bin/python3 -m venv --clear "${HOME}/venv/${VENV_NAME}" --system-site-packages
+	"${HOME}/venv/${1}/bin/python3" -m pip install -U pip
+	# Link SELinux into the environment if necessary
+	#if [ -d "${SITE_PACKAGES_PATH}" ]; then
+	#	ln -s "${SITE_PACKAGES_PATH}/selinux" "${VENV_SITE_PACKAGES}"
+	#	ln -s ${SITE_PACKAGES_PATH}/_selinux*.so "${VENV_SITE_PACKAGES}"
+	#else
+	#	echo "ERROR: LibSELinux not found for Python ${PYVERSION}. Install system package to enable."
+	#fi
+}
+
+function unknown_host {
+	sed -i -e ${1}d ~/.ssh/known_hosts
+}
+
+function oasis_on {
+	project="${1}"
+	#git -C "${HOME}/.vagrant.d/" co "${project}"
+	cd ~/config/source/oasis/origin/"${project}"
+}
+
+function oasis_off {
+	git -C "${HOME}/.vagrant.d/" co master
+}
+
+if [ -f $HOME/.bash_local ]; then
+	. $HOME/.bash_local
+fi

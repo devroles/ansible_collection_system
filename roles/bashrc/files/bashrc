@@ -1,0 +1,10 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+. $HOME/.bash_shared
+
+# added by travis gem
+[ -f /home/ghelling/.travis/travis.sh ] && source /home/ghelling/.travis/travis.sh

@@ -21,9 +21,11 @@ jobs:
           - 3.7
         role:
           - authorized_key
+          - bashrc
           - cli
           - common
           - copy_or_link
+          - dev
           - disable_deltarpm
           - gui
           - mariadb

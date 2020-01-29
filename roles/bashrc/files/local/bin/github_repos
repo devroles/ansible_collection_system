@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+import sys
+from github import Github
+
+if len(sys.argv) != 2:
+	print("You did it wrong")
+	sys.exit(1)
+g = Github('', '')  # Anonymous access
+print("Fetching github organization")
+org = g.get_organization(sys.argv[1])
+print("Fetching organization repos")
+repos = org.get_repos()  # Public repos
+reponames = sorted(repo.name for repo in repos)
+print("**************************************************************")
+print("Repos found:")
+for repo in reponames:
+    print(repo)

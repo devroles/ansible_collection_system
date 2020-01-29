@@ -1,0 +1,57 @@
+#!/bin/bash
+ 
+central_id=841
+projex_id=842
+central_branch=$(git -C ~/build/redhat/ci/ci-ops-central branch | grep '*' | awk '{print $2}')
+projex_branch=$(git -C ~/build/redhat/ci/ci-ops-projex branch | grep '*' | awk '{print $2}')
+
+header='PRIVATE-TOKEN: ppypo1Lpxs2o7uGETqsV'
+url_base="https://gitlab.mw.lab.eng.bos.redhat.com/api/v3/projects/"
+ 
+function gitlab_delete_branch {
+	url="${url_base}${1}/repository/branches/${2}"
+	curl -k -H "$header" "${url}" -X DELETE
+}
+
+function gitlab_copy_branch {
+    url="${url_base}${1}/repository/branches"
+    curl -k -H "${header}" "${url}" -d "branch_name=${2}&ref=${central_branch}"
+}
+
+function gitlab_regenerate {
+    gitlab_delete_branch ${1} master
+    gitlab_delete_branch ${1} stage
+    gitlab_copy_branch ${1} master
+    gitlab_copy_branch ${1} stage
+}
+ 
+function central {
+    gitlab_regenerate ${central_id}
+}
+
+function projex {
+    gitlab_regenerate ${projex_id}
+}
+ 
+case "$1" in
+	central)
+		central
+		;;
+	projex)
+		projex
+		;;
+	both)
+		central
+		projex
+		;;
+	get_ids)
+        set -x
+		curl -k -H "${header}" \
+			"${url_base}ghelling%2Fci-ops-central"
+		curl -k -H "${header}" \
+			"${url_base}/ghelling%2Fci-ops-projex"
+		;;
+	*)
+		echo $"Usage: $0 {central|projex|both|get_ids}"
+		exit 1
+esac
