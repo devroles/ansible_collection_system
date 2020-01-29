@@ -1,3 +1,16 @@
+galaxy_info:
+  author: Greg Hellings
+  description: >-
+    Installs the GUI utilities, programs, libraries, and services that
+    I find useful on my systems. Also configures a large number of system repos
+    to install some of those utilities that I also find useful.
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+
 dependencies:
   - role: oasis_roles.system_repositories
     system_repositories_configs: "{{ gui_repositories }}"
