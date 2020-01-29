@@ -4,3 +4,5 @@
     dest: "{{ item.dest }}"
     force: "{{ item.force | default(false) }}"
   with_items: "{{ copy_or_link_files }}"
+  tags:
+    - skip_ansible_lint  # TODO: Needs ansible-lint#642 resolved
