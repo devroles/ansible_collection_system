@@ -59,6 +59,8 @@ jobs:
         run: |
           mkdir -p "${TARGET_PATH}"
           cd ..
+          pwd
+          ls
           mv "$(basename "${GITHUB_REPOSITORY}")" "${TARGET_PATH}/${COLLECTION}"
           cd "${TARGET_PATH}/${COLLECTION}"
           tox --ansible-role ${{ matrix.role }}
