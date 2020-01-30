@@ -2,8 +2,8 @@
   hosts: all
   roles:
     - oasis_roles.system_repositories
-    - greg_hellings.disable_deltarpm
-    - greg_hellings.mariadb
+    - devroles.system.disable_deltarpm
+    - devroles.system.mariadb
   vars:
     system_repositories_configs:
       - name: rpmfusion-free
@@ -30,4 +30,3 @@
         database: "*"
         privs: "ALL"
     mariadb_admin_password: "{{ molecule_yml.db.password }}"
-    ansible_python_interpreter: /usr/bin/python3
