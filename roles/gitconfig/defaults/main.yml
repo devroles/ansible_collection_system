@@ -1,0 +1,15 @@
+git_config_values:
+  - name: alias.st
+    value: status
+  - name: alias.ci
+    value: commit
+  - name: alias.co
+    value: checkout
+  - name: user.name
+    value: Gregory Hellings
+  - name: user.email
+    value: greg.hellings@gmail.com
+  - name: push.default
+    value: simple
+  - name: gitreview.username
+    value: greg.hellings

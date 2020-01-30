@@ -33,6 +33,7 @@ jobs:
           - sudoers
           - virtualenv_ansible_python
           - vimrc
+          - gitconfig
 
     steps:
       - uses: actions/checkout@v2

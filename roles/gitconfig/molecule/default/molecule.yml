@@ -1,0 +1,8 @@
+driver:
+  name: docker
+platforms:
+  - name: gitconfig
+    image: fedora:latest
+provisioner:
+  playbooks:
+    converge: playbook.yml
