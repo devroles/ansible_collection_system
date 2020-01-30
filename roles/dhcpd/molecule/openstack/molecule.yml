@@ -1,0 +1,6 @@
+driver:
+  name: openstack
+platforms:
+  - name: test-dhcpd
+    image: CentOS-7-x86_64-GenericCloud-released-latest
+    flavor: ci.m1.medium

@@ -1,0 +1,41 @@
+# No defaults:
+# dhcpd_domain
+dhcpd_lease_time: 600
+dhcpd_max_lease_time: 7200
+# Valid values are "none" and "standard". Officially, "interim" is also
+# available, but it should not be used for new installations
+dhcpd_ddns_update_style: "none"
+# Whether to respond to bootp requests
+dhcpd_bootp: true
+# Ignore DHCPDECLINE messages that can mess with the system if we pay
+# attention to them
+dhcpd_declines: false
+# Whether to reply when people ask about our leases
+dhcpd_leasequery: false
+dhcpd_lease_file: /var/lib/dhcpd/dhcpd.leases
+dhcpd_port: 67
+# Define each element as
+# - address: 10.0.1.0
+#   netmask: 255.255.255.0
+#   start: 10.0.1.10
+#   end: 10.0.1.177
+#   routers:
+#     - 10.0.0.1
+#     - 10.0.0.2
+#   allow_all: true  # optional
+#   parameters:  # optional
+#     - "optional_parameter 1"
+#     - "optional_parameter 2"
+#   declarations:  # optional
+#     - "extra-declaration value"
+# Both the "parameters" and the "declarations fiels are optional
+dhcpd_subnets: []
+# Host entries look like this:
+# - hostname: somehost.place.com
+#   ethernet: "08:00:08:72:0a:c5"
+#   address:
+#     - "10.0.1.1"
+#     - "10.1.126.7"  # More than one is optional
+#   booting: true # optional
+#   duplicates: true # optional
+dhcpd_hosts: []

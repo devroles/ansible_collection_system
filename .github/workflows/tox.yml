@@ -26,14 +26,15 @@ jobs:
           - common
           - copy_or_link
           - dev
+          - dhcpd
           - disable_deltarpm
+          - gitconfig
           - gui
           - mariadb
           - python_prep
           - sudoers
           - virtualenv_ansible_python
           - vimrc
-          - gitconfig
 
     steps:
       - uses: actions/checkout@v2
