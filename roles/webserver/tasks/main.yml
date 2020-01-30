@@ -1,0 +1,82 @@
+- name: install epel-release
+  package:
+    name: epel-release
+    state: present
+  become: true
+  when: ansible_distribution == "CentOS"
+
+- name: install nginx packages
+  package:
+    name: "{{ webserver_packages }}"
+    state: present
+  become: true
+
+- name: create directory
+  become: true
+  file:
+    name: /var/www/{{ item.tld }}
+    owner: nginx
+    mode: "0755"
+    state: directory
+  with_items: "{{ webserver_domains }}"
+
+- name: configure nginx to avoid dupes
+  become: true
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: restart nginx
+
+- name: install nginx configurations for redirect
+  become: true
+  template:
+    src: "0000_add_www_redirect.conf"
+    dest: /etc/nginx/conf.d/0000_www_redirect_{{ item.tld }}.conf
+    owner: root
+    group: root
+    mode: "0644"
+  with_items: "{{ webserver_domains }}"
+  when: item.redirect | default(true)
+  notify: restart nginx
+
+- name: install nginx configurations for static serving
+  become: true
+  template:
+    src: "0001_serve_port_80.conf"
+    dest: /etc/nginx/conf.d/0001_serve_port_80_{{ item.tld }}.conf
+    owner: root
+    group: root
+    mode: "0644"
+  with_items: "{{ webserver_domains }}"
+  when: item.http | default(true)
+  notify: restart nginx
+
+- name: enable nginx
+  service:
+    name: nginx
+    state: started
+    enabled: true
+  become: true
+
+- name: create encryption
+  include_tasks: letsencrypt.yml
+  with_items: "{{ webserver_domains }}"
+  loop_control:
+    loop_var: domain
+  when: domain.https | default(true)
+
+# TODO: configure SSL on host
+- name: instal nginx configurations for HTTPS serving
+  become: true
+  template:
+    src: "0002_serve_port_443.conf"
+    dest: /etc/nginx/conf.d/0002_serve_port_443_{{ item.tld }}.conf
+    owner: root
+    group: root
+    mode: "0644"
+  with_items: "{{ webserver_domains }}"
+  when: item.https | default(true)
+  notify: restart nginx

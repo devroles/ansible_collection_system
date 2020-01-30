@@ -1,3 +1,4 @@
+Convert private_files to copy_or_link
 Finish dns_server
 Finish mta
 Finish phpbb

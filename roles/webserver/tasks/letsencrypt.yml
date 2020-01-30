@@ -1,0 +1,88 @@
+- name: create virtualenv for pyOpenSSL
+  pip:
+    virtualenv: /tmp/venv
+    state: latest
+    name: "{{ item }}"
+  with_items:
+    - pip
+    - setuptools
+    - pyOpenSSL
+
+- name: save python path
+  set_fact:
+  args:
+    _ans_interp: "{{ ansible_python.executable }}"
+
+- name: set python path
+  set_fact:
+  args:
+    ansible_python_interpreter: /tmp/venv/bin/python
+
+- name: create account key for {{ domain.tld }}
+  become: true
+  openssl_privatekey:
+    path: /etc/ssl/letsencrypt.key
+    owner: root
+    group: root
+
+- name: create openssl private key for {{ domain.tld }}
+  become: true
+  openssl_privatekey:
+    path: /etc/ssl/{{ domain.tld }}.key
+    owner: root
+    group: root
+  register: create_ssl_private_key
+
+- name: create CSR for {{ domain.tld }}
+  become: true
+  openssl_csr:
+    path: /etc/ssl/{{ domain.tld }}.csr
+    privatekey_path: /etc/ssl/{{ domain.tld }}.key
+    common_name: "{{ domain.tld }}"
+    subject_alt_name: "DNS:{{ domain.tld }}"
+  when: create_ssl_private_key is changed
+  register: create_csr
+
+- name: apply for letsencrypt for {{ domain.tld }}
+  become: true
+  letsencrypt:
+    account_key_src: /etc/ssl/letsencrypt.key
+    csr: /etc/ssl/{{ domain.tld }}.csr
+    dest: /etc/ssl/{{ domain.tld }}.crt
+    acme_directory: "{{ webserver_acme_directory }}"
+  register: letsencrypt_challenge
+
+- name: create challenge dir for {{ domain.tld }}
+  become: true
+  file:
+    name: "/var/www/{{ domain.tld }}/{{ letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource'] | dirname }}"
+    state: directory
+    owner: nginx
+    mode: "0755"
+  when: letsencrypt_challenge is changed
+
+- name: copy challenge file to server space for {{ domain.tld }}
+  become: true
+  copy:
+    dest: /var/www/{{ domain.tld }}/{{ letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource'] }}
+    content: "{{ letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource_value'] }}"
+    owner: nginx
+    mode: "0644"
+  when: letsencrypt_challenge is changed
+
+- name: retrieve letsencrypt certificate for {{ domain.tld }}
+  become: true
+  letsencrypt:
+    account_key_src: /etc/ssl/letsencrypt.key
+    csr: /etc/ssl/{{ domain.tld }}.csr
+    dest: /etc/ssl/{{ domain.tld }}.crt
+    fullchain_dest: /etc/ssl/{{ domain.tld }}-fullchain.crt
+    chain_dest: /etc/ssl/{{ domain.tld }}-intermediate.crt
+    data: "{{ letsencrypt_challenge }}"
+    acme_directory: "{{ webserver_acme_directory }}"
+  notify: restart nginx
+
+- name: switch back to original interpreter
+  set_fact:
+  args:
+    ansible_python_interpreter: "{{ _ans_interp }}"
