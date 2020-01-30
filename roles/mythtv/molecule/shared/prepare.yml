@@ -1,0 +1,33 @@
+- name: create mariadb
+  hosts: all
+  roles:
+    - oasis_roles.system_repositories
+    - greg_hellings.disable_deltarpm
+    - greg_hellings.mariadb
+  vars:
+    system_repositories_configs:
+      - name: rpmfusion-free
+        gpgcheck: true
+        # yamllint disable-line rule:line-length
+        gpgkey: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_version }}
+        # yamllint disable-line rule:line-length
+        metalink: https://mirrors.rpmfusion.org/metalink?repo=free-fedora-$releasever&arch=$basearch
+      - name: rpmfusion-free-updates
+        gpgcheck: true
+        # yamllint disable-line rule:line-length
+        gpgkey: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_version }}
+        # yamllint disable-line rule:line-length
+        metalink: https://mirrors.rpmfusion.org/metalink?repo=free-fedora-updates-released-$releasever&arch=$basearch
+        repo_gpgcheck: false
+      - name: fedora-Handbrake
+        # yamllint disable-line rule:line-length
+        baseurl: http://negativo17.org/repos/multimedia/fedora-$releasever/$basearch/
+        gpgcheck: true
+        gpgkey: http://negativo17.org/repos/RPM-GPG-KEY-slaanesh
+    mariadb_user_privs:
+      - username: "{{ molecule_yml.db.username }}"
+        password: "{{ molecule_yml.db.password }}"
+        database: "*"
+        privs: "ALL"
+    mariadb_admin_password: "{{ molecule_yml.db.password }}"
+    ansible_python_interpreter: /usr/bin/python3

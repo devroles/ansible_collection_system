@@ -1,0 +1,5 @@
+mythtv_packages:
+  - kernel-devel
+  - akmod-nvidia
+  - libdvdcss
+  - mythtv

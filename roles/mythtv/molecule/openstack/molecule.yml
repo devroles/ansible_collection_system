@@ -1,0 +1,9 @@
+dependency:
+  options:
+    role-file: molecule/shared/requirements.yml
+driver:
+  name: openstack
+platforms:
+  - name: test-mythtv
+    image: Fedora 31
+    flavor: ci.m1.medium

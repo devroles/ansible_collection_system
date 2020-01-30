@@ -1,4 +1,6 @@
 Convert private_files to copy_or_link
 Finish dns_server
+Finish dhcpd
 Finish mta
 Finish phpbb
+Finish mythtv

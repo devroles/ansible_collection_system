@@ -1,0 +1,8 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: mythtv
+  vars:
+    mythtv_db_username: "{{ molecule_yml.db.username }}"
+    mythtv_db_password: "{{ molecule_yml.db.password }}"
+    ansible_python_interpreter: /usr/bin/python3
