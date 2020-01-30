@@ -28,7 +28,6 @@
     login_user: "{{ mythtv_db_username | default(omit) }}"
     login_password: "{{ mythtv_db_password | default(omit) }}"
     name: mythconverg
-    host_all: true
     priv: "mythconverg.*:ALL"
     state: present
 
