@@ -21,9 +21,9 @@
         repo_gpgcheck: false
       - name: fedora-Handbrake
         # yamllint disable-line rule:line-length
-        baseurl: http://negativo17.org/repos/multimedia/fedora-$releasever/$basearch/
+        baseurl: https://negativo17.org/repos/multimedia/fedora-$releasever/$basearch/
         gpgcheck: true
-        gpgkey: http://negativo17.org/repos/RPM-GPG-KEY-slaanesh
+        gpgkey: https://negativo17.org/repos/RPM-GPG-KEY-slaanesh
     mariadb_user_privs:
       - username: "{{ molecule_yml.db.username }}"
         password: "{{ molecule_yml.db.password }}"
