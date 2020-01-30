@@ -25,8 +25,8 @@
         gpgcheck: true
         gpgkey: https://negativo17.org/repos/RPM-GPG-KEY-slaanesh
     mariadb_user_privs:
-      - username: "{{ molecule_yml.db.username }}"
-        password: "{{ molecule_yml.db.password }}"
+      - username: user
+        password: &password p4ssw0rd!
         database: "*"
         privs: "ALL"
-    mariadb_admin_password: "{{ molecule_yml.db.password }}"
+    mariadb_admin_password: *password
