@@ -17,16 +17,16 @@
 
 - name: create mythtv database
   mysql_db:
-    login_user: "{{ mythtv_db_username | default(omit) }}"
-    login_password: "{{ mythtv_db_password | default(omit) }}"
+    login_user: "{{ mythtv_db_admin_username | default(omit) }}"
+    login_password: "{{ mythtv_db_admin_password | default(omit) }}"
     name: mythconverg
     state: present
     encoding: utf8
 
 - name: grant mythtv user privileges
   mysql_user:
-    login_user: "{{ mythtv_db_username | default(omit) }}"
-    login_password: "{{ mythtv_db_password | default(omit) }}"
+    login_user: "{{ mythtv_db_admin_username | default(omit) }}"
+    login_password: "{{ mythtv_db_admin_password | default(omit) }}"
     name: mythconverg
     priv: "mythconverg.*:ALL"
     state: present

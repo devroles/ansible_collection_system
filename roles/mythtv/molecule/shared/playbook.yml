@@ -3,5 +3,4 @@
   roles:
     - role: mythtv
   vars:
-    mythtv_db_username: user
-    mythtv_db_password: p4ssw0rd!
+    mythtv_db_admin_password: p4ssw0rd!
