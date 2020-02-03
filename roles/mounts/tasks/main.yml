@@ -1,3 +1,9 @@
+- name: install deps for mounting filesystems
+  become: true
+  package:
+    name: "{{ mounts_packages }}"
+    state: present
+
 - name: ensure mount
   include:
     file: mount.yml
