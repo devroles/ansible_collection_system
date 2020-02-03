@@ -87,3 +87,18 @@
   with_items: "{{ webserver_domains }}"
   when: item.https | default(true)
   notify: restart nginx
+
+- name: set SELinux options
+  become: true
+  seboolean:
+    name: "{{ item }}"
+    persistent: true
+    state: true
+  notify: restart nginx
+  when: 'ansible_selinux.status == "enabled"'
+  loop:
+    - httpd_read_user_content  # allows it to serve user-mounted files
+    - httpd_enable_homedirs  # allows it to serve from ~/
+    - httpd_use_fusefs  # allows fuse-mounted systems, like USB drives
+    - httpd_use_nfs  # Allows it to serve NFS shares
+    - httpd_use_cifs  # Allows to read from a CIFS mount
