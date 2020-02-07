@@ -13,3 +13,5 @@ git_config_values:
     value: simple
   - name: gitreview.username
     value: greg.hellings
+  - name: core.hooksPath
+    value: "{{ role_path }}/files/"

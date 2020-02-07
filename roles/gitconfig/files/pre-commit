@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+import sys
+from languages import checkers
+
+# Check for each language
+for checker in checkers:
+    rc = checker.check()
+    if rc != 0:
+        print("pre-commit: Error found. Check above.")
+        sys.exit(rc)
