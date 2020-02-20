@@ -1,0 +1,18 @@
+- name: read vars for install
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "vars/{{ ansible_distribution }}-{{
+      ansible_distribution_major_version }}.yml"
+    - "vars/default-os.yml"
+
+- name: install necessary packages
+  include: install.yml
+
+- name: configure Jenkins
+  include: configure.yml
+
+- name: startup Jenkins
+  systemd:
+    name: jenkins
+    state: started
+    enabled: true

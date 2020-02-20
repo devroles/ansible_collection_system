@@ -1,0 +1,10 @@
+- name: restart Jenkins
+  service:
+    name: jenkins
+    state: restarted
+
+- name: restart Jenkins during upgrade
+  service:
+    name: jenkins
+    state: restarted
+  when: jenkins_master_upgrade

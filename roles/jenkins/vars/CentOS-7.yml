@@ -1,0 +1,9 @@
+jenkins_packages:
+  - java-{{ jenkins_java_version }}-openjdk
+  - java-{{ jenkins_java_version }}-openjdk-devel
+  - libselinux-python
+  - openssh
+  - gcc
+  - redhat-rpm-config
+  - git
+  - python2-pip

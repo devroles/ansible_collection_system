@@ -1,0 +1,104 @@
+# Unix account that the service will run as.
+jenkins_user: jenkins
+# The root directory of the Jenkins install
+jenkins_home: /var/lib/jenkins
+
+# ############################################################################
+# A list of variables which you can and probably should override with your own
+# values in your group variables. These are the default values for these
+# options and should work well enough for development or trial purposes, but
+# some of them should be overridden for production purposes. See individual
+# values for documentation on their function.
+# ############################################################################
+# The version of Jenkins to install from the repository. This value is used
+# to construct the name of the RPM below as well as update center URLS, so this
+# must include the complete "x.y.z" version, e.g. 1.651.3.
+jenkins_master_version: "2.204.2"
+# Update center version based on jenkins_version, update center does not use
+# "z" bit of the version, for example 1.651.3 becomes 1.651. This split
+# incantation strips the '.z' version off of jenkins_version.
+jenkins_master_uc_version: "{{ jenkins_master_version.rsplit('.', 1)[0] }}"
+
+jenkins_master_update_center_certificate: ~
+# If update_center_certificate is defined, you may wish to override the default
+# behavior of uploading the certificate from the local system running Ansible
+# and instead copy the file from a location on the remote Jenkins master to the
+# proper destination in JENKINS_HOME by setting this variable to true:
+jenkins_master_update_center_certificate_remote_src: false
+# If set to true, Jenkins will be run over HTTPS. If you set this value to true,
+# you can override jenkins_ssl_cert and jenkins_ssl_key if you want to use
+# custom SSL certificate, otherwise a self signed certificate will be used.
+jenkins_master_https_enabled: false
+# Temporarily remove the jenkins package from the package mananger pinning
+# configuration to allow upgrades of the jenkins package.  Note that other
+# packages blacklisted by the upgrade_blacklist variable will remain pinned via
+# the package manager configuration.
+jenkins_master_upgrade: false
+jenkins_master_block_upgrade: false
+# Java max heap size argument. Set this value based on the amount of RAM that
+# your instance needs and your infrastructure is able to support. This argument
+# is set on the JVM with -Xmx{{ java_heap_size }} in the command line options
+jenkins_master_heap_size: 3g
+# A list of command line options passed to the Java command line, in addition to
+# the ones listed in the vars folder. These options can allow you tweak either
+# the JVM directly or base, hidden features in the Jenkins world. A simply array
+# of string values should be supplied, that will spliced together with spaces on
+# the command line
+jenkins_master_java_extra_options: []
+# A default session timeout of 8hrs (480 mins) is needed to work
+# comfortably without having to re-login.
+jenkins_master_session_timeout: 480
+# Command line arguments for Jenkins
+jenkins_master_args:
+
+# ############################################################################
+# A list of variables that don't really need to be overridden, but which can be
+# parameterized if you need to tweak the Jenkins system. These represent mostly
+# advanced values.
+# ############################################################################
+
+# The name of the Jenkins package to install. This can be either an RPM name
+# such as one would pass to yum or dnf or a full path to the RPM file
+# (including a full URL). See note above on the variable
+# "jenkins_master_version"
+jenkins_master_rpm: jenkins-{{ jenkins_master_version }}-1.1
+# the path to the Java executable
+jenkins_master_java_cmd: /usr/bin/java
+# These values change the default ulimits for file and process counts in
+# order to avoid failure of the system when these (typically very low) default
+# values are hit
+jenkins_master_soft_nofile_ulimit: 4096
+jenkins_master_hard_nofile_ulimit: 4096
+jenkins_master_soft_nproc_ulimit: 4096
+jenkins_master_hard_nproc_ulimit: 30654
+# Malicious or poorly written job can either generate ridiculously large
+# artefact file to be archived on master or produce long console log.
+# Even an infinite loop in a job (that has some output) can exhaust all disk
+# space on JENKINS_HOME partition (Jenkins does not handle out of disk space
+# well). Largest file you will ever need on master, from our experience, is
+# heap/core dump of Jenkins process (or some other more memory greedy process).
+# Restricting max file size to the size of virtual memory should work
+# reasonably well for everyone.
+jenkins_master_fsize_ulimit: "{{ ansible_memtotal_mb * 1024 }}"
+jenkins_slave_agent_port: 50000
+# Address that Jenkins will listen on. For now, the default is promiscuous, but
+# if Jenkins is being stood up behind an SSL terminator or reverse proxy, this
+# should be switched to a loopback address. The same goes for the SSL listen
+# address, except that allows limiting the address the service will listen on
+# when it is serving SSL directly
+jenkins_master_http_listen_address: ''
+jenkins_master_https_listen_address: ''
+# The port where Jenkins should listen for AJP connections
+jenkins_master_ajp_port: 8009
+jenkins_master_ajp_listen_address: ''
+# The debug level for Jenkins
+jenkins_master_debug_level: 5
+# Enable or disable writing out an access log for Jenkins. This will cause the
+# process to write out log entries for every HTTP access and is disabled by
+# default
+jenkins_master_enable_access_log: "no"
+# The maximum number of worker threads to handle HTTP requests on the Jenkins
+# process
+jenkins_master_handler_max: 100
+# The maximum number of idle HTTP worker threads
+jenkins_master_handler_idle: 20

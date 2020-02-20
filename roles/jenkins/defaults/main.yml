@@ -1,0 +1,4 @@
+jenkins_java_version: 11
+jenkins_home: /var/lib/jenkins
+jenkins_user: jenkins
+jenkins_user_home: "{{ jenkins_home }}"

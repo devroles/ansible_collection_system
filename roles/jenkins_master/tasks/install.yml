@@ -1,0 +1,29 @@
+- name: unpin jenkins package for version upgrades
+  lineinfile:
+    dest: "{{ jenkins_master_version_pin_file }}"
+    state: present
+    regexp: "^exclude=.*"
+    line: >-
+      exclude={{ jenkins_master_upgrade_blacklist
+      | difference(['jenkins'])
+      | join(' ') }}
+  when: jenkins_master_upgrade
+
+- name: install necessary RPM files
+  package:
+    name: "{{ jenkins_master_packages }}"
+    state: present
+  retries: 2
+  register: install_master_rpms
+  until: install_master_rpms is success
+  notify: restart Jenkins during upgrade
+
+# This blacklist must be done *after* the package installation defined above,
+# otherwise packages can be blacklisted before they are installed initially.
+- name: pin certain packages
+  lineinfile:
+    dest: "{{ jenkins_master_version_pin_file }}"
+    line: "exclude={{ jenkins_master_upgrade_blacklist | join(' ') }}"
+    state: present
+    regexp: "^exclude=.*$"
+  when: jenkins_master_block_upgrade

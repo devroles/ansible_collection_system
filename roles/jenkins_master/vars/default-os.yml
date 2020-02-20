@@ -1,0 +1,2 @@
+jenkins_master_packages:
+  - "{{ jenkins_master_rpm }}"

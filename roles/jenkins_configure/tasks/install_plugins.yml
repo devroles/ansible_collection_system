@@ -1,0 +1,62 @@
+- name: run update center configure script
+  jenkins_update_center:
+    update_center_id: "{{ item.id }}"
+    update_center_url: "{{ item.url }}"
+  with_items: "{{ jenkins_configure_update_centers }}"
+  notify: restart Jenkins
+  become_user: "{{ jenkins_cli_shell_user }}"
+  become: true
+  tags:
+    - skip_ansible_lint
+
+- name: force handlers
+  meta: flush_handlers
+
+- name: wait for jenkins master
+  include_tasks: ensure_up.yml
+
+- name: create plugin mixin
+  set_fact:
+    _plugin_mixin: &plugin
+      url: "{{ jenkins_configure_url }}"
+      validate_certs: false
+      url_username: >-
+        {{ (jenkins_use_auth | bool) |
+        ternary(jenkins_configure_admin.name, omit) }}
+      url_password: "{{ jenkins_use_auth | default(omit, true) }}"
+
+- name: install plugins
+  jenkins_plugin:
+    <<: *plugin
+    name: "{{ item.key }}"
+    version: "{{ item.value['version'] | default(omit) }}"
+    state: present
+  register: plugin_install
+  retries: 10
+  until: not plugin_install is failed
+  with_dict: "{{ jenkins_configure_plugins }}"
+  notify: restart Jenkins
+
+# Restart before enabling
+- name: flush handlers
+  meta: flush_handlers
+
+- name: wait for jenkins master
+  include_tasks: ensure_up.yml
+
+- name: enable plugins
+  jenkins_plugin:
+    <<: *plugin
+    name: "{{ item.key }}"
+    state: enabled
+  with_dict: "{{ jenkins_configure_plugins }}"
+
+- name: pin plugins
+  jenkins_plugin:
+    <<: *plugin
+    name: "{{ item.key }}"
+    state: "{{ 'pinned' if item.value['pinned'] else 'unpinned' }}"
+  with_dict: "{{ jenkins_configure_plugins }}"
+  when:
+    - item.value
+    - "'pinned' in item.value"

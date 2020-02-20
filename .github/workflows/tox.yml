@@ -30,6 +30,9 @@ jobs:
           - disable_deltarpm
           - gitconfig
           - gui
+          - jenkins
+          - jenkins_master
+          - jenkins_configure
           - mariadb
           - mythtv
           - python_prep
