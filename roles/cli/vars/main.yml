@@ -81,6 +81,7 @@ cli_packages:
   - golang
   - yamllint
   - libxml2-devel
+  - git-subtree
   # Vagrant development
   - ruby-devel
   - libvirt-devel
