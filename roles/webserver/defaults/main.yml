@@ -1,2 +1,16 @@
 webserver_domains: []
 webserver_acme_directory: "https://acme-v01.api.letsencrypt.org/directory"
+# TODO: Taken from the Jenkins role
+# Default rate limiting values are below, customize as desired.
+# Size of ip address state cache (10m = ~160,000 ip addresses):
+nginx_zone_cache_size: "10m"
+# Rate limit for requests per second:
+nginx_request_limit: "200r/s"
+# Limit maximum number of simultaneous connections per ip:
+nginx_max_connections_per_ip: 25
+# Enable bandwidth limiting for files this size or larger (200m = 200MB file):
+nginx_bandwidth_limit_after_size: "200m"
+# Set bandwidth limit for downloading large files (5m = 5Mb/s):
+nginx_max_bandwidth_outbound: "5m"
+# Set the burst queue size (number of addional requests allowed over limits):
+nginx_burst_queue: "100"
