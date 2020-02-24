@@ -28,15 +28,18 @@ jobs:
         with:
           path: ~/.cache/pip
           key: pip-modules
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.8
       - name: Install dependencies
+        shell: bash
         run: |
+          set -e
           python -m pip install --upgrade pip
           pip install tox tox-ansible
       - name: Run lint
+        shell: bash
         run: tox -e lint_all
 
   build:
@@ -44,8 +47,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version:
-          - 3.7
         role:
           - authorized_key
           - bashrc
@@ -80,10 +81,10 @@ jobs:
         with:
           path: ~/.cache/pip
           key: pip-modules
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.8
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
