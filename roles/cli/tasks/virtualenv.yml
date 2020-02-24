@@ -8,16 +8,17 @@
   with_items:
     - name: tools3
       packages: &packages
-        - wheel
-        - ipython
-        - Pygments
-        - cookiecutter
         - ansible
+        - cookiecutter
+        - docker
+        - ipython
         - molecule
         - openstacksdk
-        - docker
-        - twine
         - ovirt-engine-sdk-python
+        - progressbar2
+        - Pygments
+        - twine
+        - wheel
       python: python3
   retries: 3
   register: create_virtualenvs
