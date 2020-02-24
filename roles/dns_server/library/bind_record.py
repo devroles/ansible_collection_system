@@ -85,7 +85,7 @@ def main():
             names = zone.root.records(params.type).items
             if params.name in names:
                 names.delete(params.name)
-                changed = True
+                changed = True  # noqa
         # Delete an entire name, all types
         elif 'type' not in module.params:
             zone.delete_name(params.name)

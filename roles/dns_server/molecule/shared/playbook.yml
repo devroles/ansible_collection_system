@@ -6,5 +6,5 @@
         - dnszone
     - role: dns_server
       dns_server_domains:
-        - 
+        - a
   post_tasks: []
