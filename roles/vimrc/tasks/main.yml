@@ -18,6 +18,8 @@
       dest: "{{ ansible_user_dir }}/.vimrc"
     - src: "{{ role_path }}/files/ftplugin"
       dest: "{{ ansible_user_dir }}/.vim/ftplugin"
+  tags:
+    - skip_ansible_lint
 
 - name: download pathogen
   get_url:
