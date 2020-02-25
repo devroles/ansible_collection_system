@@ -24,6 +24,7 @@
       args:
         chdir: /var/mirror
       register: _mirror
+      changed_when: false
 
     - debug:
         var: _mirror.stdout
