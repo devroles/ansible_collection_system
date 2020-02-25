@@ -1,0 +1,9 @@
+- name: install tools
+  become: true
+  package:
+    name: "{{ mirror_packages }}"
+    state: present
+
+- name: make each mirror exist
+  include_tasks: mirror.yml
+  loop: "{{ mirror_list }}"

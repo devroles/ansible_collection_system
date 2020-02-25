@@ -1,0 +1,8 @@
+mirror_list:
+  - src: rsync://example.com/path
+    dest: some/local/path
+    base: /var/www/repo_mirror
+    #owner: derp
+    #group: derp
+    #mode: "0755"
+    exclude: []

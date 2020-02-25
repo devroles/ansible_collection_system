@@ -62,6 +62,7 @@ jobs:
           - jenkins_master
           - jenkins_configure
           - mariadb
+          - mirror
           - mythtv
           - python_prep
           - sudoers

@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: mirror-test
+    image: centos:8

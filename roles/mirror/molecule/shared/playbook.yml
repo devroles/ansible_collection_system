@@ -1,0 +1,29 @@
+- hosts: all
+  roles:
+    - role: mirror
+      mirror_list:
+        - src: rsync://mirror.netdepot.com/centos/{8,8.*}
+          dest: .
+          base: /var/mirror
+          excludes:
+            - AppStream
+            - BaseOS
+            - centosplus
+            - extras
+            - fasttrack
+            - HighAvailability
+            - PowerTools
+            - aarch64
+            - ppc64le
+            - isos
+            - atomic
+            - "8.0*"
+  post_tasks:
+    - name: run doohickey
+      command: ./mirror.sh
+      args:
+        chdir: /var/mirror
+      register: _mirror
+
+    - debug:
+        var: _mirror.stdout
