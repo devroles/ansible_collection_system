@@ -36,7 +36,7 @@ jenkins_master_upgrade_blacklist:
 # argument. To support both session timeout and custon jenkins args without
 # mistakenly override it, a proxy variable will be used.
 _jenkins_master_args: >-
-  --sessionTimeout={{ session_timeout }}
+  --sessionTimeout={{ jenkins_master_session_timeout }}
   {{ jenkins_master_args }}
 
 # This variable points to the file where the RPM version for specific packages
