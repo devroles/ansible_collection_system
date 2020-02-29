@@ -30,7 +30,6 @@
         script: |-
           import hudson.model.User;
           User u = User.getById("{{ jenkins_configure_admin.name }}", false);
-          //def p = u.getProperty(jenkins.security.ApiTokenProperty.class);
           println u.getId()
       register: _auth_check
 
@@ -39,10 +38,15 @@
 
     - name: save API key
       set_fact:
-        jenkins_use_auth: >
-          {{ (_auth_check.output | trim) == jenkins_configure_admin.name }}
+        jenkins_use_auth:
+          url: "{{ jenkins_configure_url }}"
+          validate_certs: false
+          url_username: "{{ jenkins_configure_admin.name }}"
+          url_password: "{{ jenkins_configure_admin.password }}"
 
   rescue:
     - name: unset API key
       set_fact:
-        jenkins_use_auth: "{{ false | bool }}"
+        jenkins_use_auth:
+          url: "{{ jenkins_configure_url }}"
+          validate_certs: false

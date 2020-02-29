@@ -15,22 +15,14 @@
 - name: wait for jenkins master
   include_tasks: ensure_up.yml
 
-- name: create plugin mixin
-  set_fact:
-    _plugin_mixin: &plugin
-      url: "{{ jenkins_configure_url }}"
-      validate_certs: false
-      url_username: >-
-        {{ (jenkins_use_auth | bool) |
-        ternary(jenkins_configure_admin.name, omit) }}
-      url_password: "{{ jenkins_use_auth | default(omit, true) }}"
-
 - name: install plugins
-  jenkins_plugin:
-    <<: *plugin
-    name: "{{ item.key }}"
-    version: "{{ item.value['version'] | default(omit) }}"
-    state: present
+  jenkins_plugin: >-
+    {{ jenkins_use_auth | combine(
+       {"name": item.key,
+        "version": (item.value['version'] | default(omit)),
+        "state": "present"
+       })
+    }}
   register: plugin_install
   retries: 10
   until: not plugin_install is failed
@@ -45,17 +37,18 @@
   include_tasks: ensure_up.yml
 
 - name: enable plugins
-  jenkins_plugin:
-    <<: *plugin
-    name: "{{ item.key }}"
-    state: enabled
+  jenkins_plugin: >-
+    {{ jenkins_use_auth |
+    combine({"name": item.key, "state": "enabled"}) }}
   with_dict: "{{ jenkins_configure_plugins }}"
 
 - name: pin plugins
-  jenkins_plugin:
-    <<: *plugin
-    name: "{{ item.key }}"
-    state: "{{ 'pinned' if item.value['pinned'] else 'unpinned' }}"
+  jenkins_plugin: >-
+    {{ jenkins_use_auth | combine(
+       {"name": item.key,
+        "state": ('pinned' if item.value['pinned'] else 'unpinned')
+       })
+    }}
   with_dict: "{{ jenkins_configure_plugins }}"
   when:
     - item.value

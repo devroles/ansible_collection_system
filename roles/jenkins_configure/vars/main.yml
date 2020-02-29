@@ -19,8 +19,9 @@ jenkins_configure_user_api_retries: 3
 jenkins_configure_security_roles:
   - name: anonymous
     permissions:
-      - com.synopsys.arc.jenkins.plugins.ownership.OwnershipPlugin.Jobs
+      #  - com.synopsys.arc.jenkins.plugins.ownership.OwnershipPlugin.Jobs
       - hudson.model.Hudson.Read
       - hudson.model.View.Read
+      - hudson.model.Item.Read
     sids:
       - anonymous

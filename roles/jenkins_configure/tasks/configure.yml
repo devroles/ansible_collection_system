@@ -1,12 +1,17 @@
 - name: run Jenkins global config
-  jenkins_script:
-    url: "{{ jenkins_configure_url }}"
-    script: "{{ item.script }}"
-    validate_certs: false
-    user: "{{ jenkins_use_auth | ternary(jenkins_configure_admin.name, omit) }}"
-    password: "{{ jenkins_use_auth | default(omit, true) }}"
+  jenkins_script: >-
+    {{ jenkins_use_auth | combine({"script": item.script}) }}
   register: script_output
-  failed_when: "'Exception' in script_output.output"
+  failed_when: >-
+    ('output' in script_output and 'Exception' in script_output.output )
+    or
+    ( script_output.msg is defined and (
+      '500' in script_output.msg or
+      '401' in script_output.msg or
+      '403' in script_output.msg or
+      '404' in script_output.msg or
+      'HTTP Error' in script_output.msg
+    ) )
   changed_when: "(script_output.output|default('')).find('CHANGED') != -1"
   # Since the jenkins_script module doesn't support check_mode, we disable it
   # here so that we can handle check mode inside of the Groovy scripts.

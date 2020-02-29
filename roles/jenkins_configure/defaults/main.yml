@@ -3,70 +3,26 @@ jenkins_home: /var/lib/jenkins
 jenkins_user: jenkins
 jenkins_cli_shell_user: "{{ ansible_user_id }}"
 jenkins_cli_shell_user_home: "{{ ansible_user_dir }}"
-# A list of items to set as environment variables for all jbos configured to run
-# on this master, regardless of their host system. Each entry in the array
-# should be a hash with a "key" and "value" property, as such:
-# jenkins_envvars:
-#   - key: SOME_SERVICE_ENDPOINT
-#     value: http://somehost.somedomain:12345/some/path
 jenkins_configure_envvars:
   - key: JENKINS_MASTER_URL
     value: "{{ jenkins_configure_url }}"
 
 
-# ############################################################################
-# Security settings - users, passwords, etc.
-# These values should REALLY be changed if you're going to use this in a
-# production environment as otherwise you would be securing with passwords or
-# SSH keys that the whole world can see freely in this repository.
-# ############################################################################
-# If this is set to true, then LDAP will be configured, along with the admin
-# user, security roles, etc. Leaving this false will mean anyone will have the
-# ability to control the Jenkins master instance without authentication
 jenkins_configure_security_enabled: false
-# An admin user who is configured to permit automated connections to the system
-# for things like running the Groovy scripts, connecting Swarm clients, etc.
-# This user is automatically assigned to the security role "admin" that gets
-# created
 jenkins_configure_admin:
   name: admin
   email: root@localhost
   password: changeme
-# A list of users, groups, etc (SIDs, in Jenkins-speak) who should be added to
-# the admin role
 jenkins_configure_admin_sids: []
-# A list of users who should be given access to the Jenkins CLI. Users must
-# exist in the Jenkins filesystem already (they must have logged into the system
-# at least once, already). They will be configured with the SSH key from the
-# system shell user named "jenkins" as their pubkey.
 jenkins_configure_cli_users: []
-# An array of users to create in the local Jenkins database, regardless of the
-# authentication methods actually in place. Elements in this array should match
-# the form of the jenkins_admin variable immediately above this
 jenkins_configure_local_users: []
-# An array of roles and their permissions to add to Jenkins. A role called
-# "admin" will always be created that has access to every permission. You can
-# override this by creating a role in this array named "admin" that has a
-# different set of permisisons, if you would rather. The "sids" array is a list
-# of the roles/users/groups that should be assigned to that role. For the
-# structure of this array, see the jenkins_security_roles variable in the vars
-# folder of this Ansible role
 jenkins_configure_security_extra_roles: []
 
-# #############################################################################
-# Plugins and related settings
-# #############################################################################
 jenkins_slave_agent_port: 50000
-# A list of Jenkins update center URLs to configure. This is the default UC
-# provided by the upstream, public infrastructure. If you maintain a local
-# mirror for custom plugins or just for mirroring purposes, then override this
-# variable with those values.
 jenkins_configure_update_centers:
   - id: default
     #url: "https://updates.jenkins-ci.org/update-center.json"  # SSL errors?
     url: "https://mirror.xmission.com/jenkins/updates/update-center.json"
-# List of plugins. Name is key, optional values are "version" for a specific
-# version, "pinned" if you want it pinned
 jenkins_configure_plugins:
   ansible:
   blueocean:

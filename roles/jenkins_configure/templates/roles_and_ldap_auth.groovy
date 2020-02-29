@@ -2,14 +2,17 @@ import hudson.*;
 import hudson.model.*;
 import hudson.security.*;
 import hudson.util.Secret;
+import hudson.security.HudsonPrivateSecurityRealm;
 import jenkins.*;
 import jenkins.model.*;
 import java.util.*;
 import com.michelin.cio.hudson.plugins.rolestrategy.*;
+import com.synopsys.arc.jenkins.plugins.rolestrategy.RoleType;
 import java.lang.reflect.*;
 import jenkins.security.plugins.ldap.LDAPGroupMembershipStrategy;
 import jenkins.security.plugins.ldap.FromGroupSearchLDAPGroupMembershipStrategy;
 
+RoleType GLOBAL = RoleType.fromString(RoleBasedAuthorizationStrategy.GLOBAL);
 // Some Java/Groovy reflection magic to make sure we can access the portions of the
 // scripts that are needed for sanity's sake
 Constructor[] constructors = Role.class.getConstructors();
@@ -17,12 +20,12 @@ for ( Constructor<?> c : constructors ) {
 	c.setAccessible(true);
 }
 Method assignRoleMethod = RoleBasedAuthorizationStrategy.class.getDeclaredMethod("assignRole",
-                                                                                 String.class,
+                                                                                 RoleType.class,
                                                                                  Role.class,
                                                                                  String.class);
 assignRoleMethod.setAccessible(true);
 Method getRoleMapMethod = RoleBasedAuthorizationStrategy.class.getDeclaredMethod("getRoleMap",
-                                                                                 String.class);
+                                                                                 RoleType.class);
 getRoleMapMethod.setAccessible(true);
 
 // *************************************************************************
@@ -43,12 +46,13 @@ boolean changed = false;
 def Role createRole(String roleName,
                     Set<Permission> permissions,
                     RoleBasedAuthorizationStrategy strategy) {
+	RoleType GLOBAL = RoleType.fromString(RoleBasedAuthorizationStrategy.GLOBAL);
 	// First, check if role exists
-	RoleMap map = strategy.getRoleMap(RoleBasedAuthorizationStrategy.GLOBAL);
+	RoleMap map = strategy.getRoleMap(GLOBAL);
 	Role role = map.getRole(roleName);
 	if (role == null) {
 		role = new Role(roleName, permissions);
-		strategy.addRole(RoleBasedAuthorizationStrategy.GLOBAL, role);
+		strategy.addRole(GLOBAL, role);
 		println "CHANGED: Added role '" + roleName + "'";
 		changed = true;
 	} else {
@@ -98,9 +102,9 @@ for ( PermissionGroup group : groups ) {
 	}
 }
 createdRole = createRole("admin", rolePermissions, strategy);
-strategy.assignRole(strategy.GLOBAL, createdRole, "{{ jenkins_configure_admin.name }}");
+strategy.assignRole(GLOBAL, createdRole, "{{ jenkins_configure_admin.name }}");
 {% for sid in jenkins_configure_admin_sids %}
-	strategy.assignRole(strategy.GLOBAL, createdRole, "{{ sid }}");
+	strategy.assignRole(GLOBAL, createdRole, "{{ sid }}");
 {% endfor %}
 
 // Create the user-defined roles that are desired
@@ -111,7 +115,7 @@ strategy.assignRole(strategy.GLOBAL, createdRole, "{{ jenkins_configure_admin.na
 	{% endfor %}
 	createdRole = createRole("{{ role.name }}", rolePermissions, strategy);
 	{% for sid in role.sids %}
-		strategy.assignRole(strategy.GLOBAL, createdRole, "{{ sid }}");
+		strategy.assignRole(GLOBAL, createdRole, "{{ sid }}");
 	{% endfor %}
 {% endfor %}
 
@@ -179,6 +183,15 @@ strategy.assignRole(strategy.GLOBAL, createdRole, "{{ jenkins_configure_admin.na
 		changed = true;
 	} else {
 		println "No changes to LDAP necessary"
+	}
+{% else %}  // If we're not doing LDAP, then do what, exactly?
+	def realm = instance.getSecurityRealm();
+	if ( ! (realm instanceof HudsonPrivateSecurityRealm) ) {
+		changed = true;
+		println "CHANGED: Updated security realm to HudsonPrivateSecurityRealm"
+		// ...Realm(boolean allowSignups, boolean enableCaptcha, CaptchaSupport captchaSupport)
+		HudsonPrivateSecurityRealm newRealm = new HudsonPrivateSecurityRealm(false, false, null);
+		instance.setSecurityRealm(newRealm);
 	}
 {% endif %}
 
