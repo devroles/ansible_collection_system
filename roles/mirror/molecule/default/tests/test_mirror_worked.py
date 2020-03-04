@@ -1,5 +1,5 @@
 def test_mirror_script_exists(host):
-    assert host.file('/var/mirror/mirror.sh').exists
+    assert host.file('/var/mirror/centos.sh').exists
 
 
 def test_mirror_dir_exists(host):

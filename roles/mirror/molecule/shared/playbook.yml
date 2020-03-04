@@ -21,7 +21,7 @@
             - "8.0*"
   post_tasks:
     - name: run doohickey
-      command: ./mirror.sh
+      command: ./centos.sh
       args:
         chdir: /var/mirror
       register: _mirror
