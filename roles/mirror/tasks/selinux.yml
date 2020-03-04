@@ -1,0 +1,10 @@
+- name: give rsync access to the things
+  become: true
+  seboolean:
+    name: "{{ item }}"
+    persistent: true
+    state: true
+  loop:
+    - rsync_export_all_ro
+    - rsync_client
+    - rsync_full_access

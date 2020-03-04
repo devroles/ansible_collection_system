@@ -7,3 +7,7 @@
 - name: make each mirror exist
   include_tasks: mirror.yml
   loop: "{{ mirror_list }}"
+
+- name: setup SELinux
+  include_tasks: selinux.yml
+  when: ansible_selinux.status in ['enforcing', 'permissive']

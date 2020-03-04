@@ -1,27 +1,30 @@
-- name: create base dir
-  file:
-    dest: "{{ item.base }}"
-    state: directory
-    owner: "{{ item.owner | default(omit) }}"
-    group: "{{ item.group | default(omit) }}"
-    mode: "{{ item.mode | default('0755') }}"
+- block:
+    - name: create base dir
+      file:
+        dest: "{{ item.base }}"
+        state: directory
+        owner: "{{ item.owner | default(omit) }}"
+        group: "{{ item.group | default(omit) }}"
+        mode: "{{ item.mode | default('0755') }}"
 
-- name: create mirror.sh file
-  copy:
-    content: |
-      #!/bin/bash
-      set -ex
-      excludes="$(mktemp)"
-      cat > "${excludes}" << EOF
-      {% for exclude in (item.excludes | default([])) %}
-      {{ exclude }}
-      {% endfor %}
-      EOF
-      rsync -avSHP --delete --exclude-from="${excludes}" \
-          {{ item.src }} \
-          {{ item.dest }}
-      rm -f "${excludes}"
-    dest: "{{ item.base }}/mirror.sh"
-    owner: "{{ item.owner | default(omit) }}"
-    group: "{{ item.group | default(omit) }}"
-    mode: "0755"
+    - name: create mirror.sh file
+      copy:
+        content: |
+          #!/bin/bash
+          set -ex
+          excludes="$(mktemp)"
+          cat > "${excludes}" << EOF
+          {% for exclude in (item.excludes | default([])) %}
+          {{ exclude }}
+          {% endfor %}
+          EOF
+          rsync -avSHP --delete --exclude-from="${excludes}" \
+              {{ item.src }} \
+              {{ item.dest }}
+          rm -f "${excludes}"
+        dest: "{{ item.base }}/{{ item.name }}.sh"
+        owner: "{{ item.owner | default(omit) }}"
+        group: "{{ item.group | default(omit) }}"
+        mode: "0755"
+  become: "{{ mirror_become }}"
+  become_user: "{{ mirror_become_user }}"

@@ -1,5 +1,8 @@
+mirror_become: true
+mirror_become_user: root
 mirror_list:
-  - src: rsync://example.com/path
+  - name: my_mirror
+    src: rsync://example.com/path
     dest: some/local/path
     base: /var/www/repo_mirror
     #owner: derp
