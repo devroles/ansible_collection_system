@@ -12,6 +12,7 @@ export PATH=$HOME/.gem/ruby/gems/travis-1.8.10/bin:/$HOME/.local/bin:$HOME/.loca
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 export SWORD_PATH=$HOME/.sword
 export ANSIBLE_COLLECTIONS_PATHS=${HOME}/.ansible:${HOME}/src/
+export OS_CLOUD=default
 #export VAGRANT_DEFAULT_PROVIDER=virtualbox
 color_prompt="yes"
 if [ "$color_prompt" = yes ]; then
