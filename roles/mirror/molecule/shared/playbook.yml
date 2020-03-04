@@ -2,7 +2,8 @@
   roles:
     - role: mirror
       mirror_list:
-        - src: rsync://mirror.netdepot.com/centos/{8,8.*}
+        - name: centos
+          src: rsync://mirror.netdepot.com/centos/{8,8.*}
           dest: .
           base: /var/mirror
           excludes:
