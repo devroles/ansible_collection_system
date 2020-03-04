@@ -58,6 +58,7 @@
 - include_tasks: ensure_up.yml
 
 - name: read Jenkins user SSH pubkey
+  become: true
   slurp:
     src: "{{ jenkins_home }}/.ssh/id_rsa.pub"
   register: pubkey

@@ -6,12 +6,15 @@
     - "vars/default-os.yml"
 
 - name: install necessary packages
+  become: true
   include: install.yml
 
 - name: configure Jenkins
+  become: true
   include: configure.yml
 
 - name: startup Jenkins
+  become: true
   systemd:
     name: jenkins
     state: started

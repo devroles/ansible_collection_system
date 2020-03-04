@@ -1,8 +1,9 @@
 - name: create cert path
+  become: true
   file:
     dest: "{{ jenkins_home }}/update-center-rootCAs"
     state: directory
-    owner: jenkins
+    owner: "{{ jenkins_user }}"
     group: jenkins
 
 - name: get certificates

@@ -1,9 +1,11 @@
 - name: restart Jenkins
+  become: true
   service:
     name: jenkins
     state: restarted
 
 - name: restart Jenkins during upgrade
+  become: true
   service:
     name: jenkins
     state: restarted

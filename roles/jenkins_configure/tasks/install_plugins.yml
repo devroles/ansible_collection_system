@@ -4,7 +4,7 @@
     update_center_url: "{{ item.url }}"
   with_items: "{{ jenkins_configure_update_centers }}"
   notify: restart Jenkins
-  become_user: "{{ jenkins_cli_shell_user }}"
+  become_user: "{{ jenkins_user }}"
   become: true
   tags:
     - skip_ansible_lint
