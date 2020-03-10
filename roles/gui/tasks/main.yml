@@ -1,3 +1,10 @@
+- name: configure system repositories
+  import_role:
+    name: oasis_roles.system.system_repositories
+  vars:
+    system_repositories_configs: "{{ gui_repositories }}"
+    system_repositories_rpm_keys: "{{ gui_gpg_keys }}"
+
 - name: download SpiderOak RPM
   get_url:
     url: https://spideroak.com/release/spideroak/rpm_x64

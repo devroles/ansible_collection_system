@@ -1,3 +1,9 @@
+- name: install system repositories
+  import_role:
+    name: oasis_roles.system.system_repositories
+  vars:
+    system_repositories_configs: "{{ dev_repositories }}"
+
 - name: install necessary devel packages
   become: true
   package:

@@ -1,3 +1,10 @@
+- name: setup repositories
+  import_role:
+    name: oasis_roles.system.system_repositories
+  vars:
+    system_repositories_configs: "{{ cli_repositories }}"
+    system_repositories_rpm_keys: "{{ cli_gpg_keys }}"
+
 - name: install CLI packages
   become: true
   package:

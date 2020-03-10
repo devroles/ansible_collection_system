@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Greg Hellings
+  description: |-
+    A role (doesn't really work) to install phpbb
+  license: GPLv3
+  min_ansible_version: 2.8
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+
+dependencies: []

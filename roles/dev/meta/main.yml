@@ -9,6 +9,4 @@ galaxy_info:
       versions:
         - all
 
-dependencies:
-  - role: oasis_roles.system_repositories
-    system_repositories_configs: "{{ dev_repositories }}"
+dependencies: []

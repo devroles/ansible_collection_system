@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Greg Hellings
+  description: |-
+    Configures bashrc and other user-directory files the way I like them
+  license: GPLv3
+  min_ansible_version: 2.8
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+
+dependencies: []

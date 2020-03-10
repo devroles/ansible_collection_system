@@ -1,0 +1,16 @@
+galaxy_info:
+  author: Greg Hellings
+  description: |-
+    Configures global git settings that really should be set before using a
+    developer machine
+  license: GPLv3
+  min_ansible_version: 2.8
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+
+dependencies: []

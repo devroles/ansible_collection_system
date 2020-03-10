@@ -1,3 +1,11 @@
+- name: setup webserver
+  import_role:
+    name: webserver
+  vars:
+    webserver_domains:
+      - mail.{{ item }}
+  with_items: "{{ mta_domains }}"
+
 - name: install mta software
   become: true
   package:

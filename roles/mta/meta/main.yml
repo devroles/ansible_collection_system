@@ -10,8 +10,4 @@ galaxy_info:
         - 7
         - 8
 
-dependencies:
-  - role: webserver
-    webserver_domains:
-      - mail.{{ item }}
-    with_items: "{{ mta_domains }}"
+dependencies: []
