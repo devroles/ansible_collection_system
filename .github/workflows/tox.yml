@@ -1,7 +1,11 @@
 name: Test with Ansible
 
 on:
-  push: {}
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
   pull_request: {}
   schedule:
     - cron: '12 0 * * *'
@@ -10,6 +14,7 @@ env:
   TOX_ANSIBLE_DRIVER: docker
   ANSIBLE_COLLECTIONS_PATHS: ~/.ansible/:~/work/
   COLLECTION: system
+  COLLECTION_NAMESPACE: devroles
 
 jobs:
   lint:
@@ -93,7 +98,7 @@ jobs:
       - name: Test with tox
         run: |
           cd ..
-          dest="${HOME}/work/ansible_collections/devroles"
+          dest="${HOME}/work/ansible_collections/${COLLECTION_NAMESPACE}"
           mkdir -p "${dest}"
           mv "$(basename "${GITHUB_REPOSITORY}")" "${dest}/${COLLECTION}"
           # post actions fail if this doesn't exist
