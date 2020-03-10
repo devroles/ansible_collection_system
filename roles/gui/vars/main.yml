@@ -81,6 +81,7 @@ gui_packages:
   - NetworkManager-openvpn-gnome
   - avidemux-gui
   - openshot
+  - grip
   - qwinff
   - mediawriter
   - redhat-text-fonts
