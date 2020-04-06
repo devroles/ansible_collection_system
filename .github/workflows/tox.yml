@@ -68,7 +68,6 @@ jobs:
           - jenkins_configure
           - mariadb
           - mirror
-          - mythtv
           - python_prep
           - sudoers
           - virtualenv_ansible_python
