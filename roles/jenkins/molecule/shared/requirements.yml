@@ -1,3 +1,0 @@
-roles:
-  - oasis_roles.molecule_docker_ci
-  - oasis_roles.users_and_groups
