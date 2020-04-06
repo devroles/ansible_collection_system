@@ -26,6 +26,9 @@
   package:
     name: "{{ mariadb_packages }}"
     state: present
+  register: __mariadb_install
+  retries: 3
+  until: __mariadb_install is success
 
 - name: setup mysql data structures for first run
   become: true
