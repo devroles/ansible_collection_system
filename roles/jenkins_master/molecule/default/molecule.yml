@@ -1,7 +1,3 @@
-dependency:
-  driver: galaxy
-  options:
-    role-file: molecule/shared/requirements.yml
 driver:
   name: docker
 platforms:
