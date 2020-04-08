@@ -90,4 +90,3 @@
         msg: >-
           No SSH key found for the Jenkins user. No need to panic, it just
           means that user won't be granted Jenkins CLI access
-
