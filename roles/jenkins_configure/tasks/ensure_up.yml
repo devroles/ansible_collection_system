@@ -7,12 +7,15 @@
   with_first_found:
     - "vars/{{ _connection_type }}.yml"
     - "vars/default.yml"
+  when:
+    - jenkins_configure_host is undefined
+    - jenkins_configure_listening_port is undefined
 
 - name: wait for Jenkins to start up
   become: false
   uri:
     url: "{{ jenkins_configure_url }}"
-    status_code: 200,401,500
+    status_code: 200,401,403,500
     timeout: 5
     validate_certs: false
   register: _jenkins_status
@@ -20,7 +23,7 @@
   delay: 15
   until: >-
     'status' in _jenkins_status and
-    (_jenkins_status['status'] in (200, 401, 500))
+    (_jenkins_status['status'] in (200, 401, 403, 500))
 
 - block:
     - name: check auth
@@ -33,7 +36,9 @@
           println u.getId()
       register: _auth_check
       failed_when: >-
-        'Exception' in _auth_check.output
+        'Exception' in _auth_check.output or
+        'Error' in _auth_check.output or
+        'Error' in ( _auth_check.msg | default('') )
 
     - debug:
         var: _auth_check

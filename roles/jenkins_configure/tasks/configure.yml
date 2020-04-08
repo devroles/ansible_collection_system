@@ -57,29 +57,37 @@
 
 - include_tasks: ensure_up.yml
 
-- name: read Jenkins user SSH pubkey
-  become: true
-  slurp:
-    src: "{{ jenkins_home }}/.ssh/id_rsa.pub"
-  register: pubkey
+- block:
+    - name: read Jenkins user SSH pubkey
+      become: true
+      slurp:
+        src: "{{ jenkins_home }}/.ssh/id_rsa.pub"
+      register: pubkey
 
-- name: configure Jenkins user as CLI user
-  become: true
-  jenkins_cli_user:
-    jenkins_home: "{{ jenkins_home }}"
-    jenkins_user: "{{ jenkins_configure_admin.name }}"
-    key: "{{ pubkey['content'] | b64decode | trim }}"
-  notify: restart Jenkins
-  tags:
-    - skip_ansible_lint
+    - name: configure Jenkins user as CLI user
+      become: true
+      jenkins_cli_user:
+        jenkins_home: "{{ jenkins_home }}"
+        jenkins_user: "{{ jenkins_configure_admin.name }}"
+        key: "{{ pubkey['content'] | b64decode | trim }}"
+      notify: restart Jenkins
+      tags:
+        - skip_ansible_lint
 
-- name: configure user as CLI user
-  jenkins_cli_user:
-    jenkins_home: "{{ jenkins_home }}"
-    jenkins_user: "{{ item.name }}"
-    key_file: "{{ item.key }}"
-  become: true
-  notify: restart Jenkins
-  with_items: "{{ jenkins_configure_cli_users }}"
-  tags:
-    - skip_ansible_lint
+    - name: configure user as CLI user
+      jenkins_cli_user:
+        jenkins_home: "{{ jenkins_home }}"
+        jenkins_user: "{{ item.name }}"
+        key_file: "{{ item.key }}"
+      become: true
+      notify: restart Jenkins
+      with_items: "{{ jenkins_configure_cli_users }}"
+      tags:
+        - skip_ansible_lint
+  rescue:
+    - name: Don't Panic
+      debug:
+        msg: >-
+          No SSH key found for the Jenkins user. No need to panic, it just
+          means that user won't be granted Jenkins CLI access
+
