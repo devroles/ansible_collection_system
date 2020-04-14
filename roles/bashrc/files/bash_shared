@@ -30,15 +30,15 @@ alias vssh='vagrant ssh'
 alias vhalt='vagrant halt'
 alias vprov='vagrant provision'
 alias vdown='vagrant destroy'
-alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 alias acp="rsync --progress -ah"
 alias d='deactivate'
 alias yaml2js="python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'"
-alias roles="cd ~/src/oasis/roles"
-alias origin="cd ~/src/oasis/origin"
+alias oasis="cd ~/src/ansible_collections/oasis_roles/"
 alias packaging="cd ~/config/source/packaging/"
 alias devroles="cd ~/src/ansible_collections/devroles"
 alias molcol="molecule -c ../../tests/molecule.yml"
+alias agpub="ansible-galaxy collection publish --api-key ${GALAXY_API_KEY}"
+alias agbuild="ansible-galaxy collection build"
 
 function parse_git_branch {
 	ref=$(git symbolic-ref HEAD 2> /dev/null) || return
