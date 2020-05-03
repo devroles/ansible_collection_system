@@ -13,8 +13,7 @@ on:
 env:
   TOX_ANSIBLE_DRIVER: docker
   ANSIBLE_COLLECTIONS_PATHS: ~/.ansible/:~/work/
-  COLLECTION: system
-  COLLECTION_NAMESPACE: devroles
+  checkout_path: ansible_collections/devroles/system
 
 jobs:
   build:
@@ -46,7 +45,12 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
-          path: ${{ github.workspace }}/ansible_collections/devroles/system
+          path: ${{ env.checkout_path }}
+      - name: update submodules
+        run: |-
+          set -ex
+          cd "${{ env.checkout_path }}"
+          git submodule update --remote --recursive
       - name: Setup pip cache
         uses: actions/cache@v1
         with:
@@ -64,8 +68,9 @@ jobs:
           pip install tox tox-ansible
       - name: Test with tox
         run: |
-          set -e
-          cd ansible_collections/devroles/system
+          set -ex
+          mv ansible_collections ~/work/
+          cd ~/work/${{ env.checkout_path }}
           tox --ansible-role ${{ matrix.role }}
 
   release:
