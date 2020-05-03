@@ -86,11 +86,13 @@ cli_packages:
   - ruby-devel
   - libvirt-devel
   - rubygem-bundler
+  - cloud-utils
   # Media tools
   - ffmpeg
   # Related to libvirt packages
   - libvirt
   - qemu-kvm
+  - qemu-system-ppc
   - seabios-bin
   # packer
   - packer
