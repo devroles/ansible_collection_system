@@ -2,4 +2,4 @@ driver:
   name: docker
 platforms:
   - name: gui
-    image: fedora:latest
+    image: fedora:32
