@@ -1,3 +1,9 @@
+- name: need some tools, first
+  become: true
+  package:
+    name: "{{ jenkins_configure_packages }}"
+    state: present
+
 - name: begin configure
   include_tasks: ensure_up.yml
 

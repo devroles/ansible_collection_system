@@ -25,3 +25,6 @@ jenkins_configure_security_roles:
       - hudson.model.Item.Read
     sids:
       - anonymous
+
+jenkins_configure_packages:
+  - openssl
