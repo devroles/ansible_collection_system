@@ -6,9 +6,9 @@
   import_tasks:
     file: vagrant.yml
 
-- name: setup blu ray support
-  import_tasks:
-    file: blu_ray.yml
+#- name: setup blu ray support
+#  import_tasks:
+#    file: blu_ray.yml
 
 - name: setup user-space virtualenvs
   import_tasks:
