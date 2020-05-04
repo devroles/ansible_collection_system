@@ -82,3 +82,5 @@ gui_flatpaks:
   - com.makemkv.MakeMKV
   - org.videolan.VLC
   - org.videolan.VLC.Plugin.makemkv
+  - com.valvesoftware.Steam
+  - com.valvesoftware.Steam.Utility.protontricks
