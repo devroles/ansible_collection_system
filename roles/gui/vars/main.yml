@@ -62,7 +62,6 @@ gui_packages:
   - virt-manager
   - HandBrake-gui
   - transmission
-  - vlc
   - NetworkManager-openvpn
   - NetworkManager-openvpn-gnome
   - avidemux-gui
@@ -79,3 +78,7 @@ gui_packages:
   - ffmpeg
   - nautilus-python
   - python3-gobject
+gui_flatpaks:
+  - com.makemkv.MakeMKV
+  - org.videolan.VLC
+  - org.videolan.VLC.Plugin.makemkv

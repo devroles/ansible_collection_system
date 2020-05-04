@@ -38,3 +38,16 @@
   become: true
   with_items:
     - redhat-corp
+
+- name: configure flatpak repos
+  become: true
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+- name: install flatpaks
+  become: true
+  flatpak:
+    name: "{{ item }}"
+  loop: "{{ gui_flatpaks }}"
