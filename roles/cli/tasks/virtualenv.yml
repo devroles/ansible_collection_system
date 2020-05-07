@@ -19,6 +19,7 @@
         - Pygments
         - twine
         - wheel
+        - PyGithub
       python: python3
   retries: 3
   register: create_virtualenvs
