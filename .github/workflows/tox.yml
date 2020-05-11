@@ -16,31 +16,46 @@ env:
   checkout_path: ansible_collections/devroles/system
 
 jobs:
+  collect:
+    runs-on: ubuntu-latest
+    outputs:
+      scenarios: ${{ steps.collection.outputs.scenarios }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: Setup pip cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: pip-modules
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          set -ex
+          python -m pip install --upgrade pip
+          pip install tox tox-ansible
+      - name: collect depenencies
+        id: collection
+        run: |
+          set -ex
+          json="["
+          for x in $(tox -l --ansible-driver docker); do
+            json="${json}\"${x}\","
+          done
+          json="${json%,}]"
+          echo "::set-output name=scenarios::${json}"
+
   build:
+    needs: collect
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        role:
-          - authorized_key
-          - bashrc
-          - cli
-          - common
-          - copy_or_link
-          - dev
-          - dhcpd
-          - disable_deltarpm
-          - gitconfig
-          - gui
-          - jenkins
-          - jenkins_master
-          - jenkins_configure
-          - mariadb
-          - mirror
-          - python_prep
-          - sudoers
-          - virtualenv_ansible_python
-          - vimrc
+        scenario: ${{ fromJson(needs.collect.outputs.scenarios) }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -66,12 +81,12 @@ jobs:
           pip install -U setuptools
           pip install -U wheel
           pip install tox tox-ansible
-      - name: Test with tox
+      - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
           mv ansible_collections ~/work/
           cd ~/work/${{ env.checkout_path }}
-          tox --ansible-role ${{ matrix.role }}
+          tox -e ${{ matrix.scenario }}
 
   release:
     needs: build
