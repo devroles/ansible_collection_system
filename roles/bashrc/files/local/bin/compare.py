@@ -43,8 +43,8 @@ while original.Error() == '\x00' and test.Error() == '\x00':
     oText = original.RenderText()
     tText = test.RenderText()
     if oText != tText:
-        print('Mismatch in {0}\nOriginal text is**********:\n{0}\n'
-              'New Text is*********:\n{0}\n'
+        print('Mismatch in {0}\nOriginal text is**********:\n{1}\n'
+              'New Text is*********:\n{2}\n'
               .format(key.getText(), oText, tText))
     # Increment the keys to the next verse, and provide feedback if we have
     # finished comparing an entire canonical book
