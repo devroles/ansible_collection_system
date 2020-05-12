@@ -6,4 +6,7 @@
         - dnszone
     - role: dns_server
       dns_server_domains:
-        - a
+        fiddlesticks.com:
+          - name: '@'
+            type: A
+            value: 127.0.0.1
