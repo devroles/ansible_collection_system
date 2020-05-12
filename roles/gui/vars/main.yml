@@ -78,9 +78,18 @@ gui_packages:
   - ffmpeg
   - nautilus-python
   - python3-gobject
+  # Needed by Wine and Battle.net
+  - gnutls
+  - gnutls-devel
+  - openldap
+  - openldap-devel
+  - libgpg-error
+  - sqlite2.i686
+  - sqlite2.x86_64
+  - wine
 gui_flatpaks:
   - com.makemkv.MakeMKV
   - org.videolan.VLC
-  - org.videolan.VLC.Plugin.makemkv
+  - runtime/org.videolan.VLC.Plugin.makemkv/x86_64/3-19.08
   - com.valvesoftware.Steam
   - com.valvesoftware.Steam.Utility.protontricks
