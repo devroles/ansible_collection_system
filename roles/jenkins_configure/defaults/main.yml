@@ -65,7 +65,7 @@ jenkins_configure_plugins:
   junit:
   linenumbers:
   mailer:
-  matrix-auth:
+  #matrix-auth:
   matrix-project:
   Matrix-sorter-plugin:
   multiple-scms:
@@ -99,7 +99,7 @@ jenkins_configure_plugins:
   pyenv-pipeline:
   python:
   rebuild:
-  role-strategy:
+  #role-strategy:
   #ruby-runtime:  # needed for gitlab-hook, doesn't support Java 11
   saferestart:
   schedule-build:
