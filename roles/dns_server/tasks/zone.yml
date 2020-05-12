@@ -16,4 +16,4 @@
     type: "{{ item.type }}"
     name: "{{ item.name }}"
     value: "{{ item.value }}"
-  loop: "{{ domain.value.records | default([]) }}"
+  loop: "{{ domain.value | default([]) }}"
