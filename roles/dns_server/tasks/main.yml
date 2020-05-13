@@ -6,7 +6,7 @@
 
 - name: create zone entries
   include_tasks: zone.yml
-  loop: "{{ lookup('dict', dns_server_domains) }}"
+  loop: "{{ lookup('dict', dns_server_domains, wantlist=True) }}"
   loop_control:
     loop_var: domain
 
