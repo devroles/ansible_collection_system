@@ -99,7 +99,7 @@ jenkins_configure_plugins:
   pyenv-pipeline:
   python:
   rebuild:
-  #role-strategy:
+  role-strategy:
   #ruby-runtime:  # needed for gitlab-hook, doesn't support Java 11
   saferestart:
   schedule-build:
