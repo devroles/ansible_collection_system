@@ -5,15 +5,6 @@
     system_repositories_configs: "{{ gui_repositories }}"
     system_repositories_rpm_keys: "{{ gui_gpg_keys }}"
 
-- name: download SpiderOak RPM
-  get_url:
-    url: https://spideroak.com/release/spideroak/rpm_x64
-    dest: /tmp/spideroak.rpm
-    validate_certs: false
-  register: _download_spideroak
-  retries: 5
-  until: _download_spideroak is success
-
 - name: install necessary GUI packages
   become: true
   package:
