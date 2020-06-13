@@ -44,7 +44,7 @@
     state: started
     enabled: true
   when:
-    - ansible_connection != 'docker'
+    - ansible_connection not in ['docker', 'podman']
 
 - name: start database standalone
   become: true
@@ -52,7 +52,7 @@
   args:
     creates: /var/run/mariadb/mariadb.pid
   when:
-    - ansible_connection == 'docker'
+    - ansible_connection in ['docker', 'podman']
 
 - name: configure MariaDB access
   include_tasks:
