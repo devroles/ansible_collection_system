@@ -3,7 +3,7 @@
     - role: mirror
       mirror_list:
         - name: centos
-          src: rsync://mirror.netdepot.com/centos/{8,8.*}
+          src: rsync://mirror.netdepot.com/centos/
           dest: .
           base: /var/mirror
           excludes:
@@ -19,6 +19,8 @@
             - isos
             - atomic
             - "8.0*"
+            - "7*"
+            - "6*"
   post_tasks:
     - name: run doohickey
       command: ./centos.sh
