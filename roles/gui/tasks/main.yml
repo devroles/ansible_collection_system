@@ -9,6 +9,7 @@
   get_url:
     url: https://spideroak.com/release/spideroak/rpm_x64
     dest: /tmp/spideroak.rpm
+    validate_certs: false
   register: _download_spideroak
   retries: 5
   until: _download_spideroak is success
