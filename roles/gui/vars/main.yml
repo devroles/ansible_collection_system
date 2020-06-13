@@ -50,8 +50,11 @@ gui_repositories:
     baseurl: http://dl.google.com/linux/talkplugin/rpm/stable/x86_64/
     gpgcheck: true
     description: Google Talk Plugin
+  - name: SpiderOakONE-stable
+    baseurl: https://apt.spideroak.com/spideroak_one_rpm/stable
+    gpgcheck: false
 gui_packages:
-  - /tmp/spideroak.rpm
+  - SpiderOak
   - vim-X11
   - google-chrome-stable
   - gnome-tweak-tool
