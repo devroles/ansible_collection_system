@@ -14,23 +14,6 @@
   register: install_gui
   until: install_gui is success
 
-- name: create Chrome kerberos paths
-  file:
-    dest: /etc/opt/chrome/policies/managed
-    state: directory
-    owner: root
-  become: true
-
-- name: configure Chrome for Kerberos
-  template:
-    src: "{{ item }}.json"
-    dest: /etc/opt/chrome/policies/managed/{{ item }}.json
-    owner: root
-    mode: 0755
-  become: true
-  with_items:
-    - redhat-corp
-
 - name: configure flatpak repos
   become: true
   flatpak_remote:

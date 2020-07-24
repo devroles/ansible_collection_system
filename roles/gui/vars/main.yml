@@ -4,7 +4,6 @@ gui_gpg_keys:
   - https://swdl.bluejeans.com/repos/bluejeans/bjn-key
   # yamllint disable-line rule:line-length
   - https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/pubkey.gpg
-  - https://dl.google.com/linux/linux_signing_key.pub
 gui_repositories:
   # ##########################################################################
   # Also present in the CLI role - update there as well
@@ -40,26 +39,19 @@ gui_repositories:
     gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/pubkey.gpg
     gpgcheck: true
     description: Greg Hellings' builds of Entropy Piano Tuner
-  - name: google-chrome
-    baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
+  - name: spideroak-one-stable
+    file: SpiderOakONE-stable
+    description: SpiderOakONE Stable Distribution
+    baseurl: https://apt.spideroak.com/spideroak_one_rpm/stable
     gpgcheck: true
     enabled: true
-    description: google-chrome
-    gpgkey: https://dl.google.com/linux/linux_signing_key.pub
-  - name: google-talkplugin
-    baseurl: http://dl.google.com/linux/talkplugin/rpm/stable/x86_64/
-    gpgcheck: true
-    description: Google Talk Plugin
-  - name: SpiderOakONE-stable
-    baseurl: https://apt.spideroak.com/spideroak_one_rpm/stable
-    gpgcheck: false
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-spideroak-2011
+    enablegroups: false
 gui_packages:
   - SpiderOak
   - vim-X11
-  - google-chrome-stable
   - gnome-tweak-tool
   - gnome-shell-extension-*
-  - hexchat
   - polkit-gnome
   - shutter
   - virt-manager
@@ -83,14 +75,14 @@ gui_packages:
   - nautilus-python
   - python3-gobject
   # Needed by Wine and Battle.net
-  - gnutls
-  - gnutls-devel
-  - openldap
-  - openldap-devel
-  - libgpg-error
-  - sqlite2.i686
-  - sqlite2.x86_64
-  - wine
+  #- gnutls
+  #- gnutls-devel
+  #- openldap
+  #- openldap-devel
+  #- libgpg-error
+  #- sqlite2.i686
+  #- sqlite2.x86_64
+  #- wine
 gui_flatpaks:
   - com.makemkv.MakeMKV
   - org.videolan.VLC
