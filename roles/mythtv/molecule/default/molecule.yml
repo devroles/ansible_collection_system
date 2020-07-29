@@ -1,0 +1,6 @@
+driver:
+  name: openstack
+platforms:
+  - name: mythtv_default
+    image: Fedora 31
+    flavor: ci.m1.medium

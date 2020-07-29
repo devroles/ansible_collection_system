@@ -1,7 +1,7 @@
 - name: create mariadb
   hosts: all
   roles:
-    - oasis_roles.system_repositories
+    - oasis_roles.system.system_repositories
     - devroles.system.disable_deltarpm
     - devroles.system.mariadb
   vars:

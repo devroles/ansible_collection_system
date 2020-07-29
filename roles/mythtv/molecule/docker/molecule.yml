@@ -1,8 +1,0 @@
-dependency:
-  options:
-    role-file: molecule/shared/requirements.yml
-driver:
-  name: docker
-platforms:
-  - name: mythtv
-    image: fedora:latest
