@@ -5,6 +5,7 @@ mirror_list:
     src: rsync://example.com/path
     dest: some/local/path
     base: /var/www/repo_mirror
+    script_home: /var/www  # default: item.base
     #owner: derp
     #group: derp
     #mode: "0755"

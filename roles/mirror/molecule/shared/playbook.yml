@@ -6,6 +6,8 @@
           src: rsync://mirror.netdepot.com/centos/
           dest: .
           base: /var/mirror
+          script_home: /root
+          mode: '775'
           excludes:
             - AppStream
             - BaseOS
@@ -18,14 +20,12 @@
             - ppc64le
             - isos
             - atomic
-            - "8.0*"
+            - "8*"
             - "7*"
             - "6*"
   post_tasks:
     - name: run doohickey
-      command: ./centos.sh
-      args:
-        chdir: /var/mirror
+      command: /root/centos.sh
       register: _mirror
       changed_when: false
 
