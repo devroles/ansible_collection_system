@@ -4,3 +4,8 @@ platforms:
   - name: mythtv_default
     image: Fedora 31
     flavor: ci.m1.medium
+provisioner:
+  inventory:
+    host_vars:
+      localhost:
+        molecule_openstack_ci_ssh_user: fedora
