@@ -1,5 +1,5 @@
 driver:
   name: docker
 platforms:
-  - name: mariadb
+  - name: mariadb_centos8
     image: centos:8

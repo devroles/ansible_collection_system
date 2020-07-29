@@ -13,6 +13,7 @@
   retries: 10
   delay: 2
   until: configure_admin is success
+  changed_when: false  # TODO: Remove when module is right
 
 - name: configure my.cnf
   ini_file:
