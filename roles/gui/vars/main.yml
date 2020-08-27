@@ -68,6 +68,8 @@ gui_packages:
   - redhat-display-fonts
   - virt-viewer
   - libbluray-utils
+  - libbluray-bdj
+  - libaacs-utils
   # needed for Chrome cast Gnome Shell extensions
   - npm
   - node
