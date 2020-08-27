@@ -2,6 +2,8 @@
   lineinfile:
     dest: "{{ jenkins_master_version_pin_file }}"
     state: present
+    mode: 0644
+    create: true
     regexp: "^exclude=.*"
     line: >-
       exclude={{ jenkins_master_upgrade_blacklist
@@ -23,7 +25,9 @@
 - name: pin certain packages
   lineinfile:
     dest: "{{ jenkins_master_version_pin_file }}"
-    line: "exclude={{ jenkins_master_upgrade_blacklist | join(' ') }}"
     state: present
+    mode: 0644
+    create: true
     regexp: "^exclude=.*$"
+    line: "exclude={{ jenkins_master_upgrade_blacklist | join(' ') }}"
   when: jenkins_master_block_upgrade
