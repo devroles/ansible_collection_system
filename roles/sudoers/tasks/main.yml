@@ -31,7 +31,7 @@
     dest: /etc/sudoers.d/
     owner: root
     group: root
-    mode: "600"
+    mode: 0600
   with_items:
     - sudoers
     - sudoers_no_password
