@@ -3,6 +3,7 @@
     dest: "{{ item }}"
     state: directory
     force: true
+    mode: "0644"
   with_items:
     - "{{ ansible_user_dir }}/.vim"
     - "{{ ansible_user_dir }}/.vim/autoload"
