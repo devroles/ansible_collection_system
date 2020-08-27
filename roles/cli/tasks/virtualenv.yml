@@ -7,19 +7,7 @@
     virtualenv_site_packages: true
   with_items:
     - name: tools3
-      packages: &packages
-        - ansible
-        - cookiecutter
-        - docker
-        - ipython
-        - molecule
-        - openstacksdk
-        - ovirt-engine-sdk-python
-        - progressbar2
-        - Pygments
-        - twine
-        - wheel
-        - PyGithub
+      packages: "{{ cli_python_packages }}"
       python: python3
   retries: 3
   register: create_virtualenvs

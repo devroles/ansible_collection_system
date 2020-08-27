@@ -1,28 +1,22 @@
 - name: install CLI repos and packages
-  import_tasks:
-    file: cli.yml
+  import_tasks: cli.yml
 
 - name: setup vagarnt
-  import_tasks:
-    file: vagrant.yml
+  import_tasks: vagrant.yml
 
 #- name: setup blu ray support
 #  import_tasks:
 #    file: blu_ray.yml
 
 - name: setup user-space virtualenvs
-  import_tasks:
-    file: virtualenv.yml
+  import_tasks: virtualenv.yml
 
 - name: setup libvirt
-  import_tasks:
-    file: libvirt.yml
+  import_tasks: libvirt.yml
 
 - name: setup packer
-  import_tasks:
-    file: packer.yml
+  import_tasks: packer.yml
 
 - name: setup kerberos
-  import_tasks:
-    file: kerberos.yml
+  import_tasks: kerberos.yml
   when: kerberos is defined

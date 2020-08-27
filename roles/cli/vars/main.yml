@@ -51,6 +51,7 @@ cli_repositories:
     repo_gpgcheck: false
     description: RPMFusion nonfree - updates
 cli_packages:
+  - awscli
   - HandBrake-cli
   - libaacs
   - jq
@@ -62,14 +63,7 @@ cli_packages:
   # Python tools
   - python-virtualenv
   - entr
-  - python3-flake8
-  - python3-tox
-  - twine
-  - python3-jinja2
-  - python3-shade
-  - python3-ipython
   - ShellCheck
-  - ansible-lint
   - pyp2rpm
   # Dev tools
   - libcurl-devel
@@ -108,3 +102,17 @@ cli_remove_packages:
   - ghc-ghc
   - PackageKit
   - thunderbird
+cli_python_packages:
+  - ansible
+  - cookiecutter
+  - docker
+  - ipython
+  - molecule
+  - openstacksdk
+  - ovirt-engine-sdk-python
+  - progressbar2
+  - Pygments
+  - wheel
+  - PyGithub
+  - tox
+  - xonsh
