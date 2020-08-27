@@ -9,6 +9,7 @@
 - name: uncomment baseurl lines
   replace:
     path: /etc/yum.repos.d/{{ item }}.repo
+    mode: preserve
     regexp: '^#baseurl=http://download.example/(.*)$'
     replace: baseurl=http://download.fedoraproject.org/\1
   loop: "{{ fedora_download_repos }}"
@@ -16,6 +17,7 @@
 - name: comment out metalink lines
   replace:
     path: /etc/yum.repos.d/{{ item }}.repo
+    mode: preserve
     regexp: '^metalink=(.*)$'
     replace: '#metalink=\1'
   loop: "{{ fedora_download_repos }}"
