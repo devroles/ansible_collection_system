@@ -21,6 +21,7 @@
     section: client
     option: "{{ item.option }}"
     value: "{{ item.value }}"
+    mode: 0600
   with_items:
     - option: password
       value: "{{ mariadb_admin_password }}"
