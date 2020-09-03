@@ -52,14 +52,16 @@ cli_repositories:
     description: RPMFusion nonfree - updates
 cli_packages:
   - awscli
-  - HandBrake-cli
-  - libaacs
-  - jq
   - gnupg2
+  - HandBrake-cli
+  - jq
+  - libaacs
   - origin-clients
-  - sword
+  - podman
   - python3-sword
+  - sword
   - sword-utils
+  - xonsh
   # Python tools
   - python-virtualenv
   - python3-devel
