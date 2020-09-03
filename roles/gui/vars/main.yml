@@ -43,9 +43,9 @@ gui_repositories:
     file: SpiderOakONE-stable
     description: SpiderOakONE Stable Distribution
     baseurl: https://apt.spideroak.com/spideroak_one_rpm/stable
-    gpgcheck: true
+    gpgcheck: false
     enabled: true
-    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-spideroak-2011
+    #gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-spideroak-2011
     enablegroups: false
 gui_packages:
   - SpiderOak
