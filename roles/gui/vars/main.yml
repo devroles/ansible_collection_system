@@ -39,12 +39,12 @@ gui_repositories:
     gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/pubkey.gpg
     gpgcheck: true
     description: Greg Hellings' builds of Entropy Piano Tuner
-  - name: spideroak-one-stable
-    file: SpiderOakONE-stable
-    description: SpiderOakONE Stable Distribution
-    baseurl: https://apt.spideroak.com/spideroak_one_rpm/stable
-    enabled: true
-    enablegroups: false
+      #- name: spideroak-one-stable
+      #file: SpiderOakONE-stable
+      #description: SpiderOakONE Stable Distribution
+      #baseurl: https://apt.spideroak.com/spideroak_one_rpm/stable
+      #enabled: true
+      #enablegroups: false
 gui_packages:
   - avidemux-gui
   - gnome-shell-extension-*
@@ -65,7 +65,7 @@ gui_packages:
   - redhat-display-fonts
   - redhat-text-fonts
   - shutter
-  - SpiderOak
+  - https://spideroak.com/release/spideroak/rpm_x64
   - vim-X11
   - virt-manager
   - virt-viewer
