@@ -46,28 +46,29 @@ gui_repositories:
     enabled: true
     enablegroups: false
 gui_packages:
-  - SpiderOak
-  - vim-X11
-  - gnome-tweak-tool
-  - gnome-shell-extension-*
-  - polkit-gnome
-  - shutter
-  - virt-manager
-  - HandBrake-gui
-  - transmission
-  - NetworkManager-openvpn
-  - NetworkManager-openvpn-gnome
   - avidemux-gui
-  - openshot
+  - gnome-shell-extension-*
+  - gnome-tweak-tool
   - grip
-  - qwinff
-  - mediawriter
-  - redhat-text-fonts
-  - redhat-display-fonts
-  - virt-viewer
+  - HandBrake-gui
+  - hexchat
+  - transmission
   - libbluray-utils
   - libbluray-bdj
   - libaacs-utils
+  - mediawriter
+  - NetworkManager-openvpn
+  - NetworkManager-openvpn-gnome
+  - openshot
+  - polkit-gnome
+  - qwinff
+  - redhat-display-fonts
+  - redhat-text-fonts
+  - shutter
+  - SpiderOak
+  - vim-X11
+  - virt-manager
+  - virt-viewer
   # needed for Chrome cast Gnome Shell extensions
   - npm
   - node
