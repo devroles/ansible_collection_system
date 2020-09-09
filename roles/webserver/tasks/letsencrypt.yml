@@ -35,7 +35,10 @@
 - name: create challenge dir for {{ domain.tld }}
   become: true
   file:
-    name: "/var/www/{{ domain.tld }}/{{ letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource'] | dirname }}"
+    name: >-
+      /var/www/{{ domain.tld }}/{{
+      letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource']
+      | dirname }}
     state: directory
     owner: nginx
     mode: "0755"
@@ -44,8 +47,8 @@
 - name: copy challenge file to server space for {{ domain.tld }}
   become: true
   copy:
-    dest: /var/www/{{ domain.tld }}/{{ letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource'] }}
-    content: "{{ letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource_value'] }}"
+    dest: /var/www/{{ domain.tld }}/{{ letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource'] }}  # yamllint disable-line rule:line-length
+    content: "{{ letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource_value'] }}"  # yamllint disable-line rule:line-length
     owner: nginx
     mode: "0644"
   when: letsencrypt_challenge is changed

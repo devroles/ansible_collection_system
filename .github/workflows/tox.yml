@@ -1,6 +1,6 @@
 name: Test with Ansible
 
-on:
+"on":
   push:
     branches:
       - '*'
@@ -101,9 +101,11 @@ jobs:
         with:
           submodules: 'recursive'
       - name: release!
+        # yamllint disable rule:line-length
         run: |
           ansible-galaxy collection build
           ansible-galaxy collection publish *.tar.gz --api-key ${{ secrets.GALAXY_API_KEY }}
+        # yamllint enable
       - name: Release artifacts to Git Hub
         uses: ncipollo/release-action@v1
         with:
