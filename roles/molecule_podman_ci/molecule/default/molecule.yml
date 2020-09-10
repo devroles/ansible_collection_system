@@ -1,0 +1,14 @@
+driver:
+  name: podman
+platforms:
+  - name: molecule_podman_ci
+    image: centos:7
+# TODO: Remove this once ansible-lint can support collection module calls
+lint: |
+  yamllint -c ../../tests/yamllint.yml .
+  find . -name '*.py' -print0 | xargs -l -0 flake8
+provisioner:
+  playbooks:
+    podman:
+      create: ../shared/create.yml
+      destroy: ../shared/destroy.yml

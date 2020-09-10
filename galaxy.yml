@@ -46,6 +46,7 @@ tags: []
 # yamllint enable
 dependencies:
   oasis_roles.system: ">=1.0.0"
+  containers.podman: ">=1.0.0"
 
 # The URL of the originating SCM repository
 repository: http://github.com/devroles/ansible_collection_system

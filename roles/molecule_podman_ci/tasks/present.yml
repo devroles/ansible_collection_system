@@ -1,0 +1,74 @@
+- name: Create Containerfile from image names
+  template:
+    src: Containerfile.j2
+    dest: >-
+      {{ molecule_ephemeral_directory }}/Containerfile_{{ item.image
+      | regex_replace('[^a-zA-Z0-9_]', '_') }}
+    mode: 0644
+  loop: "{{ molecule_podman_ci_platforms }}"
+  register: _molecule_podman_ci_platforms
+
+- name: Discover local Podman images
+  podman_image_info:
+    name: molecule_local/{{ item.item.name }}
+  loop: "{{ _molecule_podman_ci_platforms.results }}"
+  register: _molecule_podman_ci_images
+
+- debug:
+    msg: "{{ item.invocation.module_args.dest | dirname }}"
+  loop: "{{ _molecule_podman_ci_platforms.results }}"
+
+- name: Build an Ansible compatible image  # noqa 503
+  containers.podman.podman_image:
+    name: molecule_local/{{ item.item.image }}
+    pull: "{{ item.item.pull | default(true) }}"
+    force: "{{ item.item.force | default(true) }}"
+    path: >-
+      {{ item.item.containerfile
+      | default(item.invocation.module_args.dest | dirname) }}
+    build:
+      rm: true
+      extra_args:
+        -f {{ item.invocation.module_args.dest | basename }}
+  loop: "{{ _molecule_podman_ci_platforms.results }}"
+    #retries: 3
+    #until: _molecule_podman_ci_build is success
+  register: _molecule_podman_ci_build
+  when: >-
+    _molecule_podman_ci_platforms.changed or
+    _molecule_podman_ci_images.results
+    | map(attribute='images')
+    | select('equalto', [])
+    | list
+    | count >= 0
+
+- name: Create molecule instance(s)
+  containers.podman.podman_container:
+    name: "{{ item.name }}"
+    hostname: "{{ item.name }}"
+    image: molecule_local/{{ item.image }}
+    state: started
+    recreate: false
+    log_driver: json-file
+    command: >
+      {{ item.command | default('/usr/lib/systemd/systemd --system') }}
+    privileged: "{{ item.privileged | default(omit) }}"
+    volumes: "{{ item.volumes | default(omit) }}"
+    cap_add: "{{ item.capabilities | default(omit) }}"
+    exposed_ports: "{{ item.exposed_ports | default(omit) }}"
+    published_ports: "{{ item.published_ports | default(omit) }}"
+    ulimit: "{{ item.ulimits | default(omit) }}"
+    network: "{{ item.networks | default(omit) }}"
+    dns: "{{ item.dns_servers | default(omit) }}"
+  register: _molecule_podman_ci_server
+  loop: "{{ molecule_podman_ci_platforms }}"
+  async: 7200
+  poll: 0
+
+- name: Wait for instance(s) creation to complete
+  async_status:
+    jid: "{{ item.ansible_job_id }}"
+  register: _molecule_podman_ci_jobs
+  until: _molecule_podman_ci_jobs is finished
+  retries: 300
+  loop: "{{ _molecule_podman_ci_server.results }}"
