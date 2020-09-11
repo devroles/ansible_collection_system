@@ -46,17 +46,13 @@ gui_repositories:
       #enabled: true
       #enablegroups: false
 gui_packages:
-  - avidemux-gui
   - gnome-shell-extension-*
   - gnome-tweak-tool
   - grip
   - HandBrake-gui
-  - hexchat
-  - transmission
   - libbluray-utils
   - libbluray-bdj
   - libaacs-utils
-  - mediawriter
   - NetworkManager-openvpn
   - NetworkManager-openvpn-gnome
   - openshot
@@ -64,8 +60,6 @@ gui_packages:
   - qwinff
   - redhat-display-fonts
   - redhat-text-fonts
-  - shutter
-  - https://spideroak.com/release/spideroak/rpm_x64
   - vim-X11
   - virt-manager
   - virt-viewer
@@ -84,9 +78,18 @@ gui_packages:
   #- sqlite2.i686
   #- sqlite2.x86_64
   #- wine
+gui_flatpak_repos:
+  -  https://dl.flathub.org/repo/flathub.flatpakrepo
+  - oci+https://registry.fedoraproject.org
+  - https://nightly.gnome.org/gnome-nightly.flatpakrepo
+  - https://distribute.dke.org/kdeapps.flatpakrepo
 gui_flatpaks:
+  - org.avidemux.Avidemux
+  - io.github.Hexchat
   - com.makemkv.MakeMKV
-  - org.videolan.VLC
-  - runtime/org.videolan.VLC.Plugin.makemkv/x86_64/3-19.08
+  - org.fedoraproject.MediaWriter
   - com.valvesoftware.Steam
   - com.valvesoftware.Steam.Utility.protontricks
+  - com.transmissionbt.Transmission
+  - org.videolan.VLC
+  - runtime/org.videolan.VLC.Plugin.makemkv/x86_64/3-19.08

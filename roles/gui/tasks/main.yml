@@ -5,21 +5,32 @@
     system_repositories_configs: "{{ gui_repositories }}"
     system_repositories_rpm_keys: "{{ gui_gpg_keys }}"
 
+- name: install spideroak
+  become: true
+  package:
+    name: https://spideroak.com/release/spideroak/rpm_x64
+    state: present
+    disable_gpg_check: true
+  retries: 3
+  register: _gui_install_spideroak
+  until: _gui_install_spideroak is success
+
 - name: install necessary GUI packages
   become: true
   package:
     name: "{{ gui_packages }}"
     state: present
   retries: 3
-  register: install_gui
-  until: install_gui is success
+  register: _gui_install
+  until: _gui_install is success
 
 - name: configure flatpak repos
   become: true
   flatpak_remote:
     name: flathub
     state: present
-    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    flatpakrepo_url: "{{ item }}"
+  loop: "{{ gui_flatpak_repos }}"
 
 - name: install flatpaks
   become: true
