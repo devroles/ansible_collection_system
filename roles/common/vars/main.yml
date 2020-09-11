@@ -1,7 +1,9 @@
+common_selinux_packages:
+  - python3-libselinux
+  - selinux-policy
 common_packages:
   - vim
   - git
-  - python3-libselinux
   - mlocate
   - openssh-server
   - patch

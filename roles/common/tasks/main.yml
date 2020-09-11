@@ -14,9 +14,15 @@
     name: "{{ common_packages }}"
     state: present
 
-- name: disable selinux
+- block:
+    - name: install python SELinux packages
+      package:
+        name: "{{ common_selinux_packages }}"
+        state: present
+
+    - name: disable selinux
+      selinux: state=disabled
   become: true
-  selinux: state=disabled
   when:
     - ansible_os_family != 'Darwin'
     - ansible_connection != 'docker'
@@ -30,4 +36,4 @@
     enabled: true
   when:
     - ansible_os_family != 'Darwin'
-    - ansible_connection != 'docker'
+    - ansible_connection not in ['docker', 'podman']
