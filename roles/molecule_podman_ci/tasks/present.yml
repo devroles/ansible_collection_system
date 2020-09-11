@@ -51,7 +51,7 @@
     recreate: false
     log_driver: json-file
     command: >
-      {{ item.command | default('/usr/lib/systemd/systemd --system') }}
+      {{ item.command | default('/sbin/init') }}
     privileged: "{{ item.privileged | default(omit) }}"
     volumes: "{{ item.volumes | default(omit) }}"
     cap_add: "{{ item.capabilities | default(omit) }}"
