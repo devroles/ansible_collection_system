@@ -119,4 +119,5 @@ cli_python_packages:
   - wheel
   - PyGithub
   - tox
+  - tox-ansible
   - xonsh

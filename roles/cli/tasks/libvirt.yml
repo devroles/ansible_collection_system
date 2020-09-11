@@ -33,7 +33,7 @@
   service:
     name: libvirtd
     state: stopped
-  when: check is changed and ansible_connection != 'docker'
+  when: check is changed and ansible_connection not in ['docker', 'podman']
 
 - name: configure libvirt storage
   become: true
@@ -50,7 +50,7 @@
     name: libvirtd
     state: started
     enabled: true
-  when: ansible_connection != 'docker'
+  when: ansible_connection not in ['docker', 'podman']
 
 - name: add current user to libvirt group
   become: true
