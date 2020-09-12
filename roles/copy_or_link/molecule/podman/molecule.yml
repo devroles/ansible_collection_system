@@ -1,0 +1,8 @@
+driver:
+  name: podman
+platforms:
+  - name: copy_or_link
+    image: centos:8
+provisioner:
+  playbooks:
+    converge: playbook.yml

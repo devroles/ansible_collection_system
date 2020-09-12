@@ -43,7 +43,7 @@ jobs:
         run: |
           set -ex
           json="["
-          for x in $(tox -l --ansible-driver docker); do
+          for x in $(tox -l --ansible-driver docker --ansible-driver podman); do
             json="${json}\"${x}\","
           done
           json="${json%,}]"
