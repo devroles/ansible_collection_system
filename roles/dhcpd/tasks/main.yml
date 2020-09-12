@@ -1,22 +1,22 @@
 - name: install dhcpd packages
-  become: true
+  become: "{{ dhcpd_become }}"
   package:
     name: "{{ dhcpd_packages }}"
     state: present
 
-- name: configure dhcpd.conf
-  become: true
+- name: configure dhcp options
+  become: "{{ dhcpd_become }}"
   template:
-    src: dhcpd.conf
-    dest: /etc/dhcp/dhcpd.conf
+    src: "{{ dhcpd_provider }}_dhcp.conf"
+    dest: "{{ dhcpd_config_dest }}"
     owner: root
     group: root
     mode: "0644"
   notify: restart dhcpd
 
 - name: start dhcpd
-  become: true
+  become: "{{ dhcpd_become }}"
   service:
-    name: dhcpd
+    name: "{{ dhcpd_provider }}"
     state: started
     enabled: true

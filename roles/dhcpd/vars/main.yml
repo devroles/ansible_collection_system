@@ -1,2 +1,4 @@
+dhcpd_config_dest: /etc/dnsmasq.d/dhcp.conf
+dhcpd_provider: dnsmasq
 dhcpd_packages:
-  - dhcp
+  - dnsmasq

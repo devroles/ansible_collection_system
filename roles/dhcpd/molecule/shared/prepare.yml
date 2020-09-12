@@ -2,7 +2,7 @@
   hosts: all
   tasks:
     - name: install iproute - without it, Ansible won't probe IP info
-      become: true
+      become: "{{ ansible_connection not in ['docker', 'podman'] }}"
       package:
         name: iproute
         state: present
