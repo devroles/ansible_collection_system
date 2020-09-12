@@ -39,12 +39,12 @@ gui_repositories:
     gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/pubkey.gpg
     gpgcheck: true
     description: Greg Hellings' builds of Entropy Piano Tuner
-      #- name: spideroak-one-stable
-      #file: SpiderOakONE-stable
-      #description: SpiderOakONE Stable Distribution
-      #baseurl: https://apt.spideroak.com/spideroak_one_rpm/stable
-      #enabled: true
-      #enablegroups: false
+    #- name: spideroak-one-stable
+    #file: SpiderOakONE-stable
+    #description: SpiderOakONE Stable Distribution
+    #baseurl: https://apt.spideroak.com/spideroak_one_rpm/stable
+    #enabled: true
+    #enablegroups: false
 gui_packages:
   - gnome-shell-extension-*
   - gnome-tweak-tool
@@ -79,7 +79,7 @@ gui_packages:
   #- sqlite2.x86_64
   #- wine
 gui_flatpak_repos:
-  -  https://dl.flathub.org/repo/flathub.flatpakrepo
+  - https://dl.flathub.org/repo/flathub.flatpakrepo
   - oci+https://registry.fedoraproject.org
   - https://nightly.gnome.org/gnome-nightly.flatpakrepo
   - https://distribute.dke.org/kdeapps.flatpakrepo
