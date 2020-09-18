@@ -1,7 +1,7 @@
 # Basic
 jenkins_user: jenkins
 jenkins_home: /var/lib/jenkins
-jenkins_master_version: "2.204.2"
+jenkins_master_version: "2.249.1"
 jenkins_master_session_timeout: 480
 jenkins_master_heap_size: 3g
 jenkins_master_http_listen_address: ''
