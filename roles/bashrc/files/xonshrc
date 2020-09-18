@@ -121,5 +121,5 @@ builtins.null = None
 $PROMPT = '{vte_new_tab_cwd}' + $PROMPT
 
 # And, of course, my secrets like passwords and such
-if os.path.exists($HOME + "/.bash_local"):
-    source-bash $HOME + "/.bash_local"
+#if os.path.exists($HOME + "/.bash_local"):
+#    source-bash @($HOME + "/.bash_local")
