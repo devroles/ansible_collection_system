@@ -1,7 +1,0 @@
-driver:
-  name: docker
-platforms:
-  - name: remove_metalink
-    image: fedora:latest
-verifier:
-  name: ansible

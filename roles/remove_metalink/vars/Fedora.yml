@@ -1,7 +1,0 @@
-fedora_download_repos:
-  - fedora-modular
-  - fedora
-  - fedora-updates-modular
-  - fedora-updates
-  - fedora-updates-testing-modular
-  - fedora-updates-testing
