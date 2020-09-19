@@ -5,7 +5,7 @@
     state: directory
     owner: "{{ jenkins_user }}"
     group: jenkins
-    mode: 0700
+    mode: 0755
 
 - name: get certificates
   become: true
