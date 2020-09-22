@@ -19,13 +19,13 @@
   file:
     name: "{{ jenkins_user_home }}/.ssh"
     owner: "{{ jenkins_user }}"
+    group: jenkins
     mode: 0700
     state: directory
 
 - name: ensure user has SSH key for Jenkins CLI usage
   command: >-
-    ssh-keygen -b 4096 -t rsa -f {{ jenkins_user_home }}/.ssh/id_rsa
-    -N ''
+    ssh-keygen -b 4096 -t rsa -f {{ jenkins_user_home }}/.ssh/id_rsa -N ''
   args:
     creates: "{{ jenkins_user_home }}/.ssh/id_rsa"
   become: true
