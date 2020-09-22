@@ -9,7 +9,6 @@
 
 - name: get certificates
   become: true
-  become_user: "{{ jenkins_user }}"
   shell: >-
     set -e -o pipefail; openssl s_client -showcerts -connect
     {{ item.url | urlsplit("hostname") }}:443
