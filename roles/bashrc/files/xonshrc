@@ -82,14 +82,16 @@ def _rundock(args):
         e = 'podman'
     else:
         e = 'docker'
-    @(e) start -a -i @(args[0])
+    @(e) exec -ti @(args[0]) /bin/bash
 
+# Container stuff
 def _newdock(args):
     if os.path.exists('/usr/bin/podman'):
         e = 'podman'
     else:
         e = 'docker'
-    @(e) run -P --privileged=true -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v @(os.getcwd()):/dmnt -t -i --name @(args[1]) @(args[0]) /bin/bash
+    @(e) run -P --privileged=true -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v @(os.getcwd()):/dmnt -v /etc/pki:/etc/pki:ro -d --name @(args[1]) @(args[0]) /sbin/init
+    rundock @(args[1])
 
 def _unknown_host(args):
     sed -i -e @(args[0])d ~/.ssh/known_hosts
