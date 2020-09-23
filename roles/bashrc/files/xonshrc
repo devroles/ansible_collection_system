@@ -16,15 +16,12 @@ $PATH = ['$HOME/.gem/ruby/gems/travis-1.8.10/bin',
     '/opt/intellij/bin',
     '/opt/packer'] + $PATH
 $PKG_CONFIG_PATH = '/usr/local/lib/pkgconfig'
+# Tells vox where to find virtualenvs
 $VIRTUALENV_HOME = $HOME + '/venv/'
 $PROMPT = '{env_name}{BOLD_GREEN}{user}@{hostname}{BOLD_BLUE} {short_cwd}{branch_color}{curr_branch: {}}{NO_COLOR} {BOLD_BLUE}{prompt_end}{NO_COLOR} '
 
 
 $SWORD_PATH = $HOME + '/.sword'
-$ANSIBLE_COLLECTIONS_PATHS = [
-    $HOME + '/.ansible',
-    $HOME + '/src'
-]
 $OS_CLOUD = 'default'
 
 
