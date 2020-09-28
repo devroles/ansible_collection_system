@@ -1,0 +1,5 @@
+molecule_vagrant_ci_state: present
+molecule_vagrant_ci_platforms: "{{ molecule_yml.platforms }}"
+molecule_vagrant_ci_provider: >-
+  {{ molecule_yml.driver.provider.name | default(omit, true) }}
+molecule_vagrant_ci_instance_config: "{{ molecule_instance_config }}"

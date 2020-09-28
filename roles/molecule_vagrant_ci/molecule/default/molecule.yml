@@ -1,0 +1,13 @@
+driver:
+  name: vagrant
+platforms:
+  - name: molecule-vagrant-ci
+    box: greg-hellings/fedora-32-x86_64
+# TODO: Remove this once ansible-lint can support collection module calls
+lint: |
+  yamllint -c ../../tests/yamllint.yml .
+provisioner:
+  playbooks:
+    vagrant:
+      create: ../shared/create.yml
+      destroy: ../shared/destroy.yml

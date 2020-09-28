@@ -1,0 +1,9 @@
+- name: destroy instance
+  vagrant:
+    instance_name: "{{ item.name }}"
+    platform_box: >-
+      {{ item.box | default('greg-hellings/' +
+      molecule_vagrant_ci_lookup[item.image | default('centos:8')]) }}
+    provider_name: "{{ molecule_vagrant_ci_provider }}"
+    provider_options: "{{ item.provider_options | default(omit) }}"
+    provider_raw_config_args: 

@@ -1,0 +1,7 @@
+- name: be sure state is correct
+  assert:
+    that: molecule_vagrant_ci_state in ['present', 'absent']
+    msg: You must specify state as either "present" or "absent"
+
+- name: execute tasks
+  include_tasks: "{{ molecule_vagrant_ci_state }}.yml"

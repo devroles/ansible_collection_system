@@ -1,9 +1,7 @@
 driver:
   name: docker
 platforms:
-  - name: jenkins_master
+  - name: jenkinsmaster
     image: centos:8
-    privileged: true
-    command: /usr/lib/systemd/systemd --system
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: /sbin/init
+    box: greg-hellings/centos-8-x86_64

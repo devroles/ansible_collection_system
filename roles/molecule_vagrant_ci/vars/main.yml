@@ -1,0 +1,6 @@
+molecule_vagrant_ci_lookup:
+  "centos:8": centos-8-x86_64
+  "centos:7": centos-7-x86_64
+  "centos/systemd": centos-7-x86_64
+  "fedora:32": fedora-32-x86_64
+  "fedora:latest": fedora-32-x86_64

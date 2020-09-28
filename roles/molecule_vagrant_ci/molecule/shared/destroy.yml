@@ -1,0 +1,7 @@
+- name: Destroy
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - name: molecule_vagrant_ci
+      molecule_vagrant_ci_state: absent
