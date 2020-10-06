@@ -44,7 +44,7 @@ jobs:
 
   build:
     needs: collect
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
