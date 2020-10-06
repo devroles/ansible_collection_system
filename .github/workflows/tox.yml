@@ -67,7 +67,8 @@ jobs:
           pip install -U setuptools
           pip install -U wheel
           cd "${{ env.checkout_path }}"
-          pip install -r test-requirements.txt
+          #pip install -r test-requirements.txt
+          pip install tox
       - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
@@ -77,7 +78,7 @@ jobs:
           sudo rm -rf /usr/local/go1* /usr/share/{dotnet,rust} \
           /usr/local/julia* /usr/lib/firefox /usr/lib/llvm* /usr/share/gradle* \
           /usr/lib/google-cloud-sdk
-          tox -e ${{ matrix.scenario }}
+          tox -e derp
 
   release:
     needs: build
