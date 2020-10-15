@@ -1,6 +1,0 @@
-- hosts: all
-  tasks:
-    - name: touch file
-      file:
-        state: touch
-        dest: /root/second

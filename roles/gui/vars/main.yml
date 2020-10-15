@@ -49,13 +49,11 @@ gui_packages:
   - gnome-shell-extension-*
   - gnome-tweak-tool
   - grip
-  - HandBrake-gui
   - libbluray-utils
   - libbluray-bdj
   - libaacs-utils
   - NetworkManager-openvpn
   - NetworkManager-openvpn-gnome
-  - openshot
   - polkit-gnome
   - qwinff
   - redhat-display-fonts
@@ -82,12 +80,14 @@ gui_flatpak_repos:
   - https://dl.flathub.org/repo/flathub.flatpakrepo
   - oci+https://registry.fedoraproject.org
   - https://nightly.gnome.org/gnome-nightly.flatpakrepo
-  - https://distribute.dke.org/kdeapps.flatpakrepo
+  - https://distribute.kde.org/kdeapps.flatpakrepo
 gui_flatpaks:
   - org.avidemux.Avidemux
+  - fr.handbrake.ghb
   - io.github.Hexchat
   - com.makemkv.MakeMKV
   - org.fedoraproject.MediaWriter
+  - org.openshot.OpenShot
   - com.valvesoftware.Steam
   - com.valvesoftware.Steam.Utility.protontricks
   - com.transmissionbt.Transmission

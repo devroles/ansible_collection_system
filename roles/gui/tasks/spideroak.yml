@@ -1,0 +1,29 @@
+- name: create download destination for RPM
+  ansible.builtin.tempfile:
+    state: directory
+  register: _gui_spideroak_dest
+  changed_when: false
+
+- name: download Spideroak
+  ansible.builtin.get_url:
+    url: https://spideroak.com/release/spideroak/rpm_x64
+    dest: "{{ _gui_spideroak_dest.path }}/spideroak.rpm"
+    mode: 0644
+  retries: 3
+  register: _gui_get_spideroak
+  until: _gui_get_spideroak is success
+  changed_when: false
+
+- name: install Spideroak
+  become: true
+  package:
+    name: "{{ _gui_spideroak_dest.path }}/spideroak.rpm"
+    state: present
+    disable_gpg_check: true
+
+- name: remove temp Spideroak destination
+  file:
+    path: "{{ _gui_spideroak_dest.path }}"
+    state: absent
+  when: _gui_spideroak_dest.path is defined
+  changed_when: false

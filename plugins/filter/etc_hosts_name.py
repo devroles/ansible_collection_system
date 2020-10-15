@@ -5,6 +5,7 @@ def etc_hosts_name(value):
         names.append('.'.join(domains[:i]))
     return ' '.join(names)
 
+
 class FilterModule(object):
     def filters(self):
         return {
