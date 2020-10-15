@@ -65,8 +65,7 @@ jobs:
         run: |
           pip install -U pip
           cd "${{ env.checkout_path }}"
-          #pip install -r test-requirements.txt
-          pip install tox
+          pip install -r test-requirements.txt
       - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
