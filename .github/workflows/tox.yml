@@ -76,7 +76,7 @@ jobs:
           sudo rm -rf /usr/local/go1* /usr/share/{dotnet,rust} \
           /usr/local/julia* /usr/lib/firefox /usr/lib/llvm* /usr/share/gradle* \
           /usr/lib/google-cloud-sdk
-          tox -e derp
+          tox -e ${{ matrix.scenario }}
 
   release:
     needs: build
