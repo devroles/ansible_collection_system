@@ -41,6 +41,9 @@
     {{ jenkins_use_auth |
     combine({"name": item.key, "state": "enabled"}) }}
   with_dict: "{{ jenkins_configure_plugins }}"
+  register: _enable_plugin
+  until: _enable_plugin is success
+  retries: 4
 
 - name: pin plugins
   jenkins_plugin: >-
