@@ -1,0 +1,5 @@
+driver:
+  name: vagrant
+platforms:
+  - name: dhcpd
+    box: greg-hellings/centos-8-x86_64
