@@ -1,5 +1,5 @@
 driver:
-  name: podman
+  name: docker
 platforms:
   - name: python_prep
     image: centos:7
