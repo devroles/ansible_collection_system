@@ -1,5 +1,5 @@
 driver:
-  name: docker
+  name: podman
 platforms:
   - name: virtualenv_ansible_python
     image: fedora:latest

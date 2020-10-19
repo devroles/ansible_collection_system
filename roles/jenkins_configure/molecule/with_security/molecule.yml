@@ -1,5 +1,5 @@
 driver:
-  name: docker
+  name: podman
 platforms:
   - name: jenkins_configure_with_sec
     image: centos:8
