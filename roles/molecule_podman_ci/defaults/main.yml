@@ -1,2 +1,0 @@
-molecule_podman_ci_state: present
-molecule_podman_ci_platforms: "{{ molecule_yml.platforms }}"

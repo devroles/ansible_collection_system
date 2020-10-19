@@ -1,7 +1,0 @@
-- name: Destroy
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  roles:
-    - name: molecule_podman_ci
-      molecule_podman_ci_state: absent
