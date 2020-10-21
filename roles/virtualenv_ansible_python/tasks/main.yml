@@ -16,6 +16,7 @@
   package:
     name: "{{ virtualenv_ansible_python_system_packages }}"
     state: present
+    update_cache: true
   retries: 2
   register: install_system_packages
   until: install_system_packages is success

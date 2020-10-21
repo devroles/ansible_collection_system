@@ -1,6 +1,5 @@
 driver:
   name: docker
 platforms:
-  - name: virtualenv_ansible_python
-    image: greghellings/ubuntu-systemd:latest
-    command: /lib/systemd/systemd
+  - name: virtualenv_ansible_python_ubuntu
+    image: ubuntu:latest

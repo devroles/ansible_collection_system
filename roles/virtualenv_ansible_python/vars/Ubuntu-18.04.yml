@@ -1,5 +1,6 @@
 virtualenv_ansible_python_system_packages:
   - python3-virtualenv
   - python3-pip
+  - virtualenv
 # This breaks on Ubuntu for some unknown reason?
 virtualenv_ansible_python_site_packages: false
