@@ -1,5 +1,5 @@
 driver:
-  name: docker
+  name: vagrant
 platforms:
   - name: jenkinsmaster
     image: centos:8

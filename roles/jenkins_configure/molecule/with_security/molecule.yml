@@ -1,8 +1,9 @@
 driver:
-  name: docker
+  name: vagrant
 platforms:
   - name: jenkins_configure_with_sec
     image: centos:8
+    box: greg-hellings/centos-8-x86_64
     privileged: true
     command: /usr/lib/systemd/systemd --system
     volumes:

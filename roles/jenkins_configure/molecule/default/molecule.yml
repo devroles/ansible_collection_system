@@ -1,5 +1,5 @@
 driver:
-  name: docker
+  name: vagrant
 platforms:
   - name: jenkins-configure-default
     image: centos:8
