@@ -1,6 +1,5 @@
 driver:
-  name: openstack
+  name: vagrant
 platforms:
-  - name: test-static_ip
-    image: Fedora 30
-    flavor: ci.m1.tiny
+  - name: test_static_ip_fedora
+    image: greg-hellings/fedora-32-x86_64

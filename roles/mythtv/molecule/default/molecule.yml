@@ -1,9 +1,8 @@
 driver:
-  name: openstack
+  name: vagrant
 platforms:
   - name: mythtv_default
-    image: Fedora 31
-    flavor: ci.m1.medium
+    box: greg-hellings/fedora-32-x86_64
 provisioner:
   inventory:
     host_vars:

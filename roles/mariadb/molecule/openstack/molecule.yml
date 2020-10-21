@@ -1,5 +1,0 @@
-driver:
-  name: openstack
-platforms:
-  - name: mariadb_openstack
-    flavor: c1.m1.medium
