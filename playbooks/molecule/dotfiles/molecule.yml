@@ -1,0 +1,10 @@
+driver:
+  name: podman
+lint: ''
+platforms:
+  - name: instance
+    image: fedora:latest
+    pre_build_image: true
+provisioner:
+  playbooks:
+    converge: ../../dotfiles.yml
