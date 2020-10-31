@@ -1,0 +1,14 @@
+- name: create python virtualenvs
+  pip:
+    virtualenv: "{{ ansible_user_dir }}/venv/{{ item.name }}"
+    state: present
+    name: "{{ item.packages }}"
+    virtualenv_python: "{{ item.python }}"
+    virtualenv_site_packages: true
+  with_items:
+    - name: tools3
+      packages: "{{ packages_python_packages }}"
+      python: python3
+  retries: 3
+  register: create_virtualenvs
+  until: create_virtualenvs is success

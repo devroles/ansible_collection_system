@@ -1,0 +1,17 @@
+flatpaks_repos:
+  - https://dl.flathub.org/repo/flathub.flatpakrepo
+  - oci+https://registry.fedoraproject.org
+  - https://nightly.gnome.org/gnome-nightly.flatpakrepo
+  - https://distribute.kde.org/kdeapps.flatpakrepo
+flatpaks:
+  - org.avidemux.Avidemux
+  - fr.handbrake.ghb
+  - io.github.Hexchat
+  - com.makemkv.MakeMKV
+  - org.fedoraproject.MediaWriter
+  - org.openshot.OpenShot
+  - com.valvesoftware.Steam
+  - com.valvesoftware.Steam.Utility.protontricks
+  - com.transmissionbt.Transmission
+  - org.videolan.VLC
+  - runtime/org.videolan.VLC.Plugin.makemkv/x86_64/3-19.08

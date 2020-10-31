@@ -1,5 +1,0 @@
-driver:
-  name: docker
-platforms:
-  - name: gui
-    image: fedora:latest

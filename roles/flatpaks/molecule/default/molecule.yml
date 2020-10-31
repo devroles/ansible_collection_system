@@ -1,5 +1,5 @@
 driver:
-  name: podman
+  name: docker
 platforms:
-  - name: dotfiles
+  - name: flatpaks
     image: fedora:latest

@@ -1,5 +1,5 @@
 driver:
-  name: docker
+  name: podman
 platforms:
   - name: sudoers_fedora
     image: fedora:latest

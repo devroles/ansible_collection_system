@@ -1,0 +1,128 @@
+packages_gpg_keys:
+  # yamllint disable-line rule:line-length
+  - https://copr-be.cloud.fedoraproject.org/results/greghellings/Packer/pubkey.gpg
+  - https://swdl.bluejeans.com/repos/bluejeans/bjn-key
+  # yamllint disable-line rule:line-length
+  - https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/pubkey.gpg
+packages_repositories:
+  - name: bluejeans
+    baseurl: https://swdl.bluejeans.com/repos/bluejeans/x86_64/release/rpm
+    gpgcheck: true
+    gpgkey: https://swdl.bluejeans.com/repos/bluejeans/bjn-key
+    description: bluejeans
+  - name: entropypianotuner
+    # yamllint disable-line rule:line-length
+    baseurl: https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/fedora-$releasever-$basearch/
+    # yamllint disable-line rule:line-length
+    gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/pubkey.gpg
+    gpgcheck: true
+    description: Greg Hellings' builds of Entropy Piano Tuner
+  - name: greghellings-packer
+    # yamllint disable-line rule:line-length
+    baseurl: https://copr-be.cloud.fedoraproject.org/results/greghellings/Packer/fedora-$releasever-$basearch/
+    gpgcheck: true
+    # yamllint disable-line rule:line-length
+    gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/Packer/pubkey.gpg
+    description: Greg Hellings's Packer builds
+packages_packages:
+  - awscli
+  - gnupg2
+  - HandBrake-cli
+  - jq
+  - libaacs
+  - origin-clients
+  - podman
+  - python3-sword
+  - sword
+  - sword-utils
+  - xonsh
+  # Python tools
+  - python-virtualenv
+  - python3-devel
+  - entr
+  - ShellCheck
+  - pyp2rpm
+  - openssl-devel
+  # Dev tools
+  - libcurl-devel
+  - gcc-c++
+  - redhat-rpm-config
+  - cmake
+  - make
+  - rpmdevtools
+  - golang
+  - yamllint
+  - libxml2-devel
+  - git-subtree
+  # Vagrant development
+  - ruby-devel
+  - libvirt-devel
+  - rubygem-bundler
+  - cloud-utils
+  # Media tools
+  - ffmpeg
+  # Related to libvirt packages
+  - libvirt
+  - qemu-kvm
+  - qemu-system-ppc
+  - seabios-bin
+  # packer
+  - packer
+  # vagrant and its helpers
+  - vagrant
+  - vagrant-sshfs
+  - vagrant-cachier
+  - vagrant-libvirt
+  - vagrant-openstack-provider
+  # gui packages
+  - gnome-shell-extension-*
+  - gnome-tweak-tool
+  - grip
+  - libbluray-utils
+  - libbluray-bdj
+  - libaacs-utils
+  - NetworkManager-openvpn
+  - NetworkManager-openvpn-gnome
+  - polkit-gnome
+  - qwinff
+  - redhat-display-fonts
+  - redhat-text-fonts
+  - vim-X11
+  - virt-manager
+  - virt-viewer
+  # needed for Chrome cast Gnome Shell extensions
+  - npm
+  - node
+  - ffmpeg
+  - nautilus-python
+  - python3-gobject
+  # Needed by Wine and Battle.net
+  #- gnutls
+  #- gnutls-devel
+  #- openldap
+  #- openldap-devel
+  #- libgpg-error
+  #- sqlite2.i686
+  #- sqlite2.x86_64
+  #- wine
+packages_dnf_packages:
+  - dnf-command(system-upgrade)
+packages_remove_packages:
+  - ghc-ghc
+  - PackageKit
+  - thunderbird
+packages_python_packages:
+  - ansible
+  - cookiecutter
+  - docker
+  - ipython
+  - molecule
+  - openstacksdk
+  - ovirt-engine-sdk-python
+  - progressbar2
+  - Pygments
+  - wheel
+  - PyGithub
+  - tox
+  - tox-ansible
+  - xonsh
