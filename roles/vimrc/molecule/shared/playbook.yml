@@ -1,5 +1,0 @@
-- hosts: vimrc
-  collections:
-    - devroles.system
-  roles:
-    - role: vimrc

@@ -1,4 +1,4 @@
-git_config_values:
+dotfiles_git_config_values:
   - name: alias.st
     value: status
   - name: alias.ci
@@ -15,3 +15,4 @@ git_config_values:
     value: greg.hellings
   - name: core.hooksPath
     value: "{{ role_path }}/files/"
+

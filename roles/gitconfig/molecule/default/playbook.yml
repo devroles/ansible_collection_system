@@ -1,9 +1,0 @@
-- hosts: gitconfig
-  pre_tasks:
-    - name: install git
-      become: true
-      package:
-        name: git
-        state: present
-  roles:
-    - role: gitconfig

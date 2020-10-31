@@ -1,0 +1,8 @@
+- name: Setup shell config files
+  include_tasks: 01_shell.yml
+
+- name: Configure git
+  include_tasks: 02_git.yml
+
+- name: Configure vim
+  include_tasks: 03_vim.yml

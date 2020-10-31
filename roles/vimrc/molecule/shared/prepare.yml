@@ -1,7 +1,0 @@
-- hosts: vimrc
-  tasks:
-    - name: install git
-      become: true
-      package:
-        name: git
-        state: present

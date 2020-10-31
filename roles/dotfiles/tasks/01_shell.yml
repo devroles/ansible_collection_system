@@ -7,7 +7,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     force: "{{ item.force }}"
-  loop: "{{ bashrc_files }}"
+  loop: "{{ dotfiles_shell_files }}"
   tags:
     - skip_ansible_lint
 

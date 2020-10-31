@@ -1,0 +1,12 @@
+- name: Install git
+  become: true
+  package:
+    name: git
+    state: present
+
+- name: Configure git
+  git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  with_items: "{{ dotfiles_git_config_values }}"

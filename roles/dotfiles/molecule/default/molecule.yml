@@ -1,5 +1,5 @@
 driver:
   name: docker
 platforms:
-  - name: bashrc
+  - name: dotfiles
     image: fedora:latest

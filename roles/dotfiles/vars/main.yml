@@ -1,4 +1,4 @@
-bashrc_files:
+dotfiles_shell_files:
   - src: "{{ bashrc_role_path }}/files/bashrc"
     dest: "{{ ansible_user_dir }}/.bashrc"
     force: true
