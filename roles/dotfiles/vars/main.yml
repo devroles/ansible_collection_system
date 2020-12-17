@@ -14,3 +14,22 @@ dotfiles_shell_files:
   - src: "{{ bashrc_role_path }}/files/ansible.cfg"
     dest: "{{ ansible_user_dir }}/.ansible.cfg"
     force: true
+dotfiles_vim_plugins:
+  - repo: https://github.com/jlanzarotta/bufexplorer.git
+    name: bufexplorer
+  - repo: https://github.com/ctrlpvim/ctrlp.vim.git
+    name: ctrlp
+  - repo: https://github.com/scrooloose/nerdtree.git
+    name: nerdtree
+  - repo: https://github.com/pangloss/vim-javascript.git
+    name: vim-javascript
+  - repo: https://github.com/airblade/vim-gitgutter.git
+    name: vim-gitgutter
+  - repo: https://github.com/nvie/vim-flake8.git
+    name: vim-flake8
+  - repo: https://github.com/tpope/vim-fugitive.git
+    name: vim-fugitive
+  - repo: https://github.com/nathanaelkane/vim-indent-guides.git
+    name: vim-indent-guides
+  - repo: https://github.com/morhetz/gruvbox.git
+    name: gruvbox

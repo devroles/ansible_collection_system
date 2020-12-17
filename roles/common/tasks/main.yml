@@ -7,26 +7,29 @@
     - vim-minimal
   tags:
     - skip_ansible_lint
+  when: ansible_facts.pkg_mgr not in ['atomic_container']
 
 - name: install shared tools
   become: true
   package:
     name: "{{ common_packages }}"
     state: present
+  when: ansible_facts.pkg_mgr not in ['atomic_container']
 
 - block:
     - name: install python SELinux packages
       package:
         name: "{{ common_selinux_packages }}"
         state: present
+      when: ansible_facts.pkg_mgr not in ['atomic_container']
 
     - name: disable selinux
       selinux: state=disabled
   become: true
   when:
-    - ansible_os_family != 'Darwin'
+    - ansible_facts.os_family != 'Darwin'
     - ansible_connection != 'docker'
-    - ansible_distribution not in ('CentOS', 'RHEL')
+    - ansible_facts.distribution not in ('CentOS', 'RHEL')
 
 - name: enable SSHD
   become: true
@@ -35,5 +38,5 @@
     state: started
     enabled: true
   when:
-    - ansible_os_family != 'Darwin'
+    - ansible_facts.os_family != 'Darwin'
     - ansible_connection not in ['docker', 'podman']

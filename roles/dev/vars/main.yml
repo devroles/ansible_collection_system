@@ -1,22 +1,8 @@
-dev_repositories:
-  - name: copr-phracek-PyCharmr
-    # yamllint disable-line rule:line-length
-    baseurl: https://copr-be.cloud.fedoraproject.org/results/phracek/PyCharm/fedora-$releasever-$basearch/
-    gpgcheck: true
-    # yamllint disable-line rule:line-length
-    gpgkey: https://copr-be.cloud.fedoraproject.org/results/phracek/PyCharm/pubkey.gpg
-    description: Phracek's PyCharm
-  - name: greghellings-intellij-idea
-    # yamllint disable-line rule:line-length
-    baseurl: https://copr-be.cloud.fedoraproject.org/results/greghellings/intellij-idea/fedora-$releasever-$basearch/
-    gpgcheck: true
-    # yamllint disable-line rule:line-length
-    gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/intellij-idea/pubkey.gpg
-    description: Greg Hellings' builds of IntelliJ
 dev_packages:
-  #- intellij-idea-community
-  - pycharm-community
   - qt-creator
   - qt5-qttools-devel
   - qt5-qtbase-devel
   - qt5-qtwebengine-devel
+dev_paks:
+  - com.jetbrains.PyCharm-Community
+  - com.jetbrains.IntelliJ-IDEA-Community

@@ -1,8 +1,18 @@
 flatpaks_repos:
-  - https://dl.flathub.org/repo/flathub.flatpakrepo
-  - oci+https://registry.fedoraproject.org
-  - https://nightly.gnome.org/gnome-nightly.flatpakrepo
-  - https://distribute.kde.org/kdeapps.flatpakrepo
+  - url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    name: flathub
+  - url: oci+https://registry.fedoraproject.org
+    name: fedora
+  - url: https://sdk.gnome.org/repo/
+    name: gnome
+  - url: https://sdk.gnome.org/repo-apps/
+    name: gnome-apps
+  - url: https://distribute.kde.org/kdeapps.flatpakrepo
+    name: kde
+  - url: https://proposed.packages.deepin.com/deepin-flatpak/deepin/
+    name: deepin
+  - url: https://proposed.packages.deepin.com/deepin-flatpak/apps/
+    name: deepin-apps
 flatpaks:
   - org.avidemux.Avidemux
   - fr.handbrake.ghb

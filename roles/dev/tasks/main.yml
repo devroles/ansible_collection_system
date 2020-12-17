@@ -1,11 +1,12 @@
-- name: install system repositories
-  import_role:
-    name: oasis_roles.system.system_repositories
-  vars:
-    system_repositories_configs: "{{ dev_repositories }}"
-
 - name: install necessary devel packages
   become: true
   package:
     name: "{{ dev_packages }}"
     state: present
+  when: ansible_facts.pkg_mgr not in ['atomic_container']
+
+- name: install development boxen
+  flatpak:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ dev_paks }}"

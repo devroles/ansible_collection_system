@@ -3,6 +3,7 @@
   package:
     name: unzip
     state: present
+  when: ansible_facts.pkg_mgr not in ['atomic_container']
 
 - name: Create blu-ray config directories
   file:

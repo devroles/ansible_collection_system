@@ -7,9 +7,10 @@
 
 - name: install python{{ _short_version }}-dnf
   become: true
-  shell: "{{ ansible_pkg_mgr }} install -y python{{ _short_version }}-dnf"
+  shell: "{{ ansible_facts._pkg_mgr }} install -y python{{ _short_version }}-dnf"
   args:
     creates: >-
-      /usr/lib/python{{ _long_version }}/site-packages/{{ ansible_pkg_mgr }}
+      /usr/lib/python{{ _long_version }}/site-packages/{{ ansible_facts._pkg_mgr }}
   tags:
     - skip_ansible_lint
+  when: ansible_facts.pkg_mgr not in ['atomic_container']
