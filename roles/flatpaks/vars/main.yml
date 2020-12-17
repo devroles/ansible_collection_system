@@ -3,25 +3,23 @@ flatpaks_repos:
     name: flathub
   - url: oci+https://registry.fedoraproject.org
     name: fedora
-  - url: https://sdk.gnome.org/repo/
-    name: gnome
-  - url: https://sdk.gnome.org/repo-apps/
-    name: gnome-apps
+  - url: https://nightly.gnome.org/gnome-nightly.flatpakrepo
+    name: gnome-nightly
   - url: https://distribute.kde.org/kdeapps.flatpakrepo
     name: kde
-  - url: https://proposed.packages.deepin.com/deepin-flatpak/deepin/
-    name: deepin
-  - url: https://proposed.packages.deepin.com/deepin-flatpak/apps/
-    name: deepin-apps
 flatpaks:
-  - org.avidemux.Avidemux
   - fr.handbrake.ghb
   - io.github.Hexchat
-  - com.makemkv.MakeMKV
+  - org.avidemux.Avidemux
+  - com.github.Eloston.UngoogledChromium
+  - org.gnome.Boxes
   - org.fedoraproject.MediaWriter
   - org.openshot.OpenShot
+  - org.vim.Vim
+  - com.makemkv.MakeMKV
+  - com.transmissionbt.Transmission
   - com.valvesoftware.Steam
   - com.valvesoftware.Steam.Utility.protontricks
-  - com.transmissionbt.Transmission
+
   - org.videolan.VLC
   - runtime/org.videolan.VLC.Plugin.makemkv/x86_64/3-19.08

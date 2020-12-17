@@ -89,7 +89,6 @@ packages_packages:
   - redhat-text-fonts
   - vim-X11
   - virt-manager
-  - virt-viewer
   # needed for Chrome cast Gnome Shell extensions
   - npm
   - node
