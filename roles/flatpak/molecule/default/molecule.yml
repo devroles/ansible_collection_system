@@ -1,0 +1,6 @@
+driver:
+  name: podman
+platforms:
+  - name: instance
+    image: fedora:latest
+    pre_build_image: true

@@ -1,4 +1,5 @@
 - name: Install gpg keys
+  become: true
   package:
     name: distribution-gpg-keys
     state: present
@@ -9,6 +10,13 @@
   vars:
     system_repositories_configs: "{{ packages_repositories }}"
     system_repositories_rpm_keys: "{{ packages_gpg_keys }}"
+
+- name: install RPM Fusion packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ packages_rpm_fusion }}"
 
 - name: install CLI packages
   become: true

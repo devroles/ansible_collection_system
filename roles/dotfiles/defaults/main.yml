@@ -15,4 +15,3 @@ dotfiles_git_config_values:
     value: greg.hellings
   - name: core.hooksPath
     value: "{{ role_path }}/files/"
-

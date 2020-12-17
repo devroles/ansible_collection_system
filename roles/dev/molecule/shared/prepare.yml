@@ -1,0 +1,4 @@
+- name: be sure that flatpak is installed
+  hosts: all
+  roles:
+    - flatpak
