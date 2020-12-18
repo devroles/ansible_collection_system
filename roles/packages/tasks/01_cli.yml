@@ -16,7 +16,7 @@
   package:
     name: "{{ item }}"
     state: present
-  loop: "{{ packages_rpm_fusion }}"
+  loop: "{{ packages_rpmfusion }}"
 
 - name: install CLI packages
   become: true
