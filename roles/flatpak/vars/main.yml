@@ -1,1 +1,9 @@
-# Vars for flatpak
+flatpak_repos:
+  - url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    name: flathub
+  - url: oci+https://registry.fedoraproject.org
+    name: fedora
+  - url: https://nightly.gnome.org/gnome-nightly.flatpakrepo
+    name: gnome-nightly
+  - url: https://distribute.kde.org/kdeapps.flatpakrepo
+    name: kde

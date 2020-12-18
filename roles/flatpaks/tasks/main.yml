@@ -1,11 +1,3 @@
-- name: configure flatpak repos
-  become: true
-  flatpak_remote:
-    name: "{{ item.name }}"
-    state: present
-    flatpakrepo_url: "{{ item.url }}"
-  loop: "{{ flatpaks_repos }}"
-
 - name: install flatpaks
   become: true
   flatpak:
