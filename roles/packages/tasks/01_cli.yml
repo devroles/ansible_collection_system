@@ -16,6 +16,7 @@
   package:
     name: "{{ item }}"
     state: present
+    disable_gpg_check: true  # can't verify until installed!
   loop: "{{ packages_rpmfusion }}"
 
 - name: install CLI packages
