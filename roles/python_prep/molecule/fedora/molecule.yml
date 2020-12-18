@@ -1,5 +1,5 @@
 driver:
   name: podman
 platforms:
-  - name: python_prep
+  - name: python_prep_fedora
     image: fedora:latest

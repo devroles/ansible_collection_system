@@ -6,7 +6,7 @@
     - name: install a package
       become: true
       package:
-        name: vim
+        name: nano
         state: present
       retries: 3
       register: test_install

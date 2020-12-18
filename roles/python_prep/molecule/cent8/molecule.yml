@@ -1,5 +1,0 @@
-driver:
-  name: podman
-platforms:
-  - name: python_prep
-    image: centos:8
