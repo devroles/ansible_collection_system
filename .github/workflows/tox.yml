@@ -2,10 +2,6 @@ name: tox
 
 "on":
   push:
-    branches:
-      - '*'
-    tags-ignore:
-      - '*'
   pull_request: {}
   schedule:
     - cron: '12 0 * * *'
