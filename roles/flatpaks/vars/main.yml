@@ -9,6 +9,7 @@ flatpaks:
   - org.vim.Vim
   - com.makemkv.MakeMKV
   - com.poweriso.PowerISO
+  - com.synology.SynologyDrive
   - com.transmissionbt.Transmission
   - com.valvesoftware.Steam
   - com.valvesoftware.Steam.Utility.protontricks
