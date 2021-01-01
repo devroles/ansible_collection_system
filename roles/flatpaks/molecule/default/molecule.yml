@@ -3,3 +3,4 @@ driver:
 platforms:
   - name: flatpaks
     image: fedora:latest
+    privileged: true
