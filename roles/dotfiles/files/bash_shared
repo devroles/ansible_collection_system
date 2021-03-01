@@ -58,11 +58,11 @@ function newdock {
 		echo "expected arguments [name] [source]"
 		return
 	fi
-	docker run -P --privileged=true -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v "`pwd`:/dmnt" -t -i --name="$1" "$2" /bin/bash
+	podman run -P --privileged=true -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v "`pwd`:/dmnt" -t -i --name="$1" "$2" /bin/bash
 }
 
 function rundock {
-	docker start -a -i "$1"
+	podman start -a -i "$1"
 }
 
 function ac {
