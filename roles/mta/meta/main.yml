@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: devroles
   description: >-
     Installs and configures a mail agent (MTA) on the target host
   license: GPLv3

@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: devroles
   description: >-
     Installs the command line utilities, programs, libraries, and services that
     I find useful on my systems. Also configures a large number of system repos

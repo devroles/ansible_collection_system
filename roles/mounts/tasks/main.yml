@@ -6,6 +6,5 @@
   when: ansible_facts.pkg_mgr not in ['atomic_container']
 
 - name: ensure mount
-  include:
-    file: mount.yml
+  include_tasks: mount.yml
   with_items: "{{ mounts }}"

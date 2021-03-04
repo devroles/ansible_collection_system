@@ -4,3 +4,4 @@
       file:
         state: touch
         dest: /root/second
+        mode: 0600

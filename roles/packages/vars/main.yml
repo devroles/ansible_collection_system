@@ -1,5 +1,5 @@
 packages_rpmfusion:
-  # yamllint diable rule:line-length
+  # yamllint disable rule:line-length
   - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_facts.distribution_major_version }}.noarch.rpm
   - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_facts.distribution_major_version }}.noarch.rpm
 packages_gpg_keys:

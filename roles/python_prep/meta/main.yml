@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: devroles
   description: >-
     Sometimes the Python on a target system needs a little bit of extra
     massaging before it's completely ready for use on the target host. This

@@ -13,6 +13,7 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 export SWORD_PATH=$HOME/.sword
 export ANSIBLE_COLLECTIONS_PATHS=${HOME}/src/:${HOME}/.ansible
 export OS_CLOUD=default
+export GIT_SSL_NO_VERIFY=True
 #export VAGRANT_DEFAULT_PROVIDER=virtualbox
 color_prompt="yes"
 if [ "$color_prompt" = yes ]; then

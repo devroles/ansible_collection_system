@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: devroles
   description: Installs mythtv, particularly for Hauppage 950 cards
   license: GPLv3
   min_ansible_version: 2.4

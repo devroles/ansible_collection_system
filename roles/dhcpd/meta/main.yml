@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: devroles
   description: Configures a basic DHCP server on CentOS
   license: GPLv3
   min_ansible_version: 2.4

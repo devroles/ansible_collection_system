@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: devroles
   description: >-
     Installs and configures bind/named to serve names on the local network
   license: GPLv3

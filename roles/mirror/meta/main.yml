@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: devroles
   description: |-
     Configures an rsync script to mirror down content to the local system
   license: GPLv3

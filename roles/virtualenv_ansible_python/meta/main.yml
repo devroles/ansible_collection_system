@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: devroles
   description: |-
     Creates a temporary virtualenv that contains the packages specified
     and sets that as the ansible_python_interpreter

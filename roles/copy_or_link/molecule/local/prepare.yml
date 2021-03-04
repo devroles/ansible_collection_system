@@ -4,6 +4,7 @@
       file:
         state: touch
         dest: /root/second
+        mode: 0600
 
     - name: install ansible
       package:
@@ -15,16 +16,19 @@
         dest: /root/temp/roles
         state: directory
         recurse: true
+        mode: 0700
 
     - name: create inventory file
       copy:
         content: "localhost ansible_connection=local"
         dest: /root/temp/inventory
+        mode: 0644
 
     - name: create test files
       copy:
         src: "{{ item }}"
         dest: /root/temp/
+        mode: 0644
       loop:
         - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY')
               }}/../shared/first"
@@ -37,6 +41,7 @@
       copy:
         src: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"
         dest: /root/temp/roles/
+        mode: 0644
 
     - name: copy action_plugin
       copy:
@@ -44,3 +49,4 @@
           {{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY')
           }}/../../plugins/action/copy_or_link.py
         dest: /root/temp/roles/copy_or_link/action_plugins/
+        mode: 0644

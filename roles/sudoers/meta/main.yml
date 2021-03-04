@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: devroles
   description: |-
     Make sure that sudo is installed on the system and the
     given list of users are provided with appropriate levels
