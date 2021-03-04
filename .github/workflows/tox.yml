@@ -26,15 +26,12 @@ jobs:
         run: |
           set -ex
           python -m pip install --upgrade tox
-      - name: collect depenencies
+      - name: Run lint and collect scenarios
         id: collection
         run: |
-          set -ex
-          json="["
-          for x in $(tox -ql --ansible-driver docker --ansible-driver podman); do
-            json="${json}\"${x}\","
-          done
-          json="${json%,}]"
+          set -ex -o pipefail
+          tox -e lint_all
+          json=$(tox -ql --ansible-driver docker --ansible-driver podman | python -c 'import json; import sys; print(json.dumps(sys.stdin.read().strip().split("\n")))')
           echo "::set-output name=scenarios::${json}"
 
   build:
