@@ -20,7 +20,7 @@
     privatekey_path: /etc/ssl/{{ domain.tld }}.key
     common_name: "{{ domain.tld }}"
     subject_alt_name: "DNS:{{ domain.tld }}"
-  when: create_ssl_private_key is changed
+  when: create_ssl_private_key is changed  # noqa no-handler
   register: create_csr
 
 - name: apply for letsencrypt for {{ domain.tld }}
@@ -42,7 +42,7 @@
     state: directory
     owner: nginx
     mode: "0755"
-  when: letsencrypt_challenge is changed
+  when: letsencrypt_challenge is changed  # noqa no-handler
 
 - name: copy challenge file to server space for {{ domain.tld }}
   become: true
@@ -51,7 +51,7 @@
     content: "{{ letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource_value'] }}"  # yamllint disable-line rule:line-length
     owner: nginx
     mode: "0644"
-  when: letsencrypt_challenge is changed
+  when: letsencrypt_challenge is changed  # noqa no-handler
 
 - name: retrieve letsencrypt certificate for {{ domain.tld }}
   become: true

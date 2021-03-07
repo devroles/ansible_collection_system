@@ -26,14 +26,14 @@
     group: root
     mode: 0755
     state: directory
-  when: check is changed
+  when: check is changed  # noqa no-handler
 
 - name: make sure libvirt is stopped
   become: true
   service:
     name: libvirtd
     state: stopped
-  when: check is changed and ansible_connection not in ['docker', 'podman']
+  when: check is changed and ansible_connection not in ['docker', 'podman']  # noqa no-handler
 
 - name: configure libvirt storage
   become: true
