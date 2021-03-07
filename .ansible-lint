@@ -1,4 +1,0 @@
-skip_list:
-  # temporary added during migration to v5
-  - yaml
-  - no-handler
