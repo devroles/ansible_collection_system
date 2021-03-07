@@ -29,5 +29,6 @@
       register: _mirror
       changed_when: false
 
-    - debug:
+    - name: print mirror output
+      debug:
         var: _mirror.stdout

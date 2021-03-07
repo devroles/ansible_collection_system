@@ -40,7 +40,8 @@
         'Error' in _auth_check.output or
         'Error' in ( _auth_check.msg | default('') )
 
-    - debug:
+    - name: print _auth_check
+      debug:
         var: _auth_check
 
     - name: save API key

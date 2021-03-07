@@ -32,7 +32,8 @@
   become_user: "{{ jenkins_user }}"
   notify: generate public SSH key
 
-- meta: flush_handlers
+- name: flush handlers
+  meta: flush_handlers
 
 - name: read SSH key
   become: true
