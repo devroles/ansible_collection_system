@@ -84,5 +84,5 @@ jobs:
         with:
           artifacts: ./devroles-system*.tar.gz
           allowUpdates: true
-          name: Rlease ${{ github.ref }}
+          name: Release ${{ github.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
