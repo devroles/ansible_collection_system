@@ -11,4 +11,3 @@
     value: "{{ item.value }}"
     scope: global
   with_items: "{{ dotfiles_git_config_values }}"
-  changed_when: false  # constantly reports changed for name
