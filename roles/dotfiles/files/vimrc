@@ -13,7 +13,7 @@ set cursorline " highlight the line you're on
 filetype plugin indent on
 set lazyredraw " Only redraw screen when needed
 set showmatch " Show matching parenthesis
-set number " Show line numbers
+set number relativenumber " Show hybrid line numbers
 " Ignore case on search, unless you use caps
 set ignorecase
 set smartcase
@@ -83,6 +83,13 @@ set hidden
 " ============================================================================
 " User functions to just make life easier
 " ============================================================================
+" Toggle absolute line numbers when we don't have focus, and hybrid when
+" we do have it
+augroup numbertoggle
+	autocmd!
+	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+	autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 " syntax highlighting for Vagrantfiles
 augroup vagrant
   au!
