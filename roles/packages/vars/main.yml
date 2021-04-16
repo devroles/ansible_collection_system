@@ -27,6 +27,19 @@ packages_repositories:
     # yamllint disable-line rule:line-length
     gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/Packer/pubkey.gpg
     description: Greg Hellings's Packer builds
+packages_libvirt:
+  - libvirt
+  - qemu-kvm
+  - qemu-system-ppc
+  - seabios-bin
+  # packer
+  - packer
+  # vagrant and its helpers
+  - vagrant
+  - vagrant-sshfs
+  - vagrant-cachier
+  - vagrant-libvirt
+  - vagrant-openstack-provider
 packages_packages:
   - awscli
   - gnupg2
@@ -64,19 +77,6 @@ packages_packages:
   - cloud-utils
   # Media tools
   - ffmpeg
-  # Related to libvirt packages
-  - libvirt
-  - qemu-kvm
-  - qemu-system-ppc
-  - seabios-bin
-  # packer
-  - packer
-  # vagrant and its helpers
-  - vagrant
-  - vagrant-sshfs
-  - vagrant-cachier
-  - vagrant-libvirt
-  - vagrant-openstack-provider
   # gui packages
   - gnome-shell-extension-*
   - gnome-tweak-tool

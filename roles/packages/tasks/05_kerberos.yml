@@ -8,6 +8,7 @@
   retries: 3
   register: install_kerberos
   until: install_kerberos is success
+  when: ansible_facts.pkg_mgr not in ['atomic_container']
 
 - name: configure Kerberos
   become: true

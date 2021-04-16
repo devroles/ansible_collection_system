@@ -14,6 +14,7 @@
       package:
         name: "{{ sudoers_packages }}"
         state: present
+      when: ansible_facts.pkg_mgr not in ['atomic_container']
 
     - name: make sure include line is in file
       lineinfile:

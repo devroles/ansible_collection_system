@@ -1,60 +1,83 @@
-- name: create image storage
-  become: true
-  file:
-    dest: "{{ packages_libvirt_storage }}"
-    owner: root
-    group: root
-    mode: 0711
-    state: directory
+- become: true
+  block:
+    - name: install packages, even on Silverblue
+      community.general.rpm_ostree_pkg:
+        name: "{{ packages_libvirt }}"
+        state: present
+      when: ansible_facts.pkg_mgr in ['atomic_container']
 
-- name: configure libvirt storage
-  become: true
-  template:
-    src: storage
-    dest: /etc/libvirt/storage/default.xml
-    owner: root
-    group: root
-    mode: 0755
-  check_mode: true
-  register: check
+    - name: install packages elsewhere
+      package:
+        name: "{{ packages_libvirt }}"
+        state: present
+      when: ansible_facts.pkg_mgr not in ['atomic_container']
 
-- name: create libvirt config directory
-  become: true
-  file:
-    dest: /etc/libvirt/storage
-    owner: root
-    group: root
-    mode: 0755
-    state: directory
-  when: check is changed  # noqa no-handler
+    - name: create image storage
+      file:
+        dest: "{{ packages_libvirt_storage }}"
+        owner: root
+        group: root
+        mode: 0711
+        state: directory
 
-- name: make sure libvirt is stopped
-  become: true
-  service:
-    name: libvirtd
-    state: stopped
-  when: check is changed and ansible_connection not in ['docker', 'podman']  # noqa no-handler
+    - name: configure libvirt storage
+      template:
+        src: storage
+        dest: /etc/libvirt/storage/default.xml
+        owner: root
+        group: root
+        mode: 0755
+      check_mode: true
+      register: check
 
-- name: configure libvirt storage
-  become: true
-  template:
-    src: storage
-    dest: /etc/libvirt/storage/default.xml
-    owner: root
-    group: root
-    mode: 0755
+    - name: create libvirt config directory
+      file:
+        dest: /etc/libvirt/storage
+        owner: root
+        group: root
+        mode: 0755
+        state: directory
+      when: check is changed  # noqa no-handler
 
-- name: start and enable libvirtd
-  become: true
-  service:
-    name: libvirtd
-    state: started
-    enabled: true
-  when: ansible_connection not in ['docker', 'podman']
+    - name: make sure libvirt is stopped
+      service:
+        name: libvirtd
+        state: stopped
+      when: check is changed and ansible_connection not in ['docker', 'podman']  # noqa no-handler
 
-- name: add current user to libvirt group
-  become: true
-  user:
-    name: "{{ ansible_user_id }}"
-    append: true
-    groups: libvirt
+    - name: configure libvirt storage
+      template:
+        src: storage
+        dest: /etc/libvirt/storage/default.xml
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: ensure the libvirt group exists
+      group:
+        name: libvirt
+        state: present
+
+    - name: fix issue with some versions of virt-manager messing up groups
+      command: grep -E '^libvirt:' /usr/lib/group
+      register: libvirt_group_line
+      changed_when: false
+
+    - name: ensure group is in /etc/group
+      lineinfile:
+        line: "{{ libvirt_group_line.stdout.strip() }}"
+        path: /etc/group
+        state: present
+
+    - name: add current user to libvirt group
+      user:
+        name: "{{ ansible_user_id }}"
+        append: true
+        groups: libvirt
+
+    - name: start and enable libvirtd
+      service:
+        name: libvirtd
+        state: started
+        enabled: true
+      when: ansible_connection not in ['docker', 'podman']

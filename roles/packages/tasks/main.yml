@@ -1,5 +1,6 @@
 - name: install CLI repos and packages
   import_tasks: 01_cli.yml
+  when: ansible_facts.pkg_mgr not in ['atomic_container']
 
 - block:
     - name: setup user-space virtualenvs
@@ -15,6 +16,3 @@
 - name: setup kerberos
   import_tasks: 05_kerberos.yml
   when: kerberos is defined
-
-- name: setup spideroak
-  import_tasks: 06_spideroak.yml

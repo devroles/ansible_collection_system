@@ -7,5 +7,5 @@
     name: tmp.mount
   ignore_errors: true
   when:
-    - ansible_service_mgr == 'systemd'
+    - ansible_facts.service_mgr == 'systemd'
     - ansible_connection not in ['docker', 'podman']
