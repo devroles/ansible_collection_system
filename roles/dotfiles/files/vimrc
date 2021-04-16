@@ -4,9 +4,12 @@
 set nocompatible
 syntax enable
 set noexpandtab
+set copyindent
+set preserveindent
+set softtabstop=0
+set shiftwidth=4
 set tabstop=4
 " set softtabstop=4
-set shiftwidth=4
 set nowrap
 set showcmd
 set cursorline " highlight the line you're on
