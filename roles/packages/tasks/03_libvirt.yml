@@ -58,16 +58,23 @@
         name: libvirt
         state: present
 
-    - name: fix issue with some versions of virt-manager messing up groups
-      command: grep -E '^libvirt:' /usr/lib/group
-      register: libvirt_group_line
-      changed_when: false
+    - name: check for /usr/lib/group existence
+      stat:
+        path: /usr/lib/group
+      register: group_file
 
-    - name: ensure group is in /etc/group
-      lineinfile:
-        line: "{{ libvirt_group_line.stdout.strip() }}"
-        path: /etc/group
-        state: present
+    - when: group_file.stat.exists
+      block:
+        - name: fix issue with some versions of virt-manager messing up groups
+          command: grep -E '^libvirt:' /usr/lib/group
+          register: libvirt_group_line
+          changed_when: false
+
+        - name: ensure group is in /etc/group
+          lineinfile:
+            line: "{{ libvirt_group_line.stdout.strip() }}"
+            path: /etc/group
+            state: present
 
     - name: add current user to libvirt group
       user:

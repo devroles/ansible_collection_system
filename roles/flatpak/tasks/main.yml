@@ -1,14 +1,15 @@
-- name: ensure flatpak is present on the system
-  become: true
-  package:
-    name: flatpak
-    state: present
-  when: ansible_facts.pkg_mgr not in ['atomic_container']
+- when: ansible_facts.hostname != 'toolbox'
+  block:
+    - name: ensure flatpak is present on the system
+      become: true
+      package:
+        name: flatpak
+        state: present
 
-- name: configure flatpak repos
-  become: true
-  flatpak_remote:
-    name: "{{ item.name }}"
-    state: present
-    flatpakrepo_url: "{{ item.url }}"
-  loop: "{{ flatpak_repos }}"
+    - name: configure flatpak repos
+      become: true
+      flatpak_remote:
+        name: "{{ item.name }}"
+        state: present
+        flatpakrepo_url: "{{ item.url }}"
+      loop: "{{ flatpak_repos }}"

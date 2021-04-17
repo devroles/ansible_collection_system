@@ -4,3 +4,4 @@
     name: "{{ item }}"
   loop: "{{ flatpaks }}"
   changed_when: false
+  when: ansible_facts.hostname != 'toolbox'
