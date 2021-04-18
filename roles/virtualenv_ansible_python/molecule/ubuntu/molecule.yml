@@ -1,5 +1,10 @@
 driver:
-  name: podman
+  name: vagrant
+  provider:
+    name: libvirt
 platforms:
-  - name: virtualenv_ansible_python_ubuntu
-    image: ubuntu:latest
+  - name: virtualenv-ansible-python-ubuntu
+    box: generic/ubuntu2004
+    config_options:
+      synced_folder: false
+      cache.synced_folder_opts: '{ type: :sshfs }'
