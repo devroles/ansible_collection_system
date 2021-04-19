@@ -15,7 +15,7 @@ jobs:
   collect:
     runs-on: ubuntu-20.04
     outputs:
-      scenarios: ${{ steps.collection.outputs.scenarios }}
+      scenarios: ${{ steps.collection.outputs.tox-envs }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -26,13 +26,10 @@ jobs:
         run: |
           set -ex
           python -m pip install --upgrade tox
-      - name: Run lint and collect scenarios
-        id: collection
-        run: |
-          set -ex -o pipefail
-          tox -e lint_all
-          json=$(tox -ql --ansible-driver docker --ansible-driver podman | python -c 'import json; import sys; print(json.dumps(sys.stdin.read().strip().split("\n")))')
-          echo "::set-output name=scenarios::${json}"
+      - id: collection
+        uses: greg-hellings/tox-list@v1
+        with:
+          tox-args: --ansible-driver docker --ansible-driver vagrant --ansible-driver podman
 
   build:
     needs: collect
@@ -53,19 +50,20 @@ jobs:
           git submodule update --remote --recursive
       - name: Set up Python
         uses: actions/setup-python@v2
+      - name: Make space
+        uses: greg-hellings/make-space@v1
       - name: Install dependencies
         run: |
           cd "${{ env.checkout_path }}"
           python -m pip install --upgrade tox
+          sudo apt update
+          sudo apt install vagrant{,-cachier,-libvirt,-sshfs} libvirt-daemon libvirt-daemon-system libvirt-daemon-driver-qemu
+          sudo systemctl start libvirtd
       - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
           mv ansible_collections ~/work/
           cd ~/work/${{ env.checkout_path }}
-          sudo apt-get purge llvm*
-          sudo rm -rf /usr/local/go1* /usr/share/{dotnet,rust} \
-          /usr/local/julia* /usr/lib/firefox /usr/lib/llvm* /usr/share/gradle* \
-          /usr/lib/google-cloud-sdk
           tox -e ${{ matrix.scenario }}
 
   release:
