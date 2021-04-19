@@ -1,6 +1,0 @@
-- name: restart Jenkins
-  become: true
-  become_user: root
-  service:
-    name: jenkins
-    state: restarted

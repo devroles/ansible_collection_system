@@ -1,5 +1,0 @@
-driver:
-  name: podman
-platforms:
-  - name: jenkins
-    image: centos:8

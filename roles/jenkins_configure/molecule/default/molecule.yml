@@ -1,6 +1,0 @@
-driver:
-  name: vagrant
-platforms:
-  - name: jenkins-configure-default
-    image: centos:8
-    box: greg-hellings/centos-8-x86_64

@@ -1,7 +1,0 @@
-driver:
-  name: vagrant
-platforms:
-  - name: jenkinsmaster
-    image: centos:8
-    command: /sbin/init
-    box: greg-hellings/centos-8-x86_64

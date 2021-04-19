@@ -1,4 +1,0 @@
-# The baseline RPMs that are installed to every Jenkins master
-jenkins_master_packages:
-  - "{{ jenkins_master_rpm }}"
-  - initscripts
