@@ -1,5 +1,0 @@
-mariadb_packages:
-  - mariadb-server
-  - python3-cryptography
-  - python3-PyMySQL
-mariadb_setup_dir_command: mysql-prepare-db-dir
