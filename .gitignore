@@ -8,3 +8,4 @@ __pychace__
 devroles-system-*.tar.gz
 log
 .cache
+junit.xml
