@@ -58,6 +58,8 @@ jobs:
           python -m pip install --upgrade tox
           sudo apt update
           sudo apt install vagrant{,-cachier,-libvirt,-sshfs} libvirt-daemon libvirt-daemon-system libvirt-daemon-driver-qemu
+          sudo groupadd libvirt || true
+          sudo usermod -a -G libvirt $(whoami)
           sudo systemctl start libvirtd
       - name: Run tox against ${{ matrix.scenario }}
         run: |
