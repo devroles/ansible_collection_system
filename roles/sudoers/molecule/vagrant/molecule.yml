@@ -1,5 +1,0 @@
-driver:
-  name: vagrant
-platforms:
-  - name: test_sudoers_vagrant
-    image: greg-hellings/centos-8-x86_64
