@@ -1,3 +1,0 @@
-{% for host in dhcpd_hosts %}
-{{ host.address }}  {{ host.hostname | etc_hosts_name }}
-{% endfor %}

@@ -1,5 +1,0 @@
-- name: restart dhcpd
-  become: "{{ dhcpd_become }}"
-  service:
-    name: "{{ dhcpd_provider }}"
-    state: restarted

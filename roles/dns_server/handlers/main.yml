@@ -1,5 +1,0 @@
-- name: restart named
-  become: true
-  service:
-    name: named
-    state: restarted
