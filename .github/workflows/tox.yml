@@ -54,6 +54,7 @@ jobs:
         uses: greg-hellings/make-space@v1
       - name: Install dependencies
         run: |
+          set -x
           cd "${{ env.checkout_path }}"
           python -m pip install --upgrade tox
           sudo apt update
@@ -66,6 +67,7 @@ jobs:
       - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
+          groups
           mv ansible_collections ~/work/
           cd ~/work/${{ env.checkout_path }}
           tox -e ${{ matrix.scenario }}
