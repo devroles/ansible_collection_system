@@ -1,8 +1,10 @@
 driver:
   name: vagrant
+  provider:
+    name: libvirt
 platforms:
   - name: mythtv_default
-    box: greg-hellings/fedora-32-x86_64
+    box: greg-hellings/fedora-33-x86_64
 provisioner:
   inventory:
     host_vars:
