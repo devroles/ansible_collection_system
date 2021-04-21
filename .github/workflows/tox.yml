@@ -60,7 +60,9 @@ jobs:
           sudo apt install vagrant{,-cachier,-libvirt,-sshfs} libvirt-daemon libvirt-daemon-system libvirt-daemon-driver-qemu
           sudo groupadd libvirt || true
           sudo usermod -a -G libvirt $(whoami)
+          newgrp libvirt
           sudo systemctl start libvirtd
+          sudo ls -la /var/run/libvirt
       - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
