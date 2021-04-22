@@ -1,5 +1,5 @@
 driver:
-  name: podman
+  name: docker
 platforms:
   - name: virtualenv_ansible_python_ubuntu18
     image: ubuntu:18.04
