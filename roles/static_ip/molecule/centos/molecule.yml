@@ -1,5 +1,7 @@
 driver:
   name: vagrant
+  provider:
+    name: libvirt
 platforms:
-  - name: test_static_ip_centos
-    image: greg-hellings/centos-8-x86_64
+  - name: test-static-ip-centos
+    image: generic/oracle8
