@@ -61,13 +61,10 @@ jobs:
           sudo apt install vagrant{,-cachier,-libvirt,-sshfs} libvirt-daemon libvirt-daemon-system libvirt-daemon-driver-qemu
           sudo groupadd libvirt || true
           sudo usermod -a -G libvirt $(whoami)
-          sudo grep /etc/libvirt/libvirtd.conf -e unix_sock_group
-          sudo sed -i -E -e 's/^.*unix_sock_group.*$/unix_sock_group = "libvirt"/' /etc/libvirt/libvirtd.conf
           sudo systemctl restart libvirtd
       - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
-          newgrp libvirt
           id $(whoami)
           mv ansible_collections ~/work/
           cd ~/work/${{ env.checkout_path }}
