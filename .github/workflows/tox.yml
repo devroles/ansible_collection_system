@@ -63,7 +63,7 @@ jobs:
           sudo usermod -a -G libvirt $(whoami)
           sudo grep /etc/libvirt/libvirtd.conf -e unix_sock_group
           sudo sed -i -E -e 's/^.*unix_sock_group.*$/unix_sock_group = "libvirt"/' /etc/libvirt/libvirtd.conf
-          sudo systemctl start libvirtd
+          sudo systemctl restart libvirtd
       - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
