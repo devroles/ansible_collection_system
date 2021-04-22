@@ -3,7 +3,7 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: mythtv_default
+  - name: mythtv-default
     box: greg-hellings/fedora-33-x86_64
 provisioner:
   inventory:
