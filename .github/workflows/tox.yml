@@ -69,6 +69,13 @@ jobs:
           mv ansible_collections ~/work/
           cd ~/work/${{ env.checkout_path }}
           tox -e ${{ matrix.scenario }}
+      - name: Try to run Vagrant directly
+        if: ${{ failure() }}
+        run: |
+          set -ex
+          cd ~/.cache/molecule/$(printf "${{ matrix.scenario }}" | cut -d- -f2,3 | sed -e 's#-#/#')
+          vagrant destroy --force
+          vagrant up
 
   release:
     needs: build
