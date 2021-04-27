@@ -75,7 +75,7 @@ jobs:
           set -ex
           cd ~/.cache/molecule/$(printf "${{ matrix.scenario }}" | cut -d- -f2,3 | sed -e 's#-#/#')
           vagrant destroy --force || true
-          vagrant up
+          vagrant up || vagrant up
 
   release:
     needs: build
