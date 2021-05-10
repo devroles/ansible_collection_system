@@ -4,7 +4,7 @@ driver:
     name: libvirt
 platforms:
   - name: mythtv-default
-    box: greg-hellings/fedora-33-x86_64
+    box: generic/fedora33
     config_options:
       synced_folder: false
       cachier: false
