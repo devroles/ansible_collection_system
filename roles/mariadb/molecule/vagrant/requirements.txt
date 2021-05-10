@@ -1,1 +1,0 @@
-git+https://github.com/greg-hellings/molecule-vagrant@encoding_errors
