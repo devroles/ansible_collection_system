@@ -61,10 +61,11 @@ jobs:
           sudo apt install vagrant{,-cachier,-libvirt,-sshfs} libvirt-daemon libvirt-daemon-system libvirt-daemon-driver-qemu
           sudo groupadd libvirt || true
           sudo usermod -a -G libvirt $(whoami)
+          sudo systemctl restart libvirtd
+          sudo grep -r /etc -e bridge.conf
           ls -l /etc/qemu
           cat /etc/qemu/bridge.conf
           sudo chmod a+s /etc/qemu/bridge.conf
-          sudo systemctl restart libvirtd
       - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
