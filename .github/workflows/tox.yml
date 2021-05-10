@@ -46,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodule: 'recursive'
+          submodules: 'recursive'
           path: ${{ env.checkout_path }}
       - name: update submodules
         run: |-
@@ -103,7 +103,9 @@ jobs:
           tox -e ${{ matrix.scenario }}
 
   release:
-    needs: build
+    needs:
+      - build
+      - vagrant_build
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     steps:

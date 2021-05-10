@@ -5,6 +5,12 @@ driver:
 platforms:
   - name: mythtv-default
     box: greg-hellings/fedora-33-x86_64
+    config_options:
+      synced_folder: false
+      cachier: false
+    provider_raw_config_args:
+      - 'qemu_use_session = true'
+      - 'driver = "qemu"'
 provisioner:
   inventory:
     host_vars:

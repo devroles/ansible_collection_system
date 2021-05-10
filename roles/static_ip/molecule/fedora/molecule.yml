@@ -3,3 +3,9 @@ driver:
 platforms:
   - name: test_static_ip_fedora
     image: greg-hellings/fedora-32-x86_64
+    config_options:
+      synced_folder: false
+      cachier: false
+    provider_raw_config_args:
+      - 'qemu_use_session = true'
+      - 'driver = "qemu"'
