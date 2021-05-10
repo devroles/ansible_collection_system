@@ -62,9 +62,6 @@ jobs:
           sudo groupadd libvirt || true
           sudo usermod -a -G libvirt $(whoami)
           sudo systemctl restart libvirtd
-          ls -l /etc/qemu
-          cat /etc/qemu/bridge.conf
-          sudo chmod a+s /etc/qemu/bridge.conf
       - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
@@ -76,6 +73,9 @@ jobs:
         if: ${{ failure() }}
         run: |
           set -ex
+          ls -l /etc/qemu
+          cat /etc/qemu/bridge.conf
+          sudo chmod a+s /etc/qemu/bridge.conf
           cd ~/.cache/molecule/$(printf "${{ matrix.scenario }}" | cut -d- -f2,3 | sed -e 's#-#/#')
           vagrant destroy --force || true
           vagrant up || vagrant up
