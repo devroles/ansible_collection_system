@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       scenarios: ${{ steps.collection.outputs.tox-envs }}
-      vagrant: ${{ steps.vagrant.outputs.tox-envs
+      vagrant: ${{ steps.vagrant.outputs.tox-envs }}
     steps:
       - uses: actions/checkout@v2
         with:
