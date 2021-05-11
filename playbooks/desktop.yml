@@ -2,6 +2,7 @@
   hosts: cli
   roles:
     - role: devroles.system.packages
+    - role: devroles.system.flatpak
     - role: devroles.system.flatpaks
 
 - name: configure development systems
