@@ -9,8 +9,13 @@ driver:
 lint: ''
 platforms:
   - name: instance
-    image: generic/fedora33
-    pre_build_image: true
+    box: generic/fedora33
+    config_options:
+      synced_folder: false
+      cachier: false
+    provider_raw_config_args:
+      - 'qemu_use_session = true'
+      - 'driver = "qemu"'
     groups:
       - admin
       - cli

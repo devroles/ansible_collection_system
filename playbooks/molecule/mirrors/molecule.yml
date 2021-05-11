@@ -3,11 +3,18 @@ dependency:
     role-file: ../requirements.yml  # relative to the role dir
     requirements-file: ../requirements.yml
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: libvirt
 platforms:
   - name: mirrors
-    image: fedora:latest
-    pre_build_image: true
+    box: generic/fedora33
+    config_options:
+      synced_folder: false
+      cachier: false
+    provider_raw_config_args:
+      - 'qemu_use_session = true'
+      - 'driver = "qemu"'
 provisioner:
   playbooks:
     converge: ../../mirrors.yml

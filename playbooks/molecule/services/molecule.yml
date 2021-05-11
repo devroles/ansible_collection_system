@@ -8,8 +8,13 @@ driver:
     name: libvirt
 platforms:
   - name: services
-    image: fedora:latest
-    pre_build_image: true
+    box: generic/fedora33
+    config_options:
+      synced_folder: false
+      cachier: false
+    provider_raw_config_args:
+      - 'qemu_use_session = true'
+      - 'driver = "qemu"'
     groups:
       - mariadb
       - webserver
