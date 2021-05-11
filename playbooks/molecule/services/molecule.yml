@@ -3,7 +3,9 @@ dependency:
     role-file: ../requirements.yml  # relative to the role dir
     requirements-file: ../requirements.yml
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: libvirt
 platforms:
   - name: services
     image: fedora:latest
