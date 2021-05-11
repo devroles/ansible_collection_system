@@ -13,6 +13,7 @@
       when:
         - ansible_facts.pkg_mgr not in ['atomic_container']
         - ansible_facts.hostname != 'toolbox'
+        - ansible_facts.distribution != 'Fedora'
     - role: devroles.devel.ansible
       when: ansible_facts.pkg_mgr not in ['atomic_container']
     - role: devroles.devel.java_devel
