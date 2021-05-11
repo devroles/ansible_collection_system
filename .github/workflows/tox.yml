@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       scenarios: ${{ steps.collection.outputs.tox-envs }}
+      vagrant: ${{ steps.vagrant.outputs.tox-envs }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -29,7 +30,43 @@ jobs:
       - id: collection
         uses: greg-hellings/tox-list@v1
         with:
-          tox-args: --ansible-driver docker --ansible-driver vagrant --ansible-driver podman
+          tox-args: --ansible-driver docker --ansible-driver podman
+      - id: vagrant
+        uses: greg-hellings/tox-list@v1
+        with:
+          tox-args: --ansible-driver vagrant
+
+  vagrant_build:
+    needs: collect
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: ${{ fromJson(needs.collect.outputs.vagrant) }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+          path: ${{ env.checkout_path }}
+      - name: update submodules
+        run: |-
+          set -ex
+          cd "${{ env.checkout_path }}"
+          git submodule update --remote --recursive
+      - name: Set up Python
+        uses: actions/setup-python@v2
+      - name: Install dependencies
+        run: |
+          set -x
+          cd "${{ env.checkout_path }}"
+          python -m pip install --upgrade tox
+      - name: Run tox against ${{ matrix.scenario }}
+        run: |
+          set -ex
+          mv ansible_collections ~/work/
+          cd ~/work/${{ env.checkout_path }}
+          tox -e ${{ matrix.scenario }}
+          df -h
 
   build:
     needs: collect
@@ -57,15 +94,6 @@ jobs:
           set -x
           cd "${{ env.checkout_path }}"
           python -m pip install --upgrade tox
-          sudo apt update
-          sudo apt install vagrant{,-cachier,-libvirt,-sshfs} libvirt-daemon libvirt-daemon-system libvirt-daemon-driver-qemu
-          sudo groupadd libvirt || true
-          sudo usermod -a -G libvirt $(whoami)
-          sudo systemctl restart libvirtd
-          grep -r /etc -e bridge.conf
-          ls -l /etc/qemu
-          cat /etc/qemu/bridge.conf
-          sudo chmod a+s /etc/qemu/bridge.conf
       - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
@@ -73,16 +101,11 @@ jobs:
           mv ansible_collections ~/work/
           cd ~/work/${{ env.checkout_path }}
           tox -e ${{ matrix.scenario }}
-      - name: Try to run Vagrant directly
-        if: ${{ failure() }}
-        run: |
-          set -ex
-          cd ~/.cache/molecule/$(printf "${{ matrix.scenario }}" | cut -d- -f2,3 | sed -e 's#-#/#')
-          vagrant destroy --force || true
-          vagrant up || vagrant up
 
   release:
-    needs: build
+    needs:
+      - build
+      - vagrant_build
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     steps:

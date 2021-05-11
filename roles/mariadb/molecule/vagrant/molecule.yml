@@ -7,7 +7,7 @@ platforms:
     box: generic/oracle8
     config_options:
       synced_folder: false
-      cache.synced_folder_opts: '{ type: :sshfs }'
+      cachier: false
     provider_raw_config_args:
       - 'qemu_use_session = true'
       - 'driver = "qemu"'

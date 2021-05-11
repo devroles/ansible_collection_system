@@ -94,7 +94,7 @@ packages_packages:
   - virt-manager
   # needed for Chrome cast Gnome Shell extensions
   - npm
-  - node
+  - nodejs
   - ffmpeg
   - nautilus-python
   - python3-gobject
