@@ -8,7 +8,7 @@ driver:
     name: libvirt
 platforms:
   - name: services
-    box: generic/fedora33
+    box: generic/oracle8
     config_options:
       synced_folder: false
       cachier: false
