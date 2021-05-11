@@ -6,7 +6,8 @@
     - vars/default.yml
 
 - name: Install EPEL
-  include_role: epel
+  include_role:
+    name: epel
 
 - name: install nginx packages
   package:
