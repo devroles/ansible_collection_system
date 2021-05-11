@@ -12,14 +12,8 @@
     - "vars/{{ ansible_facts.distribution }}.yml"
     - "vars/generic.yml"
 
-- name: install epel-release
-  become: true
-  package:
-    name: epel-release
-    state: present
-  when:
-    - ansible_facts.distribution in ['CentOS', 'RHEL']
-  changed_when: false  # CentOS 8 doesn't always correctly handle epel-release
+- name: Install EPEL
+  include_tasks: epel
 
 - name: install database
   become: true

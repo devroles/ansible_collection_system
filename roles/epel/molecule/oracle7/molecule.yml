@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: oracle_7_epel
+    image: oraclelinux:7
