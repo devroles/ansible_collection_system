@@ -4,17 +4,6 @@
     - role: oasis_roles.system.firewalld
       when: ansible_pkg_mgr not in ['atomic_container']
 
-- name: configure DHCP server
-  hosts: dhcpd
-  roles:
-    - devroles.system.static_ip
-    - devroles.system.dhcpd
-
-- name: configure server functions
-  hosts: dns
-  roles:
-    - devroles.system.dns_server
-
 - name: configure mariadb/mysql database
   hosts: mariadb
   roles:
@@ -29,29 +18,3 @@
   hosts: mythtv
   roles:
     - devroles.system.mythtv
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# Jenkins Systems
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-- name: install Jenkins masters
-  hosts: jenkins_master
-  roles:
-    - role: oasis_roles.system.firewalld
-      firewalld_ports_open:
-        - port: 8080
-          proto: tcp
-    - role: oasis_roles.system.users_and_groups
-      users_and_groups_add_modify_users:
-        - name: jenkins
-    - role: devroles.system.jenkins
-    - role: oasis_roles.system.system_repositories
-      system_repositories_repo_files:
-        - https://pkg.jenkins.io/redhat-stable/jenkins.repo
-      system_repositories_rpm_keys:
-        - https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-    - role: devroles.system.jenkins_master
-
-- name: configure Jenkins masters
-  hosts: jenkins
-  roles:
-    - role: devroles.system.jenkins_configure

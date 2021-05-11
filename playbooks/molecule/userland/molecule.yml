@@ -1,3 +1,7 @@
+dependency:
+  options:
+    role-file: ../../requirements.yml  # relative to the role dir
+    requirements-file: ../../requirements.yml
 driver:
   name: docker
 lint: ''

@@ -3,12 +3,18 @@ dependency:
     role-file: ../../requirements.yml  # relative to the role dir
     requirements-file: ../../requirements.yml
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: libvirt
+lint: ''
 platforms:
-  - name: development
-    image: fedora:latest
+  - name: instance
+    image: generic/fedora33
     pre_build_image: true
     groups:
+      - admin
+      - cli
+      - dev
       - ansible
       - cinch
       - java-devel
@@ -16,4 +22,4 @@ platforms:
       - sword
 provisioner:
   playbooks:
-    converge: ../../development.yml
+    converge: ../../site.yml

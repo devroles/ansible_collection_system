@@ -1,9 +1,17 @@
+dependency:
+  options:
+    role-file: ../../requirements.yml  # relative to the role dir
+    requirements-file: ../../requirements.yml
 driver:
   name: docker
 platforms:
   - name: services
     image: fedora:latest
     pre_build_image: true
+    groups:
+      - mariadb
+      - webserver
+      - mythtv
 provisioner:
   playbooks:
     converge: ../../services.yml
