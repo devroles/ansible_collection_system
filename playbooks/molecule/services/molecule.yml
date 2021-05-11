@@ -18,7 +18,12 @@ platforms:
     groups:
       - mariadb
       - webserver
-      - mythtv
 provisioner:
   playbooks:
     converge: ../../services.yml
+  inventory:
+    group_vars:
+      all:
+        mariadb_admin_password: mypass
+        webserver_domains:
+          - mydomain.com
