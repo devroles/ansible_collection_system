@@ -13,7 +13,8 @@
     - "vars/generic.yml"
 
 - name: Install EPEL
-  include_role: epel
+  include_role:
+    name: epel
 
 - name: install database
   become: true
