@@ -1,0 +1,12 @@
+driver:
+  name: docker
+platforms:
+  - name: desktop
+    image: fedora:latest
+    pre_build_image: true
+    groups:
+      - cli
+      - dev
+provisioner:
+  playbooks:
+    converge: ../../desktop.yml

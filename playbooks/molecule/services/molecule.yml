@@ -1,0 +1,9 @@
+driver:
+  name: docker
+platforms:
+  - name: services
+    image: fedora:latest
+    pre_build_image: true
+provisioner:
+  playbooks:
+    converge: ../../services.yml

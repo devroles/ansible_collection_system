@@ -1,0 +1,11 @@
+driver:
+  name: docker
+platforms:
+  - name: mirrors
+    image: fedora:latest
+    pre_build_image: true
+    groups:
+      - mirrors
+provisioner:
+  playbooks:
+    converge: ../../mirrors.yml

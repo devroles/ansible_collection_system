@@ -1,0 +1,15 @@
+driver:
+  name: docker
+platforms:
+  - name: development
+    image: fedora:latest
+    pre_build_image: true
+    groups:
+      - ansible
+      - cinch
+      - java-devel
+      - packaging
+      - sword
+provisioner:
+  playbooks:
+    converge: ../../development.yml

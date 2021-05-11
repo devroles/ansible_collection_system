@@ -1,0 +1,11 @@
+driver:
+  name: docker
+platforms:
+  - name: baseline
+    image: fedora:latest
+    pre_build_image: true
+    groups:
+      - admin
+provisioner:
+  playbooks:
+    converge: ../../baseline.yml
