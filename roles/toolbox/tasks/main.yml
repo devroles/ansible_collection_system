@@ -1,0 +1,44 @@
+- name: Make sure that toolbox is installed
+  package:
+    name: toolbox
+    state: present
+  become: true
+  when: ansible_facts.pkg_mgr != 'atomic_container'
+
+- name: Provision a toolbox instance
+  containers.podman.podman_container:
+    name: &tb_name mytoolbox
+    image: "{{ toolbox_base_image }}"
+    command: /bin/bash
+    interactive: true
+    tty: true
+    state: started
+
+- name: Add toolbox to the inventory
+  add_host:
+    name: myinventory
+    ansible_connection: podman
+    groups:
+      - admin
+      - cli
+      - dev
+      - packaging
+      - sword
+      - ansible
+      - java-devel
+
+- name: Configure the toolbox
+  import_playbook: devroles.system.{{ item }}
+  loop:
+    - baseline
+    - desktop
+    - development
+
+- name: Stop the container
+  containers.podman.podman_container:
+    name: *tb_name
+    state: stopped
+
+- name: Commit the image
+  command: podman commit mytoolbox {{ toolbox_target_image }}
+  changed_when: false

@@ -1,0 +1,10 @@
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+platforms:
+  - name: test-toolbox
+    box: greg-hellings/fedora-33-silverblue
+    config_options:
+      synced_folder: false
+      cachier: false

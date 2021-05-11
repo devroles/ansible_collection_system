@@ -1,9 +1,11 @@
 - name: configure desktop systems
   hosts: cli
   roles:
-    - role: devroles.system.packages
     - role: devroles.system.flatpak
     - role: devroles.system.flatpaks
+    - role: devroles.system.packages
+    - role: devroles.system.toolbox
+      when: ansible_facts.pkg_mgr == 'atomic_container'
 
 - name: configure development systems
   hosts: dev
