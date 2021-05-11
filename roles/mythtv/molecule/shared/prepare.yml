@@ -1,29 +1,10 @@
 - name: create mariadb
   hosts: all
   roles:
-    - oasis_roles.system.system_repositories
     - devroles.system.disable_deltarpm
     - devroles.system.mariadb
+    - devroles.system.packages
   vars:
-    system_repositories_configs:
-      - name: rpmfusion-free
-        gpgcheck: true
-        # yamllint disable-line rule:line-length
-        gpgkey: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_version }}
-        # yamllint disable-line rule:line-length
-        metalink: https://mirrors.rpmfusion.org/metalink?repo=free-fedora-$releasever&arch=$basearch
-      - name: rpmfusion-free-updates
-        gpgcheck: true
-        # yamllint disable-line rule:line-length
-        gpgkey: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_version }}
-        # yamllint disable-line rule:line-length
-        metalink: https://mirrors.rpmfusion.org/metalink?repo=free-fedora-updates-released-$releasever&arch=$basearch
-        repo_gpgcheck: false
-      - name: fedora-Handbrake
-        # yamllint disable-line rule:line-length
-        baseurl: https://negativo17.org/repos/multimedia/fedora-$releasever/$basearch/
-        gpgcheck: true
-        gpgkey: https://negativo17.org/repos/RPM-GPG-KEY-slaanesh
     mariadb_user_privs:
       - username: user
         password: &password p4ssw0rd!
