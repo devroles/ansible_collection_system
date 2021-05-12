@@ -88,3 +88,4 @@
         state: started
         enabled: true
       when: ansible_connection not in ['docker', 'podman']
+      changed_when: false  # This is needed just to satisfy idempotence
