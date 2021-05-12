@@ -26,4 +26,4 @@ provisioner:
       all:
         mariadb_admin_password: mypass
         webserver_domains:
-          - mydomain.com
+          - tld: mydomain.com
