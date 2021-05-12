@@ -3,11 +3,6 @@
     - role: devroles.devel.ansible
       when: ansible_facts.pkg_mgr not in ['atomic_container']
 
-- hosts: cinch
-  roles:
-    - role: devroles.devel.cinch
-      when: ansible_facts.pkg_mgr not in ['atomic_container']
-
 - hosts: java-devel
   roles:
     - role: devroles.devel.java_devel

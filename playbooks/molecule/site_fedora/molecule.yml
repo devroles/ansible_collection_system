@@ -21,7 +21,6 @@ platforms:
       - cli
       - dev
       - ansible
-      - cinch
       - java-devel
       - packaging
       - sword
