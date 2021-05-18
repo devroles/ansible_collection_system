@@ -25,7 +25,7 @@
 
 - name: apply for letsencrypt for {{ domain.tld }}
   become: true
-  letsencrypt:
+  community.crypto.acme_certificate:
     account_key_src: /etc/ssl/letsencrypt.key
     csr: /etc/ssl/{{ domain.tld }}.csr
     dest: /etc/ssl/{{ domain.tld }}.crt
@@ -55,7 +55,7 @@
 
 - name: retrieve letsencrypt certificate for {{ domain.tld }}
   become: true
-  letsencrypt:
+  community.crypto.acme_certificate:
     account_key_src: /etc/ssl/letsencrypt.key
     csr: /etc/ssl/{{ domain.tld }}.csr
     dest: /etc/ssl/{{ domain.tld }}.crt

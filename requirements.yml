@@ -2,3 +2,4 @@ collections:
   - oasis_roles.system
   - containers.podman
   - devroles.devel
+  - community.crypto

@@ -48,6 +48,7 @@ dependencies:
   oasis_roles.system: ">=1.0.0"
   containers.podman: ">=1.0.0"
   devroles.devel: ">=1.0.0"
+  community.crypto: ">=1.6"
 
 # The URL of the originating SCM repository
 repository: http://github.com/devroles/ansible_collection_system
