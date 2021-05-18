@@ -6,7 +6,7 @@
 - hosts: java-devel
   roles:
     - role: devroles.devel.java_devel
-      # This one also sets up Maven config, so keep it
+    # This one also sets up Maven config, so keep it
 
 - hosts: packaging
   roles:

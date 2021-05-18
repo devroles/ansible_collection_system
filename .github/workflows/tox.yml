@@ -35,6 +35,8 @@ jobs:
         uses: greg-hellings/tox-list@v1
         with:
           tox-args: --ansible-driver vagrant
+      - name: Lint
+        run: tox -e lint_all
 
   vagrant_build:
     needs: collect
