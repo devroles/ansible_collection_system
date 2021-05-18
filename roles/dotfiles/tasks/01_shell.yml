@@ -3,7 +3,7 @@
     bashrc_role_path: "{{ role_path }}"
 
 - name: run files
-  copy_or_link:
+  devroles.system.copy_or_link:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     force: "{{ item.force }}"
