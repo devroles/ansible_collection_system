@@ -1,4 +1,6 @@
 - hosts: all
+  vars:
+    col_dir: "{{ molecule_scenario_directory }}/../../../../"
   tasks:
     - name: touch file
       file:
@@ -10,13 +12,6 @@
       package:
         name: ansible
         state: present
-
-    - name: create target dir
-      file:
-        dest: /root/temp/roles
-        state: directory
-        recurse: true
-        mode: 0700
 
     - name: create inventory file
       copy:
@@ -30,23 +25,26 @@
         dest: /root/temp/
         mode: 0644
       loop:
-        - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY')
-              }}/../shared/first"
-        - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY')
-              }}/../shared/second"
-        - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY')
-              }}/remote_playbook.yml"
+        - "{{ molecule_scenario_directory }}/../shared/first"
+        - "{{ molecule_scenario_directory }}/../shared/second"
+        - "{{ molecule_scenario_directory }}/remote_playbook.yml"
 
-    - name: copy role
-      copy:
-        src: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"
-        dest: /root/temp/roles/
-        mode: 0644
+    - name: create archive of collection
+      delegate_to: localhost
+      archive:
+        path: "{{ col_dir }}"
+        dest: &archive "{{ col_dir }}/../my_collection.tar.gz"
+        format: gz
 
-    - name: copy action_plugin
-      copy:
-        src: >-
-          {{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY')
-          }}/../../plugins/action/copy_or_link.py
-        dest: /root/temp/roles/copy_or_link/action_plugins/
-        mode: 0644
+    - name: create destination ansible_collections path
+      file:
+        path: &remote /root/temp/ansible_collections/devroles/system
+        state: directory
+        owner: root
+        mode: 0755
+
+    - name: unarchive collection
+      unarchive:
+        src: *archive
+        dest: *remote
+        list_files: true
