@@ -1,5 +1,5 @@
 webserver_domains: []
-webserver_acme_directory: "https://acme-v01.api.letsencrypt.org/directory"
+webserver_acme_directory: "https://acme-v02.api.letsencrypt.org/directory"
 # TODO: Taken from the Jenkins role
 # Default rate limiting values are below, customize as desired.
 # Size of ip address state cache (10m = ~160,000 ip addresses):

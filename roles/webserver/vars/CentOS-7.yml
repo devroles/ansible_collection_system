@@ -2,3 +2,4 @@ webserver_packages:
   - nginx
   - certbot
   - python-virtualenv
+  - libsemanage-python

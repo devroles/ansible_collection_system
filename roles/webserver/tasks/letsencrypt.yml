@@ -30,6 +30,7 @@
     csr: /etc/ssl/{{ domain.tld }}.csr
     dest: /etc/ssl/{{ domain.tld }}.crt
     acme_directory: "{{ webserver_acme_directory }}"
+    acme_version: "2"
   register: letsencrypt_challenge
 
 - name: create challenge dir for {{ domain.tld }}
