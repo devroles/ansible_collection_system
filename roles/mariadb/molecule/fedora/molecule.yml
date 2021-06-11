@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: mariadb_fedora
+    image: fedora:latest

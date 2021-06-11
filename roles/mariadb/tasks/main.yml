@@ -31,6 +31,7 @@
   args:
     creates: /var/lib/mysql/mysql
   register: _first_run
+  ignore_errors: true
 
 - name: start database
   become: true
@@ -49,11 +50,11 @@
   when:
     - ansible_connection in ['docker', 'podman']
 
-- name: configure MariaDB access
-  include_tasks:
-    file: configure_access.yml
-
 - name: secure system on first boot
   include_tasks:
     file: secure.yml
   when: _first_run is changed
+
+- name: configure MariaDB access
+  include_tasks:
+    file: configure_access.yml

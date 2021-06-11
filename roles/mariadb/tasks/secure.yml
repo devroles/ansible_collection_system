@@ -4,11 +4,13 @@
     name: ""
     host_all: true
     state: absent
+    login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
 
 - name: remove test database
   mysql_db:
     name: test
     state: absent
+    login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
 
 - name: create admin for localhost only
   mysql_user:
@@ -16,6 +18,7 @@
     name: "{{ mariadb_admin_user }}"
     host: "{{ item }}"
     state: present
+    login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
   with_items: "{{ mariadb_admin_hosts }}"
 
 - name: remove root user, if not admin
@@ -24,4 +27,5 @@
     name: root
     host_all: true
     state: absent
+    login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
   when: mariadb_admin_user != 'root'
