@@ -13,6 +13,14 @@
         name: ansible
         state: present
 
+    - name: create play structure
+      file:
+        state: directory
+        path: /root/temp
+        owner: root
+        group: root
+        mode: 0644
+
     - name: create inventory file
       copy:
         content: "localhost ansible_connection=local"
