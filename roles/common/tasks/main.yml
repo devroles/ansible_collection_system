@@ -40,3 +40,4 @@
   when:
     - ansible_facts.os_family != 'Darwin'
     - ansible_connection not in ['docker', 'podman']
+    - "'WSLENV' not in ansible_facts.env"
