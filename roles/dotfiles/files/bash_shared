@@ -29,7 +29,7 @@ prompt_command() {
   [ "$PWD" != "$HOME" ] && pwd=${PWD/#$HOME\//\~\/}
   pwd="${pwd//[[:cntrl:]]}"
   printf '\033]777;notify;Command completed;%s\033\\\033]777;precmd\033\\\033]0;%s@%s:%s\033\\' "${command}" "${pwd}"
-  __vte_osc7
+  [ "$TERM" == xterm* -o "$TERM" == vte* ] && __vte_osc7
 }
 PROMPT_COMMAND=prompt_command
 
