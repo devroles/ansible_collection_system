@@ -8,6 +8,7 @@
 
 - name: remove test database
   mysql_db:
+    check_implicit_admin: true
     name: test
     state: absent
     login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
