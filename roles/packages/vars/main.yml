@@ -119,6 +119,10 @@ packages_python_packages:
   - docker
   - ipython
   - molecule
+  - molecule-podman
+  - molecule-docker
+  - molecule-containers
+  - python-vagrant
   - openstacksdk
   - ovirt-engine-sdk-python
   - progressbar2
