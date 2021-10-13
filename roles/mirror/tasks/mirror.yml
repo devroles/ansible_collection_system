@@ -1,7 +1,7 @@
 - block:
     - name: create base dir
       file:
-        dest: "{{ item.base }}"
+        dest: "{{ item.dest }}"
         state: directory
         owner: "{{ item.owner | default(omit) }}"
         group: "{{ item.group | default(omit) }}"
@@ -18,11 +18,11 @@
           {{ exclude }}
           {% endfor %}
           EOF
-          rsync -avSHP --delete --exclude-from="${excludes}" \
-              {{ item.src }} \
-              {{ item.base }}/{{ item.dest }}
+          flock -n "{{ item.dest }}" rsync -avSHP --delete --exclude-from="${excludes}" \
+              "{{ item.src }}" \
+              "{{ item.dest }}" | tee "{{ mirror_log_dir }}/{{ item.name }}.log
           rm -f "${excludes}"
-        dest: "{{ item.script_home | default(item.base) }}/{{ item.name }}.sh"
+        dest: "{{ item.script_home }}/{{ item.name }}.sh"
         owner: "{{ item.owner | default(omit) }}"
         group: "{{ item.group | default(omit) }}"
         mode: "0755"
