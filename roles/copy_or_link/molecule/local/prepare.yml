@@ -43,6 +43,7 @@
         path: "{{ col_dir }}"
         dest: &archive "{{ col_dir }}/../my_collection.tar.gz"
         format: gz
+        mode: "u+rw"
 
     - name: create destination ansible_collections path
       file:
