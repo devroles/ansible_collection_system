@@ -1,3 +1,9 @@
+- name: include variable files
+  include_vars: "{{ item }}"
+  loop:
+    - "{{ role_path }}/vars/{{ ansible_facts.architecture }}.yml"
+  when: item is file
+
 - name: install CLI repos and packages
   import_tasks: 01_cli.yml
   when: ansible_facts.pkg_mgr not in ['atomic_container']
@@ -8,9 +14,11 @@
 
     - name: setup libvirt
       import_tasks: 03_libvirt.yml
+      when: ansible_facts.architecture != 'aarch64'
 
     - name: setup packer
       import_tasks: 04_packer.yml
+      when: ansible_facts.architecture != 'aarch64'
   when: "'WSLENV' not in ansible_facts.env"
 
 - name: setup kerberos

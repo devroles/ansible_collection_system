@@ -20,13 +20,10 @@ packages_repositories:
     gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/pubkey.gpg
     gpgcheck: true
     description: Greg Hellings' builds of Entropy Piano Tuner
-  - name: greghellings-packer
-    # yamllint disable-line rule:line-length
-    baseurl: https://copr-be.cloud.fedoraproject.org/results/greghellings/Packer/fedora-$releasever-$basearch/
+  - name: hashicorp
+    baseurl: https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable
     gpgcheck: true
-    # yamllint disable-line rule:line-length
-    gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/Packer/pubkey.gpg
-    description: Greg Hellings's Packer builds
+    gpgkey: https://rpm.releases.hashicorp.com/gpg
 packages_libvirt:
   - libvirt
   - qemu-kvm
@@ -42,18 +39,18 @@ packages_libvirt:
   - vagrant-openstack-provider
 packages_packages:
   - awscli
+  - bind-utils
   - gnupg2
   - HandBrake-cli
   - jq
   - libaacs
   - origin-clients
-  - podman
   - python3-sword
   - sword
   - sword-utils
   - xonsh
   # Python tools
-  - python-virtualenv
+  - python3-virtualenv
   - python3-devel
   - entr
   - ShellCheck

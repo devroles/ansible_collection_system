@@ -1,5 +1,11 @@
+- name: setup internal dns
+  hosts: adblock
+  roles:
+    - role: oasis_roles.system.container
+    - role: devroles.system.adblock
+
 - name: configure firewall
-  hosts: all
+  hosts: admin
   roles:
     - role: oasis_roles.system.firewalld
       when:
