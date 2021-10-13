@@ -1,19 +1,21 @@
 dotfiles_shell_files:
-  - src: "{{ bashrc_role_path }}/files/bashrc"
+  - src: "{{ dotfiles_role_path }}/files/bashrc"
     dest: "{{ ansible_user_dir }}/.bashrc"
     force: true
-  - src: "{{ bashrc_role_path }}/files/bash_profile"
+  - src: "{{ dotfiles_role_path }}/files/bash_profile"
     dest: "{{ ansible_user_dir }}/.bash_profile"
     force: true
-  - src: "{{ bashrc_role_path }}/files/bash_shared"
+  - src: "{{ dotfiles_role_path }}/files/bash_shared"
     dest: "{{ ansible_user_dir }}/.bash_shared"
     force: true
-  - src: "{{ bashrc_role_path }}/files/screenrc"
+  - src: "{{ dotfiles_role_path }}/files/screenrc"
     dest: "{{ ansible_user_dir }}/.screenrc"
     force: true
-  - src: "{{ bashrc_role_path }}/files/ansible.cfg"
+  - src: "{{ dotfiles_role_path }}/files/ansible.cfg"
     dest: "{{ ansible_user_dir }}/.ansible.cfg"
     force: true
+  - src: "{{ dotfiles_role_path }}/files/gitignore"
+    dest: "{{ ansible_user_dir }}/.gitignore"
 dotfiles_vim_plugins:
   - repo: https://github.com/jlanzarotta/bufexplorer.git
     name: bufexplorer

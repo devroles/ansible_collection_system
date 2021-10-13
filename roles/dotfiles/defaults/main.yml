@@ -11,7 +11,11 @@ dotfiles_git_config_values:
     value: greg.hellings@gmail.com
   - name: push.default
     value: simple
+  - name: pull.rebase
+    value: 'false'
   - name: gitreview.username
     value: greg.hellings
   - name: core.hooksPath
     value: "{{ role_path }}/files/"
+  - name: core.excludesFile
+    value: "{{ ansible_user_dir }}/.gitignore"

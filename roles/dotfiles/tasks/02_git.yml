@@ -1,13 +1,7 @@
-- name: Install git
-  become: true
-  package:
-    name: git
-    state: present
-  when: ansible_facts.pkg_mgr not in ['atomic_container']
-
 - name: Configure git
-  git_config:
-    name: "{{ item.name }}"
+  ini_file:
+    path: "{{ ansible_user_dir }}/.gitconfig"
+    section: "{{ item.name.split('.', 1)[0] }}"
+    option: "{{ item.name.split('.', 1)[1] }}"
     value: "{{ item.value }}"
-    scope: global
   with_items: "{{ dotfiles_git_config_values }}"
