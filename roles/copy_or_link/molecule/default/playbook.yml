@@ -1,7 +1,7 @@
 - name: converge
   hosts: all
   roles:
-    - role: copy_or_link
+    - role: devroles.system.copy_or_link
       copy_or_link_files:
         - src: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY')
                 }}/../shared/first"
