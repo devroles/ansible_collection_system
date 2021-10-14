@@ -11,3 +11,4 @@
     name: "{{ item }}"
     state: present
   loop: "{{ dev_paks }}"
+  when: ansible_facts.hostname != 'toolbox'
