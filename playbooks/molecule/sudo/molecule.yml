@@ -1,0 +1,13 @@
+dependency:
+  options:
+    role-file: ../requirements.yml  # relative to the role dir
+    requirements-file: ../requirements.yml
+driver:
+  name: docker
+platforms:
+  - name: sudo
+    image: fedora:latest
+    pre_build_image: true
+provisioner:
+  playbooks:
+    converge: ../../sudo.yml
