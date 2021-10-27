@@ -26,3 +26,18 @@
   hosts: mythtv
   roles:
     - devroles.system.mythtv
+
+- name: prepare k3s nodes
+  hosts: k3s
+  roles:
+    - devroles.system.k3s_base
+
+- name: configure k3s
+  hosts: k3s_master
+  roles:
+    - devroles.system.k3s_master
+
+- name: configure k3s workers
+  hosts: k3s_workers
+  roles:
+    - devroles.system.k3s_worker

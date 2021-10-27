@@ -1,0 +1,19 @@
+# role tasks
+- name: Set platform/version specific variables
+  include_vars: "{{ __rolename_vars_file }}"
+  loop:
+    - "{{ ansible_facts.os_family }}.yml"
+    - "{{ ansible_facts.distribution }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version }}.yml"
+  vars:
+    __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
+  when: __rolename_vars_file is file
+
+- become: "{{ k3s_master_become }}"
+  become_user: "{{ k3s_master_become_user }}"
+  block:
+    - name: Execute installer
+      shell: /tmp/install-k3s.sh
+      args:
+        creates: /usr/local/bin/k3s

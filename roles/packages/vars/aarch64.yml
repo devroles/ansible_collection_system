@@ -9,16 +9,7 @@ packages_packages:
   - jq
   - xonsh
   - python3-virtualenv
-  - python3-devel
-  - libcurl-devel
-  - gcc-c++
-  - redhat-rpm-config
-  - cmake
-  - make
-  - rpmdevtools
-  - golang
-  - yamllint
-  - libxml2-devel
+  - git
   - git-subtree
 packages_dnf_packages:
   - dnf-command(system-upgrade)
@@ -27,21 +18,7 @@ packages_remove_packages:
   - PackageKit
   - thunderbird
 packages_python_packages:
-  - ansible
-  - cookiecutter
-  - docker
   - ipython
-  - molecule
-  - molecule-podman
-  - molecule-docker
-  - molecule-containers
-  - python-vagrant
   - openstacksdk
-  - ovirt-engine-sdk-python
   - progressbar2
   - Pygments
-  - wheel
-  - PyGithub
-  - tox
-  - tox-ansible
-  - xonsh

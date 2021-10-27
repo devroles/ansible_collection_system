@@ -1,0 +1,11 @@
+galaxy_info:
+  author: devroles
+  description: Configures a k3s worker node
+  license: GPLv3
+  min_ansible_version: 2.8
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+
+dependencies: []

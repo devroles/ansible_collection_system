@@ -1,0 +1,5 @@
+k3s_worker_become: true
+k3s_worker_become_user: root
+k3s_worker_node_labels: []
+k3s_worker_node_name: "{{ inventory_hostname }}"
+#k3s_worker_server: ~
