@@ -13,10 +13,6 @@ name: tox
   schedule:
     - cron: '12 0 * * *'
 
-env:
-  ANSIBLE_COLLECTIONS_PATH: ~/.ansible/:~/work/
-  checkout_path: ansible_collections/devroles/system
-
 jobs:
   collect:
     runs-on: ubuntu-latest
@@ -41,30 +37,9 @@ jobs:
         uses: greg-hellings/tox-list@v1
         with:
           tox-args: --ansible-driver vagrant
-      - name: Lint
-        run: tox -e lint_all
 
   lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
-          path: ${{ env.checkout_path }}
-      - name: Update submodules to latest
-        run: |
-          cd "${{ env.checkout_path }}"
-          git submodule update --remote --recursive
-      - name: Set up Python
-        uses: actions/setup-python@v2
-      - name: Install dependencies
-        run: |
-          set -ex
-          python -m pip install --upgrade tox
-      - name: Run lint
-        run: |
-          cd "${{ env.checkout_path }}"
-          tox -e lint_all
+    uses: oasis-roles/meta_test/.github/workflows/lint.yml@main
 
   vagrant_build:
     needs:
