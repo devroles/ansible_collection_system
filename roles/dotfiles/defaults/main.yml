@@ -1,3 +1,4 @@
+dotfiles_git_email: greg.hellings@gmail.com
 dotfiles_git_config_values:
   - name: alias.st
     value: status
@@ -8,9 +9,9 @@ dotfiles_git_config_values:
   - name: user.name
     value: Gregory Hellings
   - name: user.email
-    value: greg.hellings@gmail.com
+    value: "{{ dotfiles_git_email }}"
   - name: push.default
-    value: simple
+    value: upstream
   - name: pull.rebase
     value: 'false'
   - name: gitreview.username
