@@ -8,7 +8,7 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: test-k3s_master
+  - name: test-k3s-master
     # The set of "generic" boxes on Vagrant Hub has a
     # very robust set of distros available, including RHEL
     # if we need it. But generally the Oracle Linux is the
