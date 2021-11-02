@@ -8,7 +8,7 @@ import os
 from ansible.module_utils.basic import AnsibleModule
 
 
-DOCUMENTATION = '''
+DOCUMENTATION = """
 ---
 version_added: "2.1"
 module: jenkins_cli_user
@@ -36,7 +36,7 @@ options:
     required: false
 
 author: Gregory Hellings
-'''
+"""
 
 
 class UserList(object):
@@ -46,7 +46,7 @@ class UserList(object):
 
     @property
     def users(self):
-        if not hasattr(self, '_users'):
+        if not hasattr(self, "_users"):
             mapping = self.root.find("idToDirectoryNameMap")
             if not mapping:
                 return {}
@@ -100,14 +100,14 @@ class User(object):
 def main():
     module = AnsibleModule(
         argument_spec={
-            'jenkins_home': {'required': True},
-            'jenkins_user': {'required': True},
-            'key': {'required': True},
-            'state': {'choices': ['present'], 'default': 'present'}
+            "jenkins_home": {"required": True},
+            "jenkins_user": {"required": True},
+            "key": {"required": True},
+            "state": {"choices": ["present"], "default": "present"},
         },
-        supports_check_mode=False
+        supports_check_mode=False,
     )
-    params = type('Params', (object,), module.params)
+    params = type("Params", (object,), module.params)
     user_path = os.path.join(params.jenkins_home, "users")
     changed = False
 
