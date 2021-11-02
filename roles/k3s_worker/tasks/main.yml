@@ -14,7 +14,7 @@
   become_user: "{{ k3s_worker_become_user }}"
   block:
     - name: Install k3s on this node
-      shell: >-
+      command: >-
         /tmp/install-k3s.sh
         --server {{ k3s_worker_server }}
         --node-name {{ k3s_worker_node_name }}

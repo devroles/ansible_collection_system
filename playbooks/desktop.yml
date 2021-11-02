@@ -6,8 +6,8 @@
     - role: devroles.system.flatpaks
       when: ansible_facts.architecture not in ['aarch64']
     - role: devroles.system.packages
-      #- role: devroles.system.toolbox
-      #when: ansible_facts.pkg_mgr == 'atomic_container'
+    #- role: devroles.system.toolbox
+    #  when: ansible_facts.pkg_mgr == 'atomic_container'
 
 - name: configure development systems
   hosts: dev

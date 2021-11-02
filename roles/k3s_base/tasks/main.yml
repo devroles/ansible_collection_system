@@ -22,7 +22,7 @@
         - firewalld
         - nm-cloud-setup.service
         - nm-cloud-setup.timer
-      ignore_errors: true
+      ignore_errors: true  # noqa ignore-errors
 
     - name: Install prereqs
       package:
