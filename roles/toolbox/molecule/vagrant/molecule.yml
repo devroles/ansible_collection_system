@@ -4,7 +4,7 @@ driver:
     name: libvirt
 platforms:
   - name: test-toolbox
-    box: greg-hellings/fedora-33-silverblue
+    box: generic/fedora34
     config_options:
       synced_folder: false
       cachier: false
