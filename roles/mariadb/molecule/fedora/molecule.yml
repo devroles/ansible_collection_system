@@ -1,5 +1,10 @@
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: libvirt
 platforms:
-  - name: mariadb_fedora
-    image: fedora:latest
+  - name: mariadb-fedora
+    box: generic/fedora34
+    config_options:
+      cachier: false
+      synced_folder: false

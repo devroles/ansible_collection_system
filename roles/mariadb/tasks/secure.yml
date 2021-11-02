@@ -1,32 +1,34 @@
-- name: remove anonymous users
-  mysql_user:
-    check_implicit_admin: true
-    name: ""
-    host_all: true
-    state: absent
-    login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
+- become: true
+  block:
+    - name: remove anonymous users
+      mysql_user:
+        check_implicit_admin: true
+        name: ""
+        host_all: true
+        state: absent
+        login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
 
-- name: remove test database
-  mysql_db:
-    check_implicit_admin: true
-    name: test
-    state: absent
-    login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
+    - name: remove test database
+      mysql_db:
+        check_implicit_admin: true
+        name: test
+        state: absent
+        login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
 
-- name: create admin for localhost only
-  mysql_user:
-    check_implicit_admin: true
-    name: "{{ mariadb_admin_user }}"
-    host: "{{ item }}"
-    state: present
-    login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
-  with_items: "{{ mariadb_admin_hosts }}"
+    - name: create admin for localhost only
+      mysql_user:
+        check_implicit_admin: true
+        name: "{{ mariadb_admin_user }}"
+        host: "{{ item }}"
+        state: present
+        login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
+      with_items: "{{ mariadb_admin_hosts }}"
 
-- name: remove root user, if not admin
-  mysql_user:
-    check_implicit_admin: true
-    name: root
-    host_all: true
-    state: absent
-    login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
-  when: mariadb_admin_user != 'root'
+    - name: remove root user, if not admin
+      mysql_user:
+        check_implicit_admin: true
+        name: root
+        host_all: true
+        state: absent
+        login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
+      when: mariadb_admin_user != 'root'
