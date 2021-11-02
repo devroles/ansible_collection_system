@@ -12,3 +12,4 @@
 
 - name: Configure Blu-ray playback
   include_tasks: 05_blu_ray.yml
+  when: ansible_facts.hostname != 'toolbox'
