@@ -14,7 +14,9 @@
 
     - name: setup libvirt
       import_tasks: 03_libvirt.yml
-      when: ansible_facts.architecture != 'aarch64'
+      when:
+        - ansible_facts.architecture != 'aarch64'
+        - ansible_connection not in ['podman', 'docker']
 
     - name: setup packer
       import_tasks: 04_packer.yml

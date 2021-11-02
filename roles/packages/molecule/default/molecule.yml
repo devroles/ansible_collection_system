@@ -1,10 +1,5 @@
 driver:
-  name: docker
+  name: containers
 platforms:
   - name: cli
     image: fedora:latest
-provisioner:
-  inventory:
-    group_vars:
-      all:
-        ansible_python_interpreter: /usr/bin/python3
