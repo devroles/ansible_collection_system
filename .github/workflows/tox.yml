@@ -29,6 +29,7 @@ jobs:
         run: |
           set -ex
           python -m pip install --upgrade tox
+          git submodule foreach git remote -v
       - id: collection
         uses: greg-hellings/tox-list@v1
         with:
