@@ -1,4 +1,5 @@
 - name: converge
   hosts: all
   roles:
+    - role: devroles.system.k3s_base
     - role: k3s_master
