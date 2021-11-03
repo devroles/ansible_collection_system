@@ -39,10 +39,15 @@ autocmd BufWinLeave * call clearmatches()
 let g:php_folding=2
 set foldmethod=indent
 " CtrlP settings
-set wildignore+=*.git,*.swp,*.pyc,*.class
-let g:ctrlp_working_path_mode = 0
+set wildignore+=*.swp,*.pyc,*.class,.tox
+" Base of search is ordered as
+" wr - searching up from here to the nearest .git dir
+" a - dir of current file, unless that's a subdirectory of CWD
+" c - dir of current file
+let g:ctrlp_working_path_mode = 'wrac'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_user_command = 'find %s -type f -o -path ./.tox -prune'
 " let g:ctrlp_custom_ignore = 'source'
 " NerdTree settings
 let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.class$']
