@@ -1,4 +1,5 @@
 dotfiles_git_email: greg.hellings@gmail.com
+dotfiles_git_name: Gregory Hellings
 dotfiles_git_config_values:
   - name: alias.st
     value: status
@@ -7,7 +8,7 @@ dotfiles_git_config_values:
   - name: alias.co
     value: checkout
   - name: user.name
-    value: Gregory Hellings
+    value: "{{ dotfiles_git_name }}"
   - name: user.email
     value: "{{ dotfiles_git_email }}"
   - name: push.default
