@@ -35,3 +35,5 @@ dotfiles_vim_plugins:
     name: vim-indent-guides
   - repo: https://github.com/morhetz/gruvbox.git
     name: gruvbox
+  - repo: https://github.com/vim-syntastic/syntastic.git
+    name: syntastic

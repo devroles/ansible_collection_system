@@ -54,6 +54,8 @@ let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.class$']
 " indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 autocmd! BufWritePost .vimrc source $MYVIMRC
+" Tell syntastic to use yamllint
+let g:syntastic_yaml_checkers = ['yamllint']
 
 " ============================================================================
 " Keybindings for necessary plugins
