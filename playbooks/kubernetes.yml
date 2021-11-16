@@ -1,0 +1,49 @@
+- hosts: localhost
+  tasks:
+    - name: Configure repositories
+      action: community.kubernetes.helm_repository
+      args: "{{ item }}"
+      loop:
+        - repo_name: haproxytech
+          repo_url: https://haproxytech.github.io/helm-charts
+        - repo_name: kubernetes-dashboard
+          repo_url: https://kubernetes.github.io/dashboard/
+        - repo_name: halkeye
+          repo_url: https://halkeye.github.io/helm-charts/
+
+    - name: Configure charts
+      action: community.kubernetes.helm
+      args: "{{ item }}"
+      loop:
+        - name: haproxy-ingress
+          chart_ref: haproxytech/kubernetes-ingress
+          release_namespace: default
+          values:
+            controller:
+              kind: DaemonSet
+#       - name: synapse
+#         chart_ref: halkeye/synapse
+#         release_namespace: default
+#         values:
+#           ingress:
+#             enabled: true
+#             hosts:
+#               - host: chat.k3s.home.thehellings.com
+#                 paths:
+#                   - /
+#                   - /*
+#             ingressClassName: haproxy
+#           homeserver:
+#             server_name: chat.k3s.home.thehellings.com
+#       - name: kubernetes-dashboard
+#         chart_ref: kubernetes-dashboard/kubernetes-dashboard
+#         release_namespace: kubernetes-dashboard
+#         create_namespace: true
+#         values:
+#           ingress:
+#             enabled: true
+#             hosts:
+#               - ui.k3s.home.thehellings.com
+#             className: haproxy
+#           serviceAccount:
+#             name: admin
