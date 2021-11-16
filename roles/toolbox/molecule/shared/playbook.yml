@@ -1,4 +1,9 @@
 - name: converge
   hosts: all
   roles:
+    - role: oasis_roles.system.container
+      when: ansible_facts.pkg_mgr != 'atomic_container'
     - role: toolbox
+
+- name: Configure the toolbox
+  import_playbook: devroles.system.site

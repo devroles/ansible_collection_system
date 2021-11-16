@@ -8,3 +8,17 @@ platforms:
     config_options:
       synced_folder: false
       cachier: false
+scenario:
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - side_effect
+    - verify
+    - cleanup
+    - destroy

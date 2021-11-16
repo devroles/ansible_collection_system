@@ -1,8 +1,4 @@
 # e.g. this should be something like "fedora-toolbox:33"
 toolbox_base_image: >-
-  {{ ansible_facts.distribution | lower }}-toolbox:{{
-  ansible_facts.distribution_version }}
-# Name of the image to tag
-toolbox_target_image: >-
-  {{ ansible_facts.distribution | lower }}-toolbox-greg:{{
+  registry.fedoraproject.org/{{ ansible_facts.distribution | lower }}-toolbox:{{
   ansible_facts.distribution_version }}
