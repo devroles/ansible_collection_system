@@ -1,5 +1,5 @@
 - name: basic user config files
-  hosts: all
+  hosts: all:!toolbox
   roles:
     - devroles.system.dotfiles
     - role: devroles.system.copy_or_link
