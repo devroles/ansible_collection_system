@@ -1,8 +1,15 @@
+- name: ensure that the path exists
+  file:
+    path: "{{ item.dest | dirname }}"
+    state: directory
+    mode: u+wx
+  loop: "{{ copy_or_link_files }}"
+
 - name: insert file
   devroles.system.copy_or_link:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     force: "{{ item.force | default(false) }}"
-  with_items: "{{ copy_or_link_files }}"
+  loop: "{{ copy_or_link_files }}"
   tags:
     - skip_ansible_lint  # TODO: Needs ansible-lint#642 resolved

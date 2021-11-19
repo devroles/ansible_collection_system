@@ -9,4 +9,5 @@ mirror_list:
     #owner: derp
     #group: derp
     #mode: "0755"
+    #log_dir: *this.script_home
     exclude: []

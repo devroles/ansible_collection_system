@@ -1,0 +1,12 @@
+[Unit]
+Description={{ adblock_description }}
+After=podman.service
+Requires=podman.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman start -a {{ adblock_container }}
+ExecStop=/usr/bin/podman stop -t 2 {{ adblock_container }}
+
+[Install]
+WantedBy=network-online.target

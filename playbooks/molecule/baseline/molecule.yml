@@ -1,0 +1,19 @@
+dependency:
+  options:
+    role-file: ../requirements.yml  # relative to the role dir
+    requirements-file: ../requirements.yml
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+platforms:
+  - name: baseline
+    box: generic/fedora34
+    groups:
+      - admin
+    config_options:
+      synced_folder: false
+      cachier: false
+provisioner:
+  playbooks:
+    converge: ../../baseline.yml

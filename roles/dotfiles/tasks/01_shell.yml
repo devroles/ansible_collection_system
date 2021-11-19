@@ -1,12 +1,12 @@
 - name: set bashrc_role_path
   set_fact:
-    bashrc_role_path: "{{ role_path }}"
+    dotfiles_role_path: "{{ role_path }}"
 
 - name: run files
   devroles.system.copy_or_link:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    force: "{{ item.force }}"
+    force: "{{ item.force | default(false) }}"
   loop: "{{ dotfiles_shell_files }}"
   tags:
     - skip_ansible_lint

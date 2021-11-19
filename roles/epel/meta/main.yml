@@ -1,0 +1,14 @@
+galaxy_info:
+  author: devroles
+  description: |-
+    Installs and configures EPEL on compatible distributions
+  company: Red Hat, Inc.
+  license: GPLv3
+  min_ansible_version: 2.8
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+
+dependencies: []

@@ -12,14 +12,9 @@
     - "vars/{{ ansible_facts.distribution }}.yml"
     - "vars/generic.yml"
 
-- name: install epel-release
-  become: true
-  package:
-    name: epel-release
-    state: present
-  when:
-    - ansible_facts.distribution in ['CentOS', 'RHEL']
-  changed_when: false  # CentOS 8 doesn't always correctly handle epel-release
+- name: Install EPEL
+  include_role:
+    name: epel
 
 - name: install database
   become: true
@@ -36,6 +31,7 @@
   args:
     creates: /var/lib/mysql/mysql
   register: _first_run
+  ignore_errors: true
 
 - name: start database
   become: true
@@ -54,11 +50,11 @@
   when:
     - ansible_connection in ['docker', 'podman']
 
-- name: configure MariaDB access
-  include_tasks:
-    file: configure_access.yml
-
 - name: secure system on first boot
   include_tasks:
     file: secure.yml
   when: _first_run is changed
+
+- name: configure MariaDB access
+  include_tasks:
+    file: configure_access.yml

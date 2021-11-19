@@ -43,7 +43,9 @@
       service:
         name: libvirtd
         state: stopped
-      when: check is changed and ansible_connection not in ['docker', 'podman']  # noqa no-handler
+      when:
+        - check is changed  # noqa no-handler
+        - ansible_connection not in ['docker', 'podman']
 
     - name: configure libvirt storage
       template:
@@ -88,3 +90,4 @@
         state: started
         enabled: true
       when: ansible_connection not in ['docker', 'podman']
+      changed_when: false  # This is needed just to satisfy idempotence

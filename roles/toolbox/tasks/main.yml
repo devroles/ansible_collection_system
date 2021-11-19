@@ -1,0 +1,39 @@
+- name: Make sure that toolbox is installed
+  package:
+    name: toolbox
+    state: present
+  become: true
+  when: ansible_facts.pkg_mgr != 'atomic_container'
+
+- name: Ensure image is pulled
+  containers.podman.podman_image:
+    name: "{{ toolbox_base_image }}"
+    state: present
+
+- name: Provision a toolbox instance
+  devroles.system.toolbox:
+    name: "{{ item.name }}"
+    running: true
+  loop: &boxen
+    - name: fedora-toolbox-{{ ansible_facts.distribution_major_version }}
+      groups:
+        - admin
+        - cli
+        - dev
+        - toolbox
+    - name: pack
+      groups:
+        - admin
+        - packaging
+        - toolbox
+    - name: sword
+      groups:
+        - admin
+        - toolbox
+
+- name: Add toolbox to the inventory
+  add_host:
+    name: "{{ item.name }}"
+    ansible_connection: podman
+    groups: "{{ item.groups }}"
+  loop: *boxen

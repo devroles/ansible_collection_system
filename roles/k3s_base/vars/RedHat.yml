@@ -1,0 +1,4 @@
+k3s_base_packages:
+  - container-selinux
+  - selinux-policy-base
+  - https://rpm.rancher.io/k3s/stable/common/centos/8/noarch/k3s-selinux-0.3-0.el8.noarch.rpm

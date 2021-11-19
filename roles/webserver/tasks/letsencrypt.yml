@@ -25,11 +25,12 @@
 
 - name: apply for letsencrypt for {{ domain.tld }}
   become: true
-  letsencrypt:
+  community.crypto.acme_certificate:
     account_key_src: /etc/ssl/letsencrypt.key
     csr: /etc/ssl/{{ domain.tld }}.csr
     dest: /etc/ssl/{{ domain.tld }}.crt
     acme_directory: "{{ webserver_acme_directory }}"
+    acme_version: "2"
   register: letsencrypt_challenge
 
 - name: create challenge dir for {{ domain.tld }}
@@ -55,7 +56,7 @@
 
 - name: retrieve letsencrypt certificate for {{ domain.tld }}
   become: true
-  letsencrypt:
+  community.crypto.acme_certificate:
     account_key_src: /etc/ssl/letsencrypt.key
     csr: /etc/ssl/{{ domain.tld }}.csr
     dest: /etc/ssl/{{ domain.tld }}.crt

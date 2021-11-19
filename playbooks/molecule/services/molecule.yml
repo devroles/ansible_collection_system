@@ -1,0 +1,30 @@
+dependency:
+  options:
+    role-file: ../requirements.yml  # relative to the role dir
+    requirements-file: ../requirements.yml
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+platforms:
+  - name: services
+    box: generic/oracle8
+    config_options:
+      synced_folder: false
+      cachier: false
+    provider_raw_config_args:
+      - 'qemu_use_session = true'
+      - 'driver = "qemu"'
+    groups:
+      - mariadb
+      - webserver
+provisioner:
+  playbooks:
+    converge: ../../services.yml
+  inventory:
+    group_vars:
+      all:
+        mariadb_admin_password: mypass
+        webserver_domains:
+          - tld: mydomain.com
+            https: false

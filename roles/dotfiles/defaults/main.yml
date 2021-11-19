@@ -1,3 +1,5 @@
+dotfiles_git_email: greg.hellings@gmail.com
+dotfiles_git_name: Gregory Hellings
 dotfiles_git_config_values:
   - name: alias.st
     value: status
@@ -6,12 +8,16 @@ dotfiles_git_config_values:
   - name: alias.co
     value: checkout
   - name: user.name
-    value: Gregory Hellings
+    value: "{{ dotfiles_git_name }}"
   - name: user.email
-    value: greg.hellings@gmail.com
+    value: "{{ dotfiles_git_email }}"
   - name: push.default
-    value: simple
+    value: upstream
+  - name: pull.rebase
+    value: 'false'
   - name: gitreview.username
     value: greg.hellings
   - name: core.hooksPath
     value: "{{ role_path }}/files/"
+  - name: core.excludesFile
+    value: "{{ ansible_user_dir }}/.gitignore"

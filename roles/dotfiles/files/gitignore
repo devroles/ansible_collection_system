@@ -1,0 +1,16 @@
+# Vim temporary files
+.*.swp
+.*.swo
+.*.swn
+
+# IntelliJ and related
+.idea
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Tools
+.tox

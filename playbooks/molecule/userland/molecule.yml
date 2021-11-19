@@ -1,0 +1,29 @@
+dependency:
+  options:
+    role-file: ../requirements.yml  # relative to the role dir
+    requirements-file: ../requirements.yml
+driver:
+  name: containers
+lint: ''
+platforms:
+  - name: instance
+    image: fedora:latest
+    pre_build_image: true
+provisioner:
+  playbooks:
+    converge: ../../userland.yml
+    prepare: prepare.yml
+scenario:
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - side_effect
+    - verify
+    - cleanup
+    - destroy

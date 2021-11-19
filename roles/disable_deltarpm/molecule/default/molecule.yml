@@ -1,5 +1,19 @@
 driver:
-  name: docker
+  name: containers
 platforms:
-  - name: disable_deltarpm
+  - name: disable_deltarpm_default
     image: centos:7
+scenario:
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - side_effect
+    - verify
+    - cleanup
+    - destroy

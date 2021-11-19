@@ -1,0 +1,10 @@
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+platforms:
+  - name: mariadb-fedora
+    box: generic/fedora34
+    config_options:
+      cachier: false
+      synced_folder: false

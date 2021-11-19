@@ -1,0 +1,28 @@
+# ############################################################################
+# Preliminary stuff that all the hosts need, if I'm able to install to them
+# ############################################################################
+- import_playbook: baseline.yml
+
+# ############################################################################
+# Servers that are important to the health and functioning of my own mental
+# state. They run different network services, such as dhcp, dns, etc
+# ############################################################################
+- import_playbook: services.yml
+- import_playbook: mirrors.yml
+
+# ############################################################################
+# Personal desktop configuration, for use on systems that I administrate
+# ############################################################################
+- import_playbook: desktop.yml
+
+# ############################################################################
+# Simple user-land configuration that does not require root access to install
+# but makes my life so much easier! Designed to be run on any system that I
+# have login-level access to
+# ############################################################################
+- import_playbook: userland.yml
+
+# ############################################################################
+# Development machines, designed to be spun up in local VMs
+# ############################################################################
+- import_playbook: development.yml

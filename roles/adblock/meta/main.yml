@@ -1,0 +1,11 @@
+galaxy_info:
+  author: devroles
+  description: Sets up a container running ad blocking DNS software
+  license: GPLv3
+  min_ansible_version: 2.9
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+
+dependencies: []

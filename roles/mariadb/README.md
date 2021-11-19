@@ -12,12 +12,6 @@ Ansible 2.4 or higher
 
 Linux
 
-If you are running in Fedora, this role will only work properly if you are using
-the system Python 3 interpreter. You can do this by setting the value of
-`ansible_python_interpreter` to `/usr/bin/python3` in your host/group vars for
-a system. You can, if you want to be cheeky, probably get away with setting it to
-this only for the duration of this role but why do that?
-
 Role Variables
 --------------
 

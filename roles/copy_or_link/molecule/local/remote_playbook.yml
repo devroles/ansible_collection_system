@@ -1,6 +1,6 @@
 - hosts: all
   roles:
-    - role: copy_or_link
+    - role: devroles.system.copy_or_link
       copy_or_link_files:
         - src: "{{ playbook_dir }}/first"
           dest: /root/first

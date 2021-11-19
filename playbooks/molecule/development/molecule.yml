@@ -1,0 +1,18 @@
+dependency:
+  options:
+    role-file: ../requirements.yml  # relative to the role dir
+    requirements-file: ../requirements.yml
+driver:
+  name: containers
+platforms:
+  - name: development
+    image: fedora:latest
+    pre_build_image: true
+    groups:
+      - ansible
+      - java-devel
+      - packaging
+      - sword
+provisioner:
+  playbooks:
+    converge: ../../development.yml

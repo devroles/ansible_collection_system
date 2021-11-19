@@ -1,0 +1,8 @@
+- hosts: all
+  tasks:
+    - name: Install necessary testing tools
+      become: true
+      package:
+        name:
+          - git
+        state: present

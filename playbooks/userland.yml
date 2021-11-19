@@ -1,0 +1,8 @@
+- name: basic user config files
+  hosts: all:!toolbox
+  roles:
+    - devroles.system.dotfiles
+    - role: devroles.system.copy_or_link
+      copy_or_link_files: "{{ private_files | default([]) }}"
+  tags:
+    - config

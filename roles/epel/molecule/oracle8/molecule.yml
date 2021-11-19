@@ -1,0 +1,5 @@
+driver:
+  name: containers
+platforms:
+  - name: epel
+    image: oraclelinux:8

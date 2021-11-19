@@ -5,12 +5,9 @@
       ansible_distribution_major_version }}.yml"
     - vars/default.yml
 
-- name: install epel-release
-  package:
-    name: epel-release
-    state: present
-  become: true
-  when: ansible_distribution == "CentOS"
+- name: Install EPEL
+  include_role:
+    name: epel
 
 - name: install nginx packages
   package:

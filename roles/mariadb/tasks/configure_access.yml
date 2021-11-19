@@ -9,6 +9,7 @@
     host_all: true
     password: "{{ mariadb_admin_password }}"
     state: present
+    login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
   register: configure_admin
   retries: 10
   delay: 2

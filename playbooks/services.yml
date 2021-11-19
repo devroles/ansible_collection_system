@@ -1,0 +1,43 @@
+- name: setup internal dns
+  hosts: adblock
+  roles:
+    - role: oasis_roles.system.container
+    - role: devroles.system.adblock
+
+- name: configure firewall
+  hosts: admin
+  roles:
+    - role: oasis_roles.system.firewalld
+      when:
+        - ansible_pkg_mgr not in ['atomic_container']
+        - "'WSLENV' not in ansible_facts.env"
+
+- name: configure mariadb/mysql database
+  hosts: mariadb
+  roles:
+    - devroles.system.mariadb
+
+- name: configure webserver
+  hosts: webserver
+  roles:
+    - devroles.system.webserver
+
+- name: configure mythtv
+  hosts: mythtv
+  roles:
+    - devroles.system.mythtv
+
+- name: prepare k3s nodes
+  hosts: k3s
+  roles:
+    - devroles.system.k3s_base
+
+- name: configure k3s
+  hosts: k3s_master
+  roles:
+    - devroles.system.k3s_master
+
+- name: configure k3s workers
+  hosts: k3s_workers
+  roles:
+    - devroles.system.k3s_worker

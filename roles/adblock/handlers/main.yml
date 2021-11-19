@@ -1,0 +1,5 @@
+- name: Restart container
+  become: true
+  service:
+    name: "{{ adblock_provider }}-container"
+    state: restarted

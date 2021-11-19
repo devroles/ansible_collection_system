@@ -5,6 +5,9 @@
     - name: run ansible over there
       command: ansible-playbook -i inventory remote_playbook.yml
       register: results
+      environment:
+        # Plural used because old Ansible in Fedora 34
+        ANSIBLE_COLLECTIONS_PATHS: /root/temp
       args:
-        chdir: /root/temp
+        chdir: /root/temp/
       changed_when: "'changed=0' not in results.stdout"

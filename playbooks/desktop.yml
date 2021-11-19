@@ -1,0 +1,24 @@
+- name: configure desktop systems
+  hosts: cli
+  roles:
+    - role: devroles.system.flatpak
+      when: ansible_facts.architecture not in ['aarch64']
+    - role: devroles.system.flatpaks
+      when: ansible_facts.architecture not in ['aarch64']
+    - role: devroles.system.packages
+
+- name: configure development systems
+  hosts: dev
+  roles:
+    - devroles.system.dev
+    - role: oasis_roles.system.container
+      when:
+        - ansible_facts.pkg_mgr not in ['atomic_container']
+        - ansible_facts.hostname != 'toolbox'
+    - role: devroles.devel.ansible
+      when: ansible_facts.pkg_mgr not in ['atomic_container']
+    - role: devroles.devel.java_devel
+    - role: devroles.devel.packaging
+      when: ansible_facts.pkg_mgr not in ['atomic_container']
+    - role: devroles.devel.sword
+      when: ansible_facts.pkg_mgr not in ['atomic_container']

@@ -1,0 +1,2 @@
+epel_packages:
+  - oracle-epel-release-el7
