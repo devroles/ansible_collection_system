@@ -1,13 +1,3 @@
-# This has to come first, before anything else gets executed, as the nodes
-# that it creates get added to the inventory and configured following this
-- name: configure toolboxes
-  hosts: cli
-  roles:
-    - role: devroles.system.toolbox
-      when:
-        - ansible_facts.pkg_mgr == 'atomic_container'
-        - ansible_facts.architecture not in ['aarch64']
-
 - name: setup the python executable correctly
   hosts: admin
   roles:
