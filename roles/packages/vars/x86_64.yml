@@ -129,3 +129,5 @@ packages_python_packages:
   - tox
   - tox-ansible
   - xonsh
+  - ruamel.yaml
+  - yamllint

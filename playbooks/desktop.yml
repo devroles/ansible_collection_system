@@ -2,9 +2,13 @@
   hosts: cli
   roles:
     - role: devroles.system.flatpak
-      when: ansible_facts.architecture not in ['aarch64']
+      when:
+        - ansible_facts.architecture not in ['aarch64']
+        - ansible_facts.distribution != 'MacOSX'
     - role: devroles.system.flatpaks
-      when: ansible_facts.architecture not in ['aarch64']
+      when:
+        - ansible_facts.architecture not in ['aarch64']
+        - ansible_facts.distribution != 'MacOSX'
     - role: devroles.system.packages
 
 - name: configure development systems
