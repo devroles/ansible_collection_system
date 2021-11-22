@@ -11,7 +11,7 @@ platforms:
     pre_build_image: true
 provisioner:
   playbooks:
-    converge: ../../userland.yml
+    converge: ../../dotfiles.yml
     prepare: prepare.yml
 scenario:
   test_sequence:

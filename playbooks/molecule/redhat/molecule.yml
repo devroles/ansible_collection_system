@@ -6,14 +6,19 @@ driver:
   name: vagrant
   provider:
     name: libvirt
+lint: ''
 platforms:
-  - name: baseline
+  - name: redhat
     box: generic/fedora34
-    groups:
-      - admin
     config_options:
       synced_folder: false
       cachier: false
+    provider_raw_config_args:
+      - 'qemu_use_session = true'
+      - 'driver = "qemu"'
+    groups:
+      - admin
 provisioner:
   playbooks:
-    converge: ../../baseline.yml
+    converge: ../../site.yml
+
