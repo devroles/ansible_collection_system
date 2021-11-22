@@ -37,3 +37,5 @@ dotfiles_vim_plugins:
     name: gruvbox
   - repo: https://github.com/vim-syntastic/syntastic.git
     name: syntastic
+  - repo: https://github.com/christoomey/vim-conflicted.git
+    name: vim-conflicted

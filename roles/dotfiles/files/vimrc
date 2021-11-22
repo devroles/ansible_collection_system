@@ -36,8 +36,8 @@ autocmd BufWinLeave * call clearmatches()
 " ============================================================================
 " Plugin-specific settings
 " ============================================================================
-let g:php_folding=2
-set foldmethod=indent
+" let g:php_folding=2
+" set foldmethod=indent
 " CtrlP settings
 set wildignore+=*.swp,*.pyc,*.class,.tox
 " Base of search is ordered as
@@ -48,6 +48,7 @@ let g:ctrlp_working_path_mode = 'wrac'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_user_command = 'find %s -type f -o -path ./.tox -prune'
+" let g:ctrpl_match_func = { 'match': 'pymatcher#PyMatch' }
 " let g:ctrlp_custom_ignore = 'source'
 " NerdTree settings
 let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.class$']
@@ -57,6 +58,10 @@ autocmd! BufWritePost .vimrc source $MYVIMRC
 " Tell syntastic to use yamllint
 let g:syntastic_yaml_checkers = ['yamllint']
 let g:syntastic_yaml_yamllint_args = []
+" Shortcuts for resolving git diff conflicts
+let g:diffget_local_map = 'gl'
+let g:diffget_upstream_map = 'gu'
+set stl+=%{ConflictedVersion()}
 
 " ============================================================================
 " Keybindings for necessary plugins
@@ -83,7 +88,7 @@ colorscheme gruvbox
 if has("gui_running")
     set mouse=a
     let g:gruvbox_contrast_light='hard'
-    set background=light
+    set background=dark
 else
     let g:gruvbox_contrast_dark='hard'
     set background=dark

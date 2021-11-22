@@ -4,25 +4,11 @@
     - "{{ role_path }}/vars/{{ ansible_facts.architecture }}.yml"
   when: item is file
 
-- name: install CLI repos and packages
-  import_tasks: 01_cli.yml
-  when: ansible_facts.pkg_mgr not in ['atomic_container']
+- name: include os files
+  include_vars: "{{ item }}"
+  loop:
+    - "{{ role_path }}/vars/{{ ansible_facts.distribution }}.yml"
+  when: item is file
 
-- block:
-    - name: setup user-space virtualenvs
-      import_tasks: 02_virtualenv.yml
-
-    - name: setup libvirt
-      import_tasks: 03_libvirt.yml
-      when:
-        - ansible_facts.architecture != 'aarch64'
-        - ansible_connection not in ['podman', 'docker']
-
-    - name: setup packer
-      import_tasks: 04_packer.yml
-      when: ansible_facts.architecture != 'aarch64'
-  when: "'WSLENV' not in ansible_facts.env"
-
-- name: setup kerberos
-  import_tasks: 05_kerberos.yml
-  when: kerberos is defined
+- name: include files for our system
+  include_tasks: "{{ ansible_facts.system }}/main.yml"

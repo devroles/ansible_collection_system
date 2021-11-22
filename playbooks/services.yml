@@ -11,6 +11,7 @@
       when:
         - ansible_pkg_mgr not in ['atomic_container']
         - "'WSLENV' not in ansible_facts.env"
+        - ansible_distribution != 'MacOSX'
 
 - name: configure mariadb/mysql database
   hosts: mariadb
