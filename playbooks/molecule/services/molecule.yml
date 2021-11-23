@@ -20,7 +20,7 @@ platforms:
       - webserver
 provisioner:
   playbooks:
-    converge: ../../services.yml
+    converge: ../../parts/services.yml
   inventory:
     group_vars:
       all:
