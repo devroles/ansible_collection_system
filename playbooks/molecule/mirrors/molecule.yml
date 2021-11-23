@@ -17,4 +17,4 @@ platforms:
       - 'driver = "qemu"'
 provisioner:
   playbooks:
-    converge: ../../mirrors.yml
+    converge: ../../parts/mirrors.yml

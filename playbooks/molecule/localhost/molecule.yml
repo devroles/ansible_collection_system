@@ -18,12 +18,11 @@ platforms:
       - 'driver = "qemu"'
     groups:
       - admin
-      - cli
+      - sudo
+      - private
+      - gui
       - dev
-      - ansible
-      - java-devel
-      - packaging
-      - sword
+      - cli
 provisioner:
   playbooks:
     converge: ../../site.yml
