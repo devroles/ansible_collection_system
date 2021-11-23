@@ -6,11 +6,13 @@ packages_rpmfusion:
 packages_gpg_keys: []
 packages_repositories: []
 packages_packages:
-  - jq
-  - xonsh
-  - python3-virtualenv
   - git
   - git-subtree
+  - gcc
+  - jq
+  - python3-devel
+  - python3-virtualenv
+  - xonsh
 packages_dnf_packages:
   - dnf-command(system-upgrade)
 packages_remove_packages:

@@ -47,7 +47,12 @@ set wildignore+=*.swp,*.pyc,*.class,.tox
 let g:ctrlp_working_path_mode = 'wrac'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_user_command = 'find %s -type f -o -path ./.tox -prune'
+let g:ctrlp_user_command = {
+	\ 'types': {
+		\ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others' ],
+	\ },
+	\ 'fallback': 'find %s -type f | grep -v -e "\.tox/" -e "\.git/"'
+\ }
 " let g:ctrpl_match_func = { 'match': 'pymatcher#PyMatch' }
 " let g:ctrlp_custom_ignore = 'source'
 " NerdTree settings
