@@ -8,7 +8,7 @@
 
     - name: configure flatpak repos
       become: true
-      flatpak_remote:
+      community.general.flatpak_remote:
         name: "{{ item.name }}"
         state: present
         flatpakrepo_url: "{{ item.url }}"
