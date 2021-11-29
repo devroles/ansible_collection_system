@@ -17,7 +17,7 @@
   changed_when: false  # TODO: Remove when module is right
 
 - name: configure my.cnf
-  ini_file:
+  community.general.ini_file:
     path: "{{ ansible_user_dir }}/.my.cnf"
     section: client
     option: "{{ item.option }}"
