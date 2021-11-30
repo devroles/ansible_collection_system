@@ -10,9 +10,9 @@ adblock_ports:
   - "{{ adblock_ip_bind }}:53:53"
   - "{{ adblock_ip_bind }}:53:53/udp"
   ## DHCP
-  #- "67:67/udp"
-  #- "68:68"
-  #- "68:68/udp"
+  # - "67:67/udp"
+  # - "68:68"
+  # - "68:68/udp"
   # DNS-over-HTTP(S)
   - "{{ adblock_ip_bind }}:80:80"
   - "{{ adblock_ip_bind }}:443:443"
@@ -22,9 +22,9 @@ adblock_ports:
   # DNS over TLS
   - "{{ adblock_ip_bind }}:853:853"
   # DNS-over-QUIC
-  #- "784:784/udp"
-  #- "853:853/udp"
-  #- "8853:8853/udp"
+  # - "784:784/udp"
+  # - "853:853/udp"
+  # - "8853:8853/udp"
   # DNSCrypt
   - "{{ adblock_ip_bind }}:5443:5443"
   - "{{ adblock_ip_bind }}:5443:5443/udp"

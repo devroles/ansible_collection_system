@@ -13,7 +13,7 @@
   when: ansible_pkg_mgr == 'yum'
 
 - name: update config
-  ini_file:
+  community.general.ini_file:
     path: "{{ _config_path }}"
     section: main
     option: deltarpm

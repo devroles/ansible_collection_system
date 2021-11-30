@@ -96,14 +96,14 @@ packages_packages:
   - nautilus-python
   - python3-gobject
   # Needed by Wine and Battle.net
-  #- gnutls
-  #- gnutls-devel
-  #- openldap
-  #- openldap-devel
-  #- libgpg-error
-  #- sqlite2.i686
-  #- sqlite2.x86_64
-  #- wine
+  # - gnutls
+  # - gnutls-devel
+  # - openldap
+  # - openldap-devel
+  # - libgpg-error
+  # - sqlite2.i686
+  # - sqlite2.x86_64
+  # - wine
 packages_dnf_packages:
   - dnf-command(system-upgrade)
 packages_remove_packages:

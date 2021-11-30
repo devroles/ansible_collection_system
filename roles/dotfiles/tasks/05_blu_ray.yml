@@ -47,19 +47,19 @@
         mode: 0644
   when: _dotfiles_aacs_zip is changed
 
-#- name: download bdplus archive
+# - name: download bdplus archive
 #  get_url:
 #    url: http://www.labdv.com/aacs/libbdplus/bdplus-vm0.bz2
 #    dest: "{{ ansible_user_dir }}/.config
 #    force: true
-#
-#- name: extract archive
+
+# - name: extract archive
 #  shell: tar xaf bdplus-vm0.bz2
 #  args:
 #    creates: "{{ ansible_user_dir }}/.config/bdplus"
 #    chdir: "{{ ansible_user_dir }}?.config
-#
-#- name: set ownership on files
+
+# - name: set ownership on files
 #  file:
 #    dest: "{{ item }}"
 #    recurse: true

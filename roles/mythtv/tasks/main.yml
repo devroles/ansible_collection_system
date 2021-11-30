@@ -16,7 +16,7 @@
   notify: extract Hauppage firmware
 
 - name: create mythtv database
-  mysql_db:
+  community.mysql.mysql_db:
     login_user: "{{ mythtv_db_admin_username | default(omit) }}"
     login_password: "{{ mythtv_db_admin_password | default(omit) }}"
     name: mythconverg

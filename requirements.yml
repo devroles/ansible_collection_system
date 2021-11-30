@@ -1,5 +1,8 @@
 collections:
-  - oasis_roles.system
+  - ansible.posix
+  - community.crypto
+  - community.general
+  - community.mysql
   - containers.podman
   - devroles.devel
-  - community.crypto
+  - oasis_roles.system
