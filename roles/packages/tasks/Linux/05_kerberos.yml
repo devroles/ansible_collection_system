@@ -4,6 +4,7 @@
     name:
       - krb5-libs
       - krb5-workstation
+      - krb5-devel
     state: present
   retries: 3
   register: install_kerberos

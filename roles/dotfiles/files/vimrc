@@ -41,18 +41,18 @@ autocmd BufWinLeave * call clearmatches()
 " CtrlP settings
 set wildignore+=*.swp,*.pyc,*.class,.tox
 " Base of search is ordered as
-" wr - searching up from here to the nearest .git dir
+" r - searching up from here to the nearest  marker (.git, .hg, .svn, etc)
 " a - dir of current file, unless that's a subdirectory of CWD
 " c - dir of current file
-let g:ctrlp_working_path_mode = 'wrac'
+let g:ctrlp_working_path_mode = 'arc'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_user_command = {
-	\ 'types': {
-		\ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others' ],
-	\ },
-	\ 'fallback': 'find %s -type f | grep -v -e "\.tox/" -e "\.git/"'
-\ }
+	\'types': {
+		\1: ['.git', 'git ls-files --cached --exclude-standard --others' ],
+	\},
+	\'fallback': 'find . -type f | grep -v -e "\.tox/" -e "\.git/"'
+\}
 " let g:ctrpl_match_func = { 'match': 'pymatcher#PyMatch' }
 " let g:ctrlp_custom_ignore = 'source'
 " NerdTree settings

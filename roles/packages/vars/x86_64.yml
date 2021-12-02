@@ -26,6 +26,7 @@ packages_repositories:
     gpgkey: https://rpm.releases.hashicorp.com/gpg
 packages_libvirt:
   - libvirt
+  - libvirt-libs
   - qemu-kvm
   - qemu-system-ppc
   - seabios-bin
