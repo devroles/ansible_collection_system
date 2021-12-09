@@ -1,7 +1,0 @@
-- name: install tools
-  package:
-    name: "{{ packages }}"
-    state: present
-
-- name: setup Python
-  include_tasks: ../Linux/02_virtualenv.yml

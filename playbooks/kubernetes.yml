@@ -4,8 +4,8 @@
       action: community.kubernetes.helm_repository
       args: "{{ item }}"
       loop:
-        - repo_name: haproxytech
-          repo_url: https://haproxytech.github.io/helm-charts
+        - repo_name: ingress-nginx
+          repo_url: https://kubernetes.github.io/ingress-nginx
         - repo_name: kubernetes-dashboard
           repo_url: https://kubernetes.github.io/dashboard/
         - repo_name: halkeye
@@ -15,12 +15,28 @@
       action: community.kubernetes.helm
       args: "{{ item }}"
       loop:
-        - name: haproxy-ingress
-          chart_ref: haproxytech/kubernetes-ingress
-          release_namespace: default
+        - name: ingress-nginx
+          chart_ref: ingress-nginx/ingress-nginx
+          namespace: ingress-controller
+          create_namespace: true
           values:
-            controller:
-              kind: DaemonSet
+            kind: DaemonSet
+              #       - name: kubernetes-dashboard
+              #         chart_ref: kubernetes-dashboard/kubernetes-dashboard
+              #         release_namespace: kubernetes-dashboard
+              #         create_namespace: true
+              #         atomic: true
+              #         values:
+              #           ingress:
+              #             enabled: true
+              #             hosts:
+              #               - ui.k3s.home.thehellings.com
+              #             annotations:
+              #               kubernetes.io/ingress.class: nginx
+              #               nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+              #           serviceAccount:
+              #             name: admin
+              #         state: present
 #       - name: synapse
 #         chart_ref: halkeye/synapse
 #         release_namespace: default
@@ -35,15 +51,3 @@
 #             ingressClassName: haproxy
 #           homeserver:
 #             server_name: chat.k3s.home.thehellings.com
-#       - name: kubernetes-dashboard
-#         chart_ref: kubernetes-dashboard/kubernetes-dashboard
-#         release_namespace: kubernetes-dashboard
-#         create_namespace: true
-#         values:
-#           ingress:
-#             enabled: true
-#             hosts:
-#               - ui.k3s.home.thehellings.com
-#             className: haproxy
-#           serviceAccount:
-#             name: admin

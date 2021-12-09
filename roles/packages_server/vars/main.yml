@@ -1,0 +1,13 @@
+packages_server_packages:
+  - git
+  - git-subtree
+  - gcc
+  - jq
+  - python3-devel
+  - python3-virtualenv
+  - xonsh
+packages_server_python_packages:
+  - ipython
+  - openstacksdk
+  - progressbar2
+  - Pygments

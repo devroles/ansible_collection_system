@@ -1,0 +1,133 @@
+packages_workstation_rpmfusion:
+  # yamllint disable rule:line-length
+  - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_facts.distribution_major_version }}.noarch.rpm
+  - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_facts.distribution_major_version }}.noarch.rpm
+packages_workstation_gpg_keys:
+  - https://copr-be.cloud.fedoraproject.org/results/greghellings/Packer/pubkey.gpg
+  - https://swdl.bluejeans.com/repos/bluejeans/bjn-key
+  - https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/pubkey.gpg
+  # yamllint enable
+packages_workstation_repositories:
+  - name: bluejeans
+    baseurl: https://swdl.bluejeans.com/repos/bluejeans/x86_64/release/rpm
+    gpgcheck: true
+    gpgkey: https://swdl.bluejeans.com/repos/bluejeans/bjn-key
+    description: bluejeans
+  - name: entropypianotuner
+    # yamllint disable-line rule:line-length
+    baseurl: https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/fedora-$releasever-$basearch/
+    # yamllint disable-line rule:line-length
+    gpgkey: https://copr-be.cloud.fedoraproject.org/results/greghellings/EntropyPianoTuner/pubkey.gpg
+    gpgcheck: true
+    description: Greg Hellings' builds of Entropy Piano Tuner
+  - name: hashicorp
+    baseurl: https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable
+    gpgcheck: true
+    gpgkey: https://rpm.releases.hashicorp.com/gpg
+packages_workstation_libvirt:
+  - libvirt
+  - libvirt-libs
+  - qemu-kvm
+  - qemu-system-ppc
+  - seabios-bin
+  # packer
+  - packer
+  # vagrant and its helpers
+  - vagrant
+  - vagrant-sshfs
+  - vagrant-cachier
+  - vagrant-libvirt
+  - vagrant-openstack-provider
+packages_workstation_packages:
+  - awscli
+  - bind-utils
+  - gnupg2
+  - HandBrake-cli
+  - jq
+  - libaacs
+  - origin-clients
+  - python3-sword
+  - sword
+  - sword-utils
+  - unzip
+  - xonsh
+  # Python tools
+  - python3-virtualenv
+  - python3-devel
+  - entr
+  - ShellCheck
+  - pyp2rpm
+  - openssl-devel
+  # Dev tools
+  - libcurl-devel
+  - gcc-c++
+  - redhat-rpm-config
+  - cmake
+  - make
+  - rpmdevtools
+  - golang
+  - yamllint
+  - libxml2-devel
+  - git-subtree
+  # Vagrant development
+  - ruby-devel
+  - libvirt-devel
+  - rubygem-bundler
+  - cloud-utils
+  # Media tools
+  - ffmpeg
+  # gui packages
+  - gnome-shell-extension-*
+  - gnome-tweak-tool
+  - grip
+  - libbluray-utils
+  - libbluray-bdj
+  - libaacs-utils
+  - NetworkManager-openvpn
+  - NetworkManager-openvpn-gnome
+  - polkit-gnome
+  - qwinff
+  - redhat-display-fonts
+  - redhat-text-fonts
+  - vim-X11
+  - virt-manager
+  # needed for Chrome cast Gnome Shell extensions
+  - npm
+  - nodejs
+  - ffmpeg
+  - nautilus-python
+  - python3-gobject
+  # Needed by Wine and Battle.net
+  # - gnutls
+  # - gnutls-devel
+  # - openldap
+  # - openldap-devel
+  # - libgpg-error
+  # - sqlite2.i686
+  # - sqlite2.x86_64
+  # - wine
+packages_workstation_remove_packages:
+  - ghc-ghc
+  - PackageKit
+  - thunderbird
+packages_workstation_python_packages:
+  - ansible
+  - cookiecutter
+  - docker
+  - ipython
+  - molecule
+  - molecule-podman
+  - molecule-docker
+  - molecule-containers
+  - python-vagrant
+  - openstacksdk
+  - ovirt-engine-sdk-python
+  - progressbar2
+  - Pygments
+  - wheel
+  - PyGithub
+  - tox
+  - tox-ansible
+  - xonsh
+  - ruamel.yaml
+  - yamllint

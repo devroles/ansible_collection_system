@@ -1,0 +1,4 @@
+- import_playbook: parts/baseline.yml
+- import_playbook: parts/desktop.yml
+- import_playbook: parts/development.yml
+- import_playbook: dotfiles.yml

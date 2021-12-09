@@ -1,31 +1,47 @@
-- name: update selected packages
+- when: ansible_facts.pkg_mgr not in ['atomic_container']
   become: true
-  package:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - vim-minimal
-  tags:
-    - skip_ansible_lint
-  when: ansible_facts.pkg_mgr not in ['atomic_container']
-
-- name: install shared tools
-  become: true
-  package:
-    name: "{{ common_packages }}"
-    state: present
-  when: ansible_facts.pkg_mgr not in ['atomic_container']
-
-- block:
-    - name: install python SELinux packages
+  block:
+    - name: update selected packages
       package:
-        name: "{{ common_selinux_packages }}"
-        state: present
-      when: ansible_facts.pkg_mgr not in ['atomic_container']
+        name:
+          - vim-minimal
+        state: latest
+      retries: 3
+      register: update_selected
+      until: update_selected is success
+      tags:
+        - skip_ansible_lint
 
-    - name: disable selinux
-      selinux: state=disabled
+    - name: install shared tools
+      package:
+        name: "{{ common_packages }}"
+        state: present
+      retries: 3
+      register: shared_tools
+      until: shared_tools is success
+
+    - name: install dnf tools
+      package:
+        name:
+          - dnf-command(system-upgrade)
+        state: present
+      when: ansible_facts.pkg_mgr == 'dnf'
+      retries: 3
+      register: install_dnf_tools
+      until: install_dnf_tools is success
+
+    - when:
+        - ansible_facts.os_family != 'Darwin'
+        - ansible_connection not in ['docker', 'podman']
+      block:
+        - name: install python SELinux packages
+          package:
+            name: "{{ common_selinux_packages }}"
+            state: present
+
+- name: disable selinux
   become: true
+  selinux: state=disabled
   when:
     - ansible_facts.os_family != 'Darwin'
     - ansible_connection not in ['docker', 'podman']

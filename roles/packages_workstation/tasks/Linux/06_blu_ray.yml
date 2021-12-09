@@ -1,0 +1,62 @@
+- name: Create blu-ray config directories
+  file:
+    dest: "{{ ansible_user_dir }}/.config/{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - aacs
+
+- name: Download aacs files
+  get_url:
+    url: http://fvonline-db.bplaced.net/export/keydb_eng.zip
+    dest: "/tmp/keydb_eng.zip"
+    force: true
+    validate_certs: false
+  register: _packages_workstation_aacs_zip
+
+- block:
+    - name: Create temporary target dir
+      tempfile:
+        state: directory
+      register: _blu_ray_tmp
+
+    - name: Unload the file
+      unarchive:
+        remote_src: true
+        src: "/tmp/keydb_eng.zip"
+        dest: "{{ _blu_ray_tmp.path }}"
+        mode: 0644
+
+    - name: Upload KEYDB.cfg.header
+      copy:
+        src: KEYDB.cfg.header
+        dest: "{{ _blu_ray_tmp.path }}/00_KEYDB.cfg.header"
+        mode: 0644
+
+    - name: Assemble parts
+      assemble:
+        src: "{{ _blu_ray_tmp.path }}"
+        dest: "{{ ansible_user_dir }}/.config/aacs/KEYDB.cfg"
+        mode: 0644
+  when: _packages_workstation_aacs_zip is changed
+
+# - name: download bdplus archive
+#  get_url:
+#    url: http://www.labdv.com/aacs/libbdplus/bdplus-vm0.bz2
+#    dest: "{{ ansible_user_dir }}/.config
+#    force: true
+
+# - name: extract archive
+#  shell: tar xaf bdplus-vm0.bz2
+#  args:
+#    creates: "{{ ansible_user_dir }}/.config/bdplus"
+#    chdir: "{{ ansible_user_dir }}?.config
+
+# - name: set ownership on files
+#  file:
+#    dest: "{{ item }}"
+#    recurse: true
+#    owner: "{{ ansible_user_id }}"
+#  with_items:
+#    - "{{ ansible_user_dir }}/.config/bdplus"
+#    - "{{ ansible_user_dir }}/.config/aacs"

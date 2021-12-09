@@ -1,4 +1,0 @@
-- name: configure mirror
-  hosts: mirrors
-  roles:
-    - role: devroles.system.mirror

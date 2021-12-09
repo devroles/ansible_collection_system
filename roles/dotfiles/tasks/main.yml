@@ -9,9 +9,3 @@
 
 - name: Configure vagrant
   include_tasks: 04_vagrant.yml
-
-- name: Configure Blu-ray playback
-  include_tasks: 05_blu_ray.yml
-  when:
-    - ansible_facts.hostname != 'toolbox'
-    - ansible_facts.distribution != 'MacOSX'
