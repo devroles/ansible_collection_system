@@ -4,4 +4,4 @@ driver:
   name: containers
 platforms:
   - name: packages_server_container
-    image: oraclelinux:8
+    image: fedora:latest

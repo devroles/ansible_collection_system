@@ -43,6 +43,7 @@ packages_workstation_packages:
   - bind-utils
   - gnupg2
   - HandBrake-cli
+  - hugo
   - jq
   - libaacs
   - origin-clients

@@ -3,7 +3,7 @@
   roles:
     - devroles.system.disable_deltarpm
     - devroles.system.mariadb
-    - devroles.system.packages
+    - devroles.system.packages_server
   vars:
     mariadb_user_privs:
       - username: user

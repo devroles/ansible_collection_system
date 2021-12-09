@@ -5,7 +5,6 @@ packages_server_packages:
   - jq
   - python3-devel
   - python3-virtualenv
-  - xonsh
 packages_server_python_packages:
   - ipython
   - openstacksdk

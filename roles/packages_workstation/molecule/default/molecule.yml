@@ -3,5 +3,5 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: packages_workstation
+  - name: packages-workstation
     box: generic/fedora34
