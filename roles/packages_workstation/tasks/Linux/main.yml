@@ -1,0 +1,22 @@
+- name: install CLI repos and packages
+  include_tasks: 01_cli.yml
+
+- block:
+    - name: setup user-space virtualenvs
+      include_tasks: 02_virtualenv.yml
+
+    - name: setup libvirt
+      include_tasks: 03_libvirt.yml
+
+    - name: setup packer
+      include_tasks: 04_packer.yml
+  when: "'WSLENV' not in ansible_facts.env"
+
+- name: setup kerberos
+  include_tasks: 05_kerberos.yml
+  when: kerberos is defined
+
+- name: Configure Blu-ray playback
+  include_tasks: 06_blu_ray.yml
+  when:
+    - ansible_facts.hostname != 'toolbox'

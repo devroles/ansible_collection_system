@@ -1,0 +1,7 @@
+# Only use this test when there is no need to interact with
+# systemd, services, and devices
+driver:
+  name: containers
+platforms:
+  - name: packages_server_container
+    image: fedora:latest

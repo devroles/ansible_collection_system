@@ -1,2 +1,6 @@
 k3s_master_become: true
 k3s_master_become_user: root
+k3s_master_node_name: "{{ inventory_hostname }}"
+k3s_master_cluster_cidr: "10.60.0.0/16"
+k3s_master_service_cidr: "10.61.0.0/16"
+k3s_master_cluster_dns: "10.60.0.10"

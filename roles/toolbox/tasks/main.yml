@@ -36,4 +36,5 @@
     name: "{{ item.name }}"
     ansible_connection: podman
     groups: "{{ item.groups }}"
+    inventory_dir: "{{ inventory_dir }}"
   loop: *boxen

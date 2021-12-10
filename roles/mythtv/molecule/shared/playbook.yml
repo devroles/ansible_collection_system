@@ -1,6 +1,0 @@
-- name: converge
-  hosts: all
-  roles:
-    - role: mythtv
-  vars:
-    mythtv_db_admin_password: p4ssw0rd!

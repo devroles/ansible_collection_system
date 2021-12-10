@@ -25,4 +25,4 @@ platforms:
       - cli
 provisioner:
   playbooks:
-    converge: ../../site.yml
+    converge: ../../workstation.yml

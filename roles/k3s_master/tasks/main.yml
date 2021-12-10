@@ -14,6 +14,29 @@
   become_user: "{{ k3s_master_become_user }}"
   block:
     - name: Execute installer
-      command: /tmp/install-k3s.sh
+      command: >-
+        /tmp/install-k3s.sh
+        --node-name {{ k3s_master_node_name }}
+        {% if k3s_master_cluster_cidr %}
+        --cluster-cidr {{ k3s_master_cluster_cidr }}
+        {% endif %}
+        {% if k3s_master_service_cidr %}
+        --service-cidr {{ k3s_master_service_cidr }}
+        {% endif %}
+        {% if k3s_master_cluster_dns %}
+        --cluster-dns {{ k3s_master_cluster_dns }}
+        {% endif %}
       args:
         creates: /usr/local/bin/k3s
+
+    - name: Start and enable the service
+      service:
+        name: k3s
+        state: started
+        enabled: true
+
+    - name: Fetch k3s file
+      fetch:
+        src: /etc/rancher/k3s/k3s.yaml
+        dest: &kubeconfig "{{ inventory_dir }}/files/kube_config"
+        flat: true

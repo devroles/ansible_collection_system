@@ -1,8 +1,13 @@
+- name: install basic packages
+  hosts: all
+  roles:
+    - devroles.system.packages_server
+
 - name: setup internal dns
   hosts: adblock
   roles:
-    - role: oasis_roles.system.container
-    - role: devroles.system.adblock
+    - oasis_roles.system.container
+    - devroles.system.adblock
 
 - name: configure firewall
   hosts: admin
@@ -42,3 +47,8 @@
   hosts: k3s_workers
   roles:
     - devroles.system.k3s_worker
+
+- name: configure mirror
+  hosts: mirrors
+  roles:
+    - role: devroles.system.mirror

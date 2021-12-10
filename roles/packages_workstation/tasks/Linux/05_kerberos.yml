@@ -1,0 +1,20 @@
+- name: install Kerberos
+  become: true
+  package:
+    name:
+      - krb5-libs
+      - krb5-workstation
+      - krb5-devel
+    state: present
+  retries: 3
+  register: install_kerberos
+  until: install_kerberos is success
+  when: ansible_facts.pkg_mgr not in ['atomic_container']
+
+- name: configure Kerberos
+  become: true
+  template:
+    src: krb5.conf
+    dest: /etc/krb5.conf
+    owner: root
+    mode: 0644
