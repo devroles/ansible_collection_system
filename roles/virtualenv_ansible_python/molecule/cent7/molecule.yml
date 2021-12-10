@@ -1,5 +1,0 @@
-driver:
-  name: containers
-platforms:
-  - name: virtualenv_ansible_python
-    image: centos:7
