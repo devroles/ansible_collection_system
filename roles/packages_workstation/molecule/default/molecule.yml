@@ -4,4 +4,10 @@ driver:
     name: libvirt
 platforms:
   - name: packages-workstation
-    box: generic/fedora34
+    box: generic/fedora35
+    config_options:
+      synced_folder: false
+      cachier: false
+    provider_raw_config_args:
+      - 'qemu_use_session = true'
+      - 'driver = "qemu"'

@@ -13,7 +13,10 @@ platforms:
     # very robust set of distros available, including RHEL
     # if we need it. But generally the Oracle Linux is the
     # best successor to what CentOS used to be
-    box: generic/fedora34
+    box: generic/fedora35
     config_options:
       synced_folder: false
       cachier: false
+    provider_raw_config_args:
+      - 'qemu_use_session = true'
+      - 'driver = "qemu"'

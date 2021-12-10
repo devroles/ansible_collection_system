@@ -8,7 +8,7 @@ driver:
     name: libvirt
 platforms:
   - name: mirrors
-    box: generic/fedora33
+    box: generic/fedora35
     config_options:
       synced_folder: false
       cachier: false

@@ -4,7 +4,10 @@ driver:
     name: libvirt
 platforms:
   - name: mariadb-fedora
-    box: generic/fedora34
+    box: generic/fedora35
     config_options:
-      cachier: false
       synced_folder: false
+      cachier: false
+    provider_raw_config_args:
+      - 'qemu_use_session = true'
+      - 'driver = "qemu"'
