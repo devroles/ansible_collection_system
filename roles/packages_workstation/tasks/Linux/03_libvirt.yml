@@ -1,16 +1,10 @@
 - become: true
   block:
-    - name: install packages, even on Silverblue
-      community.general.rpm_ostree_pkg:
-        name: "{{ packages_workstation_libvirt }}"
-        state: present
-      when: ansible_facts.pkg_mgr in ['atomic_container']
-
     - name: install packages elsewhere
       package:
         name: "{{ packages_workstation_libvirt }}"
         state: present
-      when: ansible_facts.pkg_mgr not in ['atomic_container']
+        use: "{{ packages_backend }}"
 
     - name: create image storage
       file:
