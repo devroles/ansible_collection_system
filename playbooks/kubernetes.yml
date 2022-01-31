@@ -21,33 +21,3 @@
           create_namespace: true
           values:
             kind: DaemonSet
-              #       - name: kubernetes-dashboard
-              #         chart_ref: kubernetes-dashboard/kubernetes-dashboard
-              #         release_namespace: kubernetes-dashboard
-              #         create_namespace: true
-              #         atomic: true
-              #         values:
-              #           ingress:
-              #             enabled: true
-              #             hosts:
-              #               - ui.k3s.home.thehellings.com
-              #             annotations:
-              #               kubernetes.io/ingress.class: nginx
-              #               nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-              #           serviceAccount:
-              #             name: admin
-              #         state: present
-#       - name: synapse
-#         chart_ref: halkeye/synapse
-#         release_namespace: default
-#         values:
-#           ingress:
-#             enabled: true
-#             hosts:
-#               - host: chat.k3s.home.thehellings.com
-#                 paths:
-#                   - /
-#                   - /*
-#             ingressClassName: haproxy
-#           homeserver:
-#             server_name: chat.k3s.home.thehellings.com
