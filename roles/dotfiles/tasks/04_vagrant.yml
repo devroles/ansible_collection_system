@@ -1,5 +1,5 @@
 - name: checkout vagrant.d folder
-  git:
-    repo: https://github.com/oasis-origin/vagrant.d.git
+  ansible.builtin.git:
+    repo: https://github.com/greg-hellings/vagrant.d.git
     dest: "{{ ansible_user_dir }}/.vagrant.d"
-    version: master
+    version: main
