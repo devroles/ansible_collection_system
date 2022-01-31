@@ -34,9 +34,9 @@ jobs:
         id: create_image
         run: |
           set -exo pipefail
-          fed_version=$(podman run -it registry.fedoraproject.org/fedora-toolbox:latest /bin/bash -c "cat /etc/fedora-release | sed -s 's/[^0-9]//g'")
+          fed_version=$(podman run -it --rm registry.fedoraproject.org/fedora-toolbox:latest /bin/bash -c "cat /etc/fedora-release | sed -s 's/[^0-9]//g'")
           echo "::set-output name=fed_version::${fed_version}"
-          podman start -d -t --name toolbox fedora-toolbox:${fed_version} sleep infinity
+          podman run -d -t --name toolbox fedora-toolbox:${fed_version} sleep infinity
           cat > inventory.ini << INVENTORY
           [admin]
           toolbox ansible_connection=podman
