@@ -5,9 +5,11 @@
       when:
         - ansible_facts.distribution != 'MacOSX'
         - ansible_facts.pkg_mgr != 'atomic_container'
+        - ansible_connection not in ['docker', 'podman']
     - role: devroles.system.flatpaks
       when:
         - ansible_facts.distribution != 'MacOSX'
+        - ansible_connection not in ['docker', 'podman']
 
 - name: Install packages to non-atomic stations
   hosts: all
