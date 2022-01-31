@@ -12,7 +12,7 @@
 - name: Install packages to non-atomic stations
   hosts: all
   tasks:
-    - when: ansible_facts.pkg_mgr != 'atomic_container'
+    - when: ansible_facts.pkg_mgr != 'atomic_container'  # noqa unnamed-task
       include_role:
         name: "{{ role }}"
       loop:

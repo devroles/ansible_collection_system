@@ -5,7 +5,6 @@
       ansible.builtin.package:
         name: flatpak
         state: present
-        #use: "{{ (ansible_facts.pkg_mgr == 'atomic_container') | ternary('community.general.rpm_ostree_pkg', ansible_facts.pkg_mgr) }}"
       when: ansible_facts.pkg_mgr != 'atomic_container'
 
     - name: configure flatpak repos
