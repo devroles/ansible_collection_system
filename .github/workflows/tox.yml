@@ -9,7 +9,6 @@ name: tox
       - galaxy.yml
       - .github/labels.yml
       - .github/release-drafter.yml
-  pull_request: {}
   schedule:
     - cron: '12 0 * * *'
   release:
