@@ -4,13 +4,24 @@
     - role: devroles.system.flatpak
       when:
         - ansible_facts.distribution != 'MacOSX'
+        - ansible_facts.pkg_mgr != 'atomic_container'
     - role: devroles.system.flatpaks
       when:
         - ansible_facts.distribution != 'MacOSX'
-    - devroles.system.packages_workstation
-    - devroles.system.dev
-    - oasis_roles.system.container
-    - devroles.devel.ansible
-    - devroles.devel.java_devel
-    - devroles.devel.packaging
-    - devroles.devel.sword
+
+- name: Install packages to non-atomic stations
+  hosts: all
+  tasks:
+    - when: ansible_facts.pkg_mgr != 'atomic_container'
+      include_role:
+        name: "{{ role }}"
+      loop:
+        - devroles.system.packages_workstation
+        - devroles.system.dev
+        - oasis_roles.system.container
+        - devroles.devel.ansible
+        - devroles.devel.java_devel
+        - devroles.devel.packaging
+        - devroles.devel.sword
+      loop_control:
+        loop_var: role
