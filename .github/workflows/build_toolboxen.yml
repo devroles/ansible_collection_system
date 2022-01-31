@@ -1,0 +1,39 @@
+name: Build toolbox containers
+
+on:
+  push:
+  release:
+    types:
+      - published
+      - prereleased
+
+jobs:
+  shared-base:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+      - name: Install Ansible and requirements
+        run: |
+          set -exo pipefail
+          python -m pip install -U pip
+          pip install -U ansible
+          ansible-galaxy collection install .
+      - name: Create inventory images
+        id: create_image
+        run: |
+          set -exo pipefail
+          fed_version=$(podman run -it fedora-toolbox:latest /bin/bash -c "cat /etc/fedora-release | sed -s 's/[^0-9]//g'")
+          echo "::set-output name=fed_version::${fed_version}"
+          podman start -d -t --name toolbox fedora-toolbox:${fed_version} sleep infinity
+          cat > inventory.ini << INVENTORY
+          [admin]
+          toolbox ansible_connection=podman
+          INVENTORY
+      - name: Run Ansible against created image
+        run: |
+          set -exo pipefail
+          ansible-playbook -i inventory.ini playbooks/workstation.yml

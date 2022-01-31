@@ -1,14 +1,14 @@
 name: tox
 
 "on":
-  push:
-    paths-ignore:
-      - README.md
-      - LICENSE
-      - AUTHORS
-      - galaxy.yml
-      - .github/labels.yml
-      - .github/release-drafter.yml
+  #push:
+  #  paths-ignore:
+  #    - README.md
+  #    - LICENSE
+  #    - AUTHORS
+  #    - galaxy.yml
+  #    - .github/labels.yml
+  #    - .github/release-drafter.yml
   schedule:
     - cron: '12 0 * * *'
   release:
