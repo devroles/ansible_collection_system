@@ -10,12 +10,20 @@ on:
 jobs:
   shared-base:
     runs-on: ubuntu-latest
+    outputs:
+      fed_version: ${{ steps.create_image.outputs.fed_version }}
+      timestamp: ${{ steps.time.outputs.time }}
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
       - name: Set up Python
         uses: actions/setup-python@v2
+      - name: Determine timestamp
+        id: time
+        uses: nanzm/get-time-action@v1.1
+        with:
+          format: 'YYYYMMDDHHmm'  # Minute granularity timestamp for versioning
       - name: Install Ansible and requirements
         run: |
           set -exo pipefail
@@ -26,7 +34,7 @@ jobs:
         id: create_image
         run: |
           set -exo pipefail
-          fed_version=$(podman run -it fedora-toolbox:latest /bin/bash -c "cat /etc/fedora-release | sed -s 's/[^0-9]//g'")
+          fed_version=$(podman run -it registry.fedoraproject.org/fedora-toolbox:latest /bin/bash -c "cat /etc/fedora-release | sed -s 's/[^0-9]//g'")
           echo "::set-output name=fed_version::${fed_version}"
           podman start -d -t --name toolbox fedora-toolbox:${fed_version} sleep infinity
           cat > inventory.ini << INVENTORY
