@@ -2,7 +2,7 @@ driver:
   name: containers
 platforms:
   - name: copy_or_link_default
-    image: centos:8
+    image: fedora:latest
 provisioner:
   playbooks:
     converge: playbook.yml
