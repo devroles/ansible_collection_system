@@ -8,6 +8,7 @@ env:
   IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
 
 on:
+  push:
   release:
     types:
       - published

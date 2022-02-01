@@ -1,9 +1,0 @@
-# This has to come first, before anything else gets executed, as the nodes
-# that it creates get added to the inventory and configured following this
-- name: configure toolboxes
-  hosts: all
-  roles:
-    - role: devroles.system.toolbox
-
-- name: run the base configuration on all the toolboxen
-  import_playbook: workstation.yml
