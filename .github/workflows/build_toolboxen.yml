@@ -8,7 +8,6 @@ env:
   IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
 
 on:
-  push:
   release:
     types:
       - published
@@ -55,6 +54,7 @@ jobs:
         run: |
           set -exo pipefail
           ansible-playbook -i inventory.ini playbooks/workstation.yml
+          podman exec toolbox rm -rf /home
           podman stop toolbox
           podman commit --change 'LABEL com.github.containers.toolbox="true"' \
                         --change 'LABEL com.github.debarshiray.toolbox="true"' \
