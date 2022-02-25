@@ -1,0 +1,74 @@
+name: Build toolbox containers
+
+env:
+  # 🖊️ EDIT to change the image registry settings.
+  # Registries such as GHCR, Quay.io, and Docker Hub are supported.
+  IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
+  IMAGE_REGISTRY_USER: ${{ github.actor }}
+  IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
+
+on:
+  push:
+  release:
+    types:
+      - published
+      - prereleased
+
+jobs:
+  # Creates, tags, and pushes greg-toolbox:latest, greg-toolbox:fed_version, and greg-toolbox:fed_version.timestamp
+  # to the GitHub Container Repository with the baseline packages and fundamental configuration. Further customization
+  # will be done in later jobs to specifically create one for common use cases
+  shared-base:
+    runs-on: ubuntu-latest
+    outputs:
+      fed_version: ${{ steps.create_image.outputs.fed_version }}
+      timestamp: ${{ steps.time.outputs.time }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+      - name: Determine timestamp
+        id: time
+        uses: nanzm/get-time-action@v1.1
+        with:
+          format: 'YYYYMMDDHHmm'  # Minute granularity timestamp for versioning
+      - name: Install Ansible and requirements
+        run: |
+          set -exo pipefail
+          python -m pip install -U pip
+          pip install -U ansible
+          ansible-galaxy collection install .
+      - name: Create inventory images
+        id: create_image
+        run: |
+          set -exo pipefail
+          fed_version=$(podman run -it --rm registry.fedoraproject.org/fedora-toolbox:latest /bin/bash -c "cat /etc/fedora-release | sed -s 's/[^0-9]//g'" | tr -d "\r")
+          echo "::set-output name=fed_version::${fed_version}"
+          podman run -d -t --name toolbox registry.fedoraproject.org/fedora-toolbox:${fed_version} sleep infinity
+          cat > inventory.ini << INVENTORY
+          [admin]
+          toolbox ansible_connection=podman
+          INVENTORY
+      - name: Run Ansible against created image
+        run: |
+          set -exo pipefail
+          ansible-playbook -i inventory.ini playbooks/workstation.yml
+          podman exec toolbox rm -rf /home
+          podman stop toolbox
+          podman commit --change 'LABEL com.github.containers.toolbox="true"' \
+                        --change 'LABEL com.github.debarshiray.toolbox="true"' \
+                        toolbox greg-toolbox:${{ steps.create_image.outputs.fed_version }}.${{ steps.time.outputs.time }}
+          podman tag greg-toolbox:${{ steps.create_image.outputs.fed_version }}.${{ steps.time.outputs.time }} \
+                     greg-toolbox:${{ steps.create_image.outputs.fed_version }} \
+                     greg-toolbox:latest
+      - name: Push to registry
+        id: push-image
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: greg-toolbox
+          tags: ${{ steps.create_image.outputs.fed_version }}.${{ steps.time.outputs.time }} ${{ steps.create_image.outputs.fed_version }} latest
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.IMAGE_REGISTRY_USER }}
+          password: ${{ env.IMAGE_REGISTRY_PASSWORD }}

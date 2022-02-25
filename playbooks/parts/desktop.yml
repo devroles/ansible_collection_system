@@ -5,9 +5,14 @@
       when:
         - ansible_facts.distribution != 'MacOSX'
         - ansible_facts.pkg_mgr != 'atomic_container'
+        - ansible_connection not in ['docker', 'podman']
     - role: devroles.system.flatpaks
       when:
         - ansible_facts.distribution != 'MacOSX'
+        - ansible_connection not in ['docker', 'podman']
+    - role: oasis_roles.system.container
+      when:
+        - ansible_connection not in ['docker', 'podman']
 
 - name: Install packages to non-atomic stations
   hosts: all
@@ -18,7 +23,6 @@
       loop:
         - devroles.system.packages_workstation
         - devroles.system.dev
-        - oasis_roles.system.container
         - devroles.devel.ansible
         - devroles.devel.java_devel
         - devroles.devel.packaging

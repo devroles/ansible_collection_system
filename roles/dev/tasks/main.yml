@@ -25,3 +25,4 @@
   when:
     - ansible_facts.hostname != 'toolbox'
     - ansible_facts.distribution != 'MacOSX'
+    - ansible_connection not in ['docker', 'podman']

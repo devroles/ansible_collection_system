@@ -2,4 +2,4 @@ driver:
   name: containers
 platforms:
   - name: mirror-test
-    image: centos:8
+    image: oraclelinux:8
