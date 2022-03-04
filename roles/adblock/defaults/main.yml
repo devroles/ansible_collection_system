@@ -1,4 +1,0 @@
-adblock_become: true
-adblock_become_user: root
-adblock_provider: adguardhome
-adblock_ip_bind: "{{ ansible_default_ipv4.address }}"
