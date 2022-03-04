@@ -46,19 +46,19 @@ jobs:
           tox-args: --ansible-driver vagrant
 
   lint:
-    uses: oasis-roles/meta_test/.github/workflows/lint.yml@master
+    uses: devroles/meta_test/.github/workflows/lint.yml@master
 
   vagrant_build:
     needs:
       - collect
-    uses: oasis-roles/meta_test/.github/workflows/vagrant_build.yml@master
+    uses: devroles/meta_test/.github/workflows/vagrant_build.yml@master
     with:
       scenarios: "${{ needs.collect.outputs.vagrant }}"
 
   build:
     needs:
       - collect
-    uses: oasis-roles/meta_test/.github/workflows/container_build.yml@master
+    uses: devroles/meta_test/.github/workflows/container_build.yml@master
     with:
       scenarios: "${{ needs.collect.outputs.scenarios }}"
 
@@ -68,6 +68,6 @@ jobs:
       - build
       - vagrant_build
     if: github.event_name == 'release'
-    uses: oasis-roles/meta_test/.github/workflows/release.yml@master
+    uses: devroles/meta_test/.github/workflows/release.yml@master
     secrets:
       galaxy_api_key: "${{ secrets.GALAXY_API_KEY }}"
