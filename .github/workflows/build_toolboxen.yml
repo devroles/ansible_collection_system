@@ -7,7 +7,7 @@ env:
   IMAGE_REGISTRY_USER: ${{ github.actor }}
   IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
 
-on:
+"on":
   push:
     branches:
       - main
@@ -46,7 +46,8 @@ jobs:
         id: create_image
         run: |
           set -exo pipefail
-          fed_version=$(podman run -it --rm registry.fedoraproject.org/fedora-toolbox:latest /bin/bash -c "cat /etc/fedora-release | sed -s 's/[^0-9]//g'" | tr -d "\r")
+          fed_version=$(podman run -it --rm registry.fedoraproject.org/fedora-toolbox:latest \
+                        /bin/bash -c "cat /etc/fedora-release | sed -s 's/[^0-9]//g'" | tr -d "\r")
           echo "::set-output name=fed_version::${fed_version}"
           podman run -d -t --name toolbox registry.fedoraproject.org/fedora-toolbox:${fed_version} sleep infinity
           cat > inventory.ini << INVENTORY
@@ -61,7 +62,8 @@ jobs:
           podman stop toolbox
           podman commit --change 'LABEL com.github.containers.toolbox="true"' \
                         --change 'LABEL com.github.debarshiray.toolbox="true"' \
-                        toolbox greg-toolbox:${{ steps.create_image.outputs.fed_version }}.${{ steps.time.outputs.time }}
+                        toolbox greg-toolbox:${{ steps.create_image.outputs.fed_version
+                                              }}.${{ steps.time.outputs.time }}
           podman tag greg-toolbox:${{ steps.create_image.outputs.fed_version }}.${{ steps.time.outputs.time }} \
                      greg-toolbox:${{ steps.create_image.outputs.fed_version }} \
                      greg-toolbox:latest
@@ -70,7 +72,9 @@ jobs:
         uses: redhat-actions/push-to-registry@v2
         with:
           image: greg-toolbox
-          tags: ${{ steps.create_image.outputs.fed_version }}.${{ steps.time.outputs.time }} ${{ steps.create_image.outputs.fed_version }} latest
+          tags: ${{ steps.create_image.outputs.fed_version }}.${{ steps.time.outputs.time }}
+            ${{ steps.create_image.outputs.fed_version }}
+            latest
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.IMAGE_REGISTRY_USER }}
           password: ${{ env.IMAGE_REGISTRY_PASSWORD }}

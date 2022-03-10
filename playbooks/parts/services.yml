@@ -3,12 +3,6 @@
   roles:
     - devroles.system.packages_server
 
-- name: setup internal dns
-  hosts: adblock
-  roles:
-    - oasis_roles.system.container
-    - devroles.system.adblock
-
 - name: configure firewall
   hosts: admin
   roles:
