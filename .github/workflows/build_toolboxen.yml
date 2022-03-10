@@ -11,6 +11,8 @@ env:
   push:
     branches:
       - main
+    paths-ignore:
+      - .github/workflows/tox.yml
   release:
     types:
       - published

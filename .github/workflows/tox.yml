@@ -11,6 +11,7 @@ name: tox
       - galaxy.yml
       - .github/labels.yml
       - .github/release-drafter.yml
+      - .github/workflows/build_toolboxen.yml
   pull_request:
   schedule:
     - cron: '12 0 * * *'
