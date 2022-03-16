@@ -1,0 +1,64 @@
+# role tasks
+- name: Set platform/version specific variables
+  include_vars: "{{ __rolename_vars_file }}"
+  loop:
+    - "{{ ansible_facts.os_family }}.yml"
+    - "{{ ansible_facts.distribution }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version }}.yml"
+  vars:
+    __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
+  when: __rolename_vars_file is file
+
+- become: "{{ dns_become }}"
+  become_user: "{{ dns_become_user }}"
+  block:
+    - name: Pull image
+      ansible.builtin.package:
+        name: "{{ dns_packages }}"
+        state: present
+
+    - name: Be sure group exists
+      group:
+        name: "{{ dns_group }}"
+        state: present
+
+    - name: Be sure the user exists
+      user:
+        name: "{{ dns_user }}"
+        groups: "{{ dns_group }}"
+        state: present
+        system: true
+
+    - name: Create folders
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ dns_user }}"
+        group: "{{ dns_group }}"
+        mode: "0755"
+        setype: container_file_t
+      loop: "{{ dns_paths }}"
+
+    - name: Run service
+      containers.podman.podman_container:
+        name: "{{ dns_container }}"
+        image: "{{ dns_image }}"
+        volume: "{{ dns_volumes }}"
+        restart_policy: on-failure
+        publish: "{{ dns_ports }}"
+        state: present
+
+    - name: Create podman service file
+      template:
+        src: dns-container.service
+        dest: "/usr/lib/systemd/system/{{ dns_provider }}-container.service"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Start and enable service
+      service:
+        name: "{{ dns_provider }}-container"
+        state: started
+        enabled: true

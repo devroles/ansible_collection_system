@@ -1,0 +1,40 @@
+dns_become: true
+dns_become_user: root
+
+# Hosts file to read DNS entries from
+dns_extra_hosts: /etc/dnsmasq/hosts
+
+# These are the AdGuard Home public servers to answer upstream
+# requests
+dns_servers:
+  - 94.140.14.14
+  - 94.140.15.15
+  #- 2a10:50c0::ad1:ff
+  #- 2a10:50c0::ad2:ff
+
+# Default local domains to listen to
+dns_local_domains:
+  - local
+  - lan
+  - home
+dns_default_domain: home.thehellings.com
+
+# DHCP settings
+dns_enable_dhcp: true
+dns_dhcp:
+  start: "10.42.2.1"
+  end: "10.42.3.255"
+  duration: "12h"
+  static_start: "10.42.1.0"
+  static_end: "10.42.1.255"
+
+# Individual host entries to serve structure should be:
+#   ip: 1.2.3.4  # This is required
+#   names:  # At least one value is required
+#     - printer
+#     - files
+#     - files.local.example.com
+#   macs:
+#     - [mac address]
+#     - [mac address]
+dns_hosts: []
