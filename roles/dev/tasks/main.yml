@@ -1,5 +1,5 @@
 - name: Set platform/version specific variables
-  include_vars: "{{ __rolename_vars_file }}"
+  ansible.builtin.include_vars: "{{ __rolename_vars_file }}"
   loop:
     - "{{ ansible_facts.os_family }}.yml"
     - "{{ ansible_facts.distribution }}.yml"
@@ -11,14 +11,14 @@
 
 - name: install necessary devel packages
   become: "{{ ansible_facts.distribution != 'MacOSX' }}"
-  package:
+  ansible.builtin.package:
     name: "{{ dev_packages }}"
     state: present
   when: ansible_facts.pkg_mgr not in ['atomic_container']
 
 - name: install development boxen
   become: true
-  flatpak:
+  ansible.builtin.flatpak:
     name: "{{ item }}"
     state: present
   loop: "{{ dev_paks }}"

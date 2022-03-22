@@ -1,23 +1,23 @@
 - name: load vars
-  include_vars: "{{ item }}"
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - "vars/{{ ansible_distribution }}-{{
       ansible_distribution_major_version }}.yml"
     - vars/default.yml
 
 - name: Install EPEL
-  include_role:
+  ansible.builtin.include_role:
     name: epel
 
 - name: install nginx packages
-  package:
+  ansible.builtin.package:
     name: "{{ webserver_packages }}"
     state: present
   become: true
 
 - name: create directory
   become: true
-  file:
+  ansible.builtin.file:
     name: /var/www/{{ item.tld }}
     owner: nginx
     mode: "0755"
@@ -26,7 +26,7 @@
 
 - name: configure nginx to avoid dupes
   become: true
-  template:
+  ansible.builtin.template:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
     owner: root
@@ -36,7 +36,7 @@
 
 - name: install nginx configurations for redirect
   become: true
-  template:
+  ansible.builtin.template:
     src: "0000_add_www_redirect.conf"
     dest: /etc/nginx/conf.d/0000_www_redirect_{{ item.tld }}.conf
     owner: root
@@ -48,7 +48,7 @@
 
 - name: install nginx configurations for static serving
   become: true
-  template:
+  ansible.builtin.template:
     src: "0001_serve_port_80.conf"
     dest: /etc/nginx/conf.d/0001_serve_port_80_{{ item.tld }}.conf
     owner: root
@@ -59,7 +59,7 @@
   notify: restart nginx
 
 - name: enable nginx
-  service:
+  ansible.builtin.service:
     name: nginx
     state: started
     enabled: true
@@ -75,7 +75,7 @@
 # TODO: configure SSL on host
 - name: instal nginx configurations for HTTPS serving
   become: true
-  template:
+  ansible.builtin.template:
     src: "0002_serve_port_443.conf"
     dest: /etc/nginx/conf.d/0002_serve_port_443_{{ item.tld }}.conf
     owner: root
@@ -87,7 +87,7 @@
 
 - name: set SELinux options
   become: true
-  seboolean:
+  ansible.posix.seboolean:
     name: "{{ item }}"
     persistent: true
     state: true

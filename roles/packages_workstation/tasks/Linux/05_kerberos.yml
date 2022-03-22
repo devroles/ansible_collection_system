@@ -1,6 +1,6 @@
 - name: install Kerberos
   become: true
-  package:
+  ansible.builtin.package:
     name:
       - krb5-libs
       - krb5-workstation
@@ -13,7 +13,7 @@
 
 - name: configure Kerberos
   become: true
-  template:
+  ansible.builtin.template:
     src: krb5.conf
     dest: /etc/krb5.conf
     owner: root

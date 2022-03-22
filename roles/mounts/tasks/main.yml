@@ -1,10 +1,10 @@
 - name: install deps for mounting filesystems
   become: true
-  package:
+  ansible.builtin.package:
     name: "{{ mounts_packages }}"
     state: present
   when: ansible_facts.pkg_mgr not in ['atomic_container']
 
 - name: ensure mount
-  include_tasks: mount.yml
+  ansible.builtin.include_tasks: mount.yml
   with_items: "{{ mounts }}"

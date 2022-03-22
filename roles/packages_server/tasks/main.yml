@@ -1,6 +1,6 @@
 # role tasks
 - name: Set platform/version specific variables
-  include_vars: "{{ __rolename_vars_file }}"
+  ansible.builtin.include_vars: "{{ __rolename_vars_file }}"
   loop:
     - "{{ ansible_facts.os_family }}.yml"
     - "{{ ansible_facts.distribution }}.yml"
@@ -12,7 +12,7 @@
 
 - name: Install packages for servers
   become: true
-  package:
+  ansible.builtin.package:
     name: "{{ packages_server_packages }}"
     state: present
   retries: 3
@@ -20,7 +20,7 @@
   until: __packages_server_install is success
 
 - name: Create python virtualenvs
-  pip:
+  ansible.builtin.pip:
     virtualenv: "{{ ansible_user_dir }}/venv/tools{{ item }}"
     state: present
     name: "{{ packages_server_python_packages }}"

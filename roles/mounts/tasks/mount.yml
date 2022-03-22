@@ -1,6 +1,6 @@
 - name: mount and save
   become: true
-  mount:
+  ansible.posix.mount:
     state: mounted
     fstype: "{{ item.fstype }}"
     path: "{{ item.mount_point }}"
@@ -11,7 +11,7 @@
 
 - name: ensure mount point permissions are correct
   become: true
-  file:
+  ansible.builtin.file:
     dest: "{{ item.mount_point }}"
     state: directory
     owner: "{{ item.owner | default(omit) }}"

@@ -1,5 +1,5 @@
 - name: setup webserver
-  import_role:
+  ansible.builtin.import_role:
     name: webserver
   vars:
     webserver_domains:
@@ -8,6 +8,6 @@
 
 - name: install mta software
   become: true
-  package:
+  ansible.builtin.package:
     name: "{{ mta_packages }}"
     state: present

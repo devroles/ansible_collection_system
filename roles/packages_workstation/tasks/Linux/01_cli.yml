@@ -1,11 +1,11 @@
 - name: Install gpg keys
   become: true
-  package:
+  ansible.builtin.package:
     name: distribution-gpg-keys
     state: present
 
 - name: setup repositories
-  import_role:
+  ansible.builtin.import_role:
     name: oasis_roles.system.system_repositories
   vars:
     system_repositories_configs: "{{ packages_workstation_repositories }}"
@@ -13,7 +13,7 @@
 
 - name: install RPM Fusion packages
   become: true
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
     disable_gpg_check: true  # can't verify until installed!
@@ -21,7 +21,7 @@
 
 - name: install CLI packages
   become: true
-  package:
+  ansible.builtin.package:
     name: "{{ packages_workstation_packages }}"
     state: present
   retries: 3
@@ -30,6 +30,6 @@
 
 - name: remove packages that shouldn't hang around
   become: true
-  package:
+  ansible.builtin.package:
     name: "{{ packages_workstation_remove_packages }}"
     state: absent

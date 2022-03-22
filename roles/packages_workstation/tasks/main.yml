@@ -1,14 +1,14 @@
 - name: include variable files
-  include_vars: "{{ item }}"
+  ansible.builtin.include_vars: "{{ item }}"
   loop:
     - "{{ role_path }}/vars/{{ ansible_facts.architecture }}.yml"
   when: item is file
 
 - name: include os files
-  include_vars: "{{ item }}"
+  ansible.builtin.include_vars: "{{ item }}"
   loop:
     - "{{ role_path }}/vars/{{ ansible_facts.distribution }}.yml"
   when: item is file
 
 - name: include files for our system
-  include_tasks: "{{ ansible_facts.system }}/main.yml"
+  ansible.builtin.include_tasks: "{{ ansible_facts.system }}/main.yml"

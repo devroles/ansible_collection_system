@@ -1,13 +1,13 @@
 - name: create account key for {{ domain.tld }}
   become: true
-  openssl_privatekey:
+  community.crypto.openssl_privatekey:
     path: /etc/ssl/letsencrypt.key
     owner: root
     group: root
 
 - name: create openssl private key for {{ domain.tld }}
   become: true
-  openssl_privatekey:
+  community.crypto.openssl_privatekey:
     path: /etc/ssl/{{ domain.tld }}.key
     owner: root
     group: root
@@ -15,7 +15,7 @@
 
 - name: create CSR for {{ domain.tld }}
   become: true
-  openssl_csr:
+  community.crypto.openssl_csr:
     path: /etc/ssl/{{ domain.tld }}.csr
     privatekey_path: /etc/ssl/{{ domain.tld }}.key
     common_name: "{{ domain.tld }}"
@@ -35,7 +35,7 @@
 
 - name: create challenge dir for {{ domain.tld }}
   become: true
-  file:
+  ansible.builtin.file:
     name: >-
       /var/www/{{ domain.tld }}/{{
       letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource']
@@ -47,7 +47,7 @@
 
 - name: copy challenge file to server space for {{ domain.tld }}
   become: true
-  copy:
+  ansible.builtin.copy:
     dest: /var/www/{{ domain.tld }}/{{ letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource'] }}  # yamllint disable-line rule:line-length
     content: "{{ letsencrypt_challenge['challenge_data'][domain.tld]['http-01']['resource_value'] }}"  # yamllint disable-line rule:line-length
     owner: nginx
