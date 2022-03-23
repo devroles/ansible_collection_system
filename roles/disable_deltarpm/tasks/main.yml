@@ -8,7 +8,7 @@
   when: ansible_pkg_mgr == 'dnf'
 
 - name: set conf path for yum
-  ansible.builtin.ansible.builtin.ansible.builtin.ansible.builtin.ansible.builtin.set_fact:
+  ansible.builtin.set_fact:
     _config_path: /etc/yum.conf
   when: ansible_pkg_mgr == 'yum'
 

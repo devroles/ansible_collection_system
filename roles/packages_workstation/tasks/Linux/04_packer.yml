@@ -1,6 +1,6 @@
 - name: disable tmpfs for /tmp to make Packer space
   become: true
-  ansible.posix.systemd:
+  ansible.builtin.systemd:
     masked: true
     state: stopped
     enabled: false
