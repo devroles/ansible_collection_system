@@ -1,7 +1,7 @@
 - name: install tools
-  package:
+  ansible.builtin.package:
     name: "{{ packages_workstation }}"
     state: present
 
 - name: setup Python
-  include_tasks: ../Linux/02_virtualenv.yml
+  ansible.builtin.include_tasks: ../Linux/02_virtualenv.yml

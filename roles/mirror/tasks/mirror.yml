@@ -1,6 +1,6 @@
 - block:
     - name: create base dir
-      file:
+      ansible.builtin.file:
         dest: "{{ item.base }}/{{ item.dest }}"
         state: directory
         owner: "{{ item.owner | default(omit) }}"
@@ -8,7 +8,7 @@
         mode: "{{ item.mode | default('0755') }}"
 
     - name: create mirror.sh file
-      copy:
+      ansible.builtin.copy:
         content: |
           #!/bin/bash
           set -ex

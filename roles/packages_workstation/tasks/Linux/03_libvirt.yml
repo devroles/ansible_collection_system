@@ -1,13 +1,13 @@
 - become: true
   block:
     - name: install packages elsewhere
-      package:
+      ansible.builtin.package:
         name: "{{ packages_workstation_libvirt }}"
         state: present
         use: "{{ packages_backend }}"
 
     - name: create image storage
-      file:
+      ansible.builtin.file:
         dest: "{{ packages_workstation_libvirt_storage }}"
         owner: root
         group: root
@@ -15,7 +15,7 @@
         state: directory
 
     - name: configure libvirt storage
-      template:
+      ansible.builtin.template:
         src: storage
         dest: /etc/libvirt/storage/default.xml
         owner: root
@@ -25,7 +25,7 @@
       register: check
 
     - name: create libvirt config directory
-      file:
+      ansible.builtin.file:
         dest: /etc/libvirt/storage
         owner: root
         group: root
@@ -34,7 +34,7 @@
       when: check is changed  # noqa no-handler
 
     - name: make sure libvirt is stopped
-      service:
+      ansible.builtin.service:
         name: libvirtd
         state: stopped
       when:
@@ -42,7 +42,7 @@
         - ansible_connection not in ['docker', 'podman']
 
     - name: configure libvirt storage
-      template:
+      ansible.builtin.template:
         src: storage
         dest: /etc/libvirt/storage/default.xml
         owner: root
@@ -50,36 +50,36 @@
         mode: 0755
 
     - name: ensure the libvirt group exists
-      group:
+      ansible.builtin.group:
         name: libvirt
         state: present
 
     - name: check for /usr/lib/group existence
-      stat:
+      ansible.builtin.stat:
         path: /usr/lib/group
       register: group_file
 
     - when: group_file.stat.exists
       block:
         - name: fix issue with some versions of virt-manager messing up groups
-          command: grep -E '^libvirt:' /usr/lib/group
+          ansible.builtin.command: grep -E '^libvirt:' /usr/lib/group
           register: libvirt_group_line
           changed_when: false
 
         - name: ensure group is in /etc/group
-          lineinfile:
+          ansible.builtin.lineinfile:
             line: "{{ libvirt_group_line.stdout.strip() }}"
             path: /etc/group
             state: present
 
     - name: add current user to libvirt group
-      user:
+      ansible.builtin.user:
         name: "{{ ansible_user_id }}"
         append: true
         groups: libvirt
 
     - name: start and enable libvirtd
-      service:
+      ansible.builtin.service:
         name: libvirtd
         state: started
         enabled: true

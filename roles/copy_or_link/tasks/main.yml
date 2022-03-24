@@ -1,5 +1,5 @@
 - name: ensure that the path exists
-  file:
+  ansible.builtin.file:
     path: "{{ item.dest | dirname }}"
     state: directory
     mode: u+wx

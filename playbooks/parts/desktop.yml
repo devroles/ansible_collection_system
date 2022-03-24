@@ -18,7 +18,7 @@
   hosts: all
   tasks:
     - when: ansible_facts.pkg_mgr != 'atomic_container'  # noqa unnamed-task
-      include_role:
+      ansible.builtin.include_role:
         name: "{{ role }}"
       loop:
         - devroles.system.packages_workstation

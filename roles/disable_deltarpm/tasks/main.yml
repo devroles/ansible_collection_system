@@ -1,14 +1,14 @@
 - name: set default conf path value
-  set_fact:
+  ansible.builtin.set_fact:
     _config_path: false
 
 - name: set conf path for dnf
-  set_fact:
+  ansible.builtin.set_fact:
     _config_path: /etc/dnf/dnf.conf
   when: ansible_pkg_mgr == 'dnf'
 
 - name: set conf path for yum
-  set_fact:
+  ansible.builtin.set_fact:
     _config_path: /etc/yum.conf
   when: ansible_pkg_mgr == 'yum'
 

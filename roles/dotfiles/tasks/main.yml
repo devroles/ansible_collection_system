@@ -1,11 +1,11 @@
 - name: Setup shell config files
-  include_tasks: 01_shell.yml
+  ansible.builtin.include_tasks: 01_shell.yml
 
 - name: Configure git
-  include_tasks: 02_git.yml
+  ansible.builtin.include_tasks: 02_git.yml
 
 - name: Configure vim
-  include_tasks: 03_vim.yml
+  ansible.builtin.include_tasks: 03_vim.yml
 
 - name: Configure vagrant
-  include_tasks: 04_vagrant.yml
+  ansible.builtin.include_tasks: 04_vagrant.yml

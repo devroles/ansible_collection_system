@@ -1,6 +1,6 @@
 - name: install packages
   become: true
-  package:
+  ansible.builtin.package:
     name: "{{ mythtv_packages }}"
     state: present
   retries: 3
@@ -8,11 +8,12 @@
   until: install_packages is success
 
 - name: fetch Hauppage 950 firmware
-  get_url:
+  ansible.builtin.get_url:
     dest: "{{ ansible_user_dir }}/HVR-950.zip"
     url: "http://www.steventoth.net/linux/xc5000\
           /HVR-12x0-14x0-17x0_1_25_25271_WHQL.zip"
     force: true
+    mode: 0644
   notify: extract Hauppage firmware
 
 - name: create mythtv database
@@ -24,7 +25,7 @@
     encoding: utf8
 
 - name: grant mythtv user privileges
-  mysql_user:
+  community.mysql.mysql_user:
     login_user: "{{ mythtv_db_admin_username | default(omit) }}"
     login_password: "{{ mythtv_db_admin_password | default(omit) }}"
     name: mythconverg
@@ -33,7 +34,7 @@
 
 - name: give user permission to run capture card
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ ansible_user_id }}"
     groups:
       - video

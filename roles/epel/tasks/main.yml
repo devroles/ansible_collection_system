@@ -1,6 +1,6 @@
 # role tasks
 - name: Set platform/version specific variables
-  include_vars: "{{ __rolename_vars_file }}"
+  ansible.builtin.include_vars: "{{ __rolename_vars_file }}"
   loop:
     - "{{ ansible_facts.os_family }}.yml"
     - "{{ ansible_facts.distribution }}.yml"
@@ -11,7 +11,7 @@
   when: __rolename_vars_file is file
 
 - name: Install EPEL package
-  package:
+  ansible.builtin.package:
     name: "{{ epel_packages }}"
     state: present
   become: "{{ epel_become }}"

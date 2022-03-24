@@ -1,14 +1,14 @@
 - name: install tools
   become: true
-  package:
+  ansible.builtin.package:
     name: "{{ mirror_packages }}"
     state: present
   when: ansible_facts.pkg_mgr != 'unknown'
 
 - name: make each mirror exist
-  include_tasks: mirror.yml
+  ansible.builtin.include_tasks: mirror.yml
   loop: "{{ mirror_list }}"
 
 - name: setup SELinux
-  include_tasks: selinux.yml
+  ansible.builtin.include_tasks: selinux.yml
   when: ansible_facts.selinux.status in ['enforcing', 'permissive']

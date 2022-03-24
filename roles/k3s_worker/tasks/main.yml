@@ -1,6 +1,6 @@
 # role tasks
 - name: Set platform/version specific variables
-  include_vars: "{{ __rolename_vars_file }}"
+  ansible.builtin.include_vars: "{{ __rolename_vars_file }}"
   loop:
     - "{{ ansible_facts.os_family }}.yml"
     - "{{ ansible_facts.distribution }}.yml"
@@ -14,7 +14,7 @@
   become_user: "{{ k3s_worker_become_user }}"
   block:
     - name: Install k3s on this node
-      command: >-
+      ansible.builtin.command: >-
         /tmp/install-k3s.sh
         --server {{ k3s_worker_server }}
         --node-name {{ k3s_worker_node_name }}

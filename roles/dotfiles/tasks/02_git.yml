@@ -1,5 +1,5 @@
 - name: Configure git
-  ini_file:
+  community.general.ini_file:
     path: "{{ ansible_user_dir }}/.gitconfig"
     section: "{{ item.name.split('.', 1)[0] }}"
     option: "{{ item.name.split('.', 1)[1] }}"

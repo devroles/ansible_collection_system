@@ -2,7 +2,7 @@
   become: true
   block:
     - name: update selected packages
-      package:
+      ansible.builtin.package:
         name:
           - vim-minimal
         state: latest
@@ -13,7 +13,7 @@
         - skip_ansible_lint
 
     - name: install shared tools
-      package:
+      ansible.builtin.package:
         name: "{{ common_packages }}"
         state: present
       retries: 3
@@ -21,7 +21,7 @@
       until: shared_tools is success
 
     - name: install dnf tools
-      package:
+      ansible.builtin.package:
         name:
           - dnf-command(system-upgrade)
         state: present
@@ -35,13 +35,13 @@
         - ansible_connection not in ['docker', 'podman']
       block:
         - name: install python SELinux packages
-          package:
+          ansible.builtin.package:
             name: "{{ common_selinux_packages }}"
             state: present
 
 - name: disable selinux
   become: true
-  selinux: state=disabled
+  ansible.builtin.selinux: state=disabled
   when:
     - ansible_facts.os_family != 'Darwin'
     - ansible_connection not in ['docker', 'podman']
@@ -49,7 +49,7 @@
 
 - name: enable SSHD
   become: true
-  service:
+  ansible.builtin.service:
     name: sshd
     state: started
     enabled: true
