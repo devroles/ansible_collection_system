@@ -132,3 +132,21 @@ packages_workstation_python_packages:
   - xonsh
   - ruamel.yaml
   - yamllint
+packages_workstation_flatpaks:
+  - fr.handbrake.ghb
+  - io.github.Hexchat
+  - org.avidemux.Avidemux
+  - com.github.Eloston.UngoogledChromium
+  - org.gnome.Boxes
+  - org.fedoraproject.MediaWriter
+  - org.openshot.OpenShot
+  - org.vim.Vim
+  - com.makemkv.MakeMKV
+  - com.poweriso.PowerISO
+  - com.synology.SynologyDrive
+  - com.transmissionbt.Transmission
+  - com.valvesoftware.Steam
+  - com.valvesoftware.Steam.Utility.protontricks
+
+  - org.videolan.VLC
+  - runtime/org.videolan.VLC.Plugin.makemkv/x86_64/3-19.08

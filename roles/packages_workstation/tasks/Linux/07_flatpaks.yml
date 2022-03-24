@@ -1,7 +1,7 @@
 - name: install flatpaks
   become: true
-  community.general.flatpak:
+  flatpak:
     name: "{{ item }}"
-  loop: "{{ flatpaks }}"
+  loop: "{{ packages_workstation_flatpaks }}"
   changed_when: false
   when: ansible_facts.hostname != 'toolbox'

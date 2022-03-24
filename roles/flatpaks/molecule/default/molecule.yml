@@ -1,6 +1,0 @@
-driver:
-  name: containers
-platforms:
-  - name: flatpaks
-    image: fedora:latest
-    privileged: true
