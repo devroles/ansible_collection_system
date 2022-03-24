@@ -13,6 +13,7 @@ name: tox
       - .github/release-drafter.yml
       - .github/workflows/build_toolboxen.yml
   pull_request:
+  workflow_dispatch:
   schedule:
     - cron: '12 0 * * *'
   release:
