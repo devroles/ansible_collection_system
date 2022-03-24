@@ -17,8 +17,16 @@
 
     - name: setup packer
       ansible.builtin.include_tasks: 04_packer.yml
+
   when: "'WSLENV' not in ansible_facts.env"
 
 - name: setup kerberos
   ansible.builtin.include_tasks: 05_kerberos.yml
   when: kerberos is defined
+
+- name: setup blu-ray files
+  ansible.builtin.include_tasks: 06_blu_ray.yml
+
+- name: install flatpaks
+  ansible.builtin.include_tasks: 07_flatpaks.yml
+  when: ansible_connection not in ['docker', 'podman']

@@ -6,10 +6,6 @@
         - ansible_facts.distribution != 'MacOSX'
         - ansible_facts.pkg_mgr != 'atomic_container'
         - ansible_connection not in ['docker', 'podman']
-    - role: devroles.system.flatpaks
-      when:
-        - ansible_facts.distribution != 'MacOSX'
-        - ansible_connection not in ['docker', 'podman']
     - role: oasis_roles.system.container
       when:
         - ansible_connection not in ['docker', 'podman']

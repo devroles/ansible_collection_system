@@ -1,5 +1,0 @@
-driver:
-  name: containers
-platforms:
-  - name: python_prep_cent7
-    image: centos:7
