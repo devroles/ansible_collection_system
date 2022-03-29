@@ -45,7 +45,6 @@ tags: []
 # range specifiers can be set and are separated by ','
 # yamllint enable
 dependencies:
-  oasis_roles.system: ">=1.0.0"
   containers.podman: ">=1.0.0"
   community.crypto: ">=1.6"
   community.mysql: ">=2.0.0"
