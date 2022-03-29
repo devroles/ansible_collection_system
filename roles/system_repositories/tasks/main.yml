@@ -1,12 +1,12 @@
 - name: configure system repositories
   become: "{{ system_repositories_become }}"
-  yum_repository:
+  ansible.builtin.yum_repository:
     baseurl: "{{ item.baseurl | default(omit) }}"
     description: "{{ item.description | default('Configured by Ansible') }}"
     enabled: "{{ item.enabled | default(omit) }}"
     enablegroups: "{{ item.enablegroups | default(omit) }}"
     exclude: >-
-      {{ (item | oasis_roles.system.system_repositories_exclude_join)
+      {{ (item | devroles.system.system_repositories_exclude_join)
       | default(omit) }}
     failovermethod: "{{ item.failovermethod | default(omit) }}"
     file: "{{ item.file | default(omit) }}"
@@ -31,7 +31,7 @@
 
 - name: download repo files
   become: "{{ system_repositories_become }}"
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ item }}"
     validate_certs: "{{ system_repositories_validate_certs }}"
     dest: "{{ system_repositories_destination_folder }}"
@@ -45,7 +45,7 @@
 
 - name: install RPM keys
   become: "{{ system_repositories_become }}"
-  rpm_key:
+  ansible.builtin.rpm_key:
     key: "{{ item }}"
     state: present
     validate_certs: "{{ system_repositories_validate_certs }}"
