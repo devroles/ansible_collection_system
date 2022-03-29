@@ -1,0 +1,5 @@
+driver:
+  name: container
+platforms:
+  - name: fedora_sudoers
+    image: fedora:latest
