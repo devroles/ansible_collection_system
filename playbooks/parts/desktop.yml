@@ -20,9 +20,5 @@
       loop:
         - devroles.system.packages_workstation
         - devroles.system.dev
-        - devroles.devel.ansible
-        - devroles.devel.java_devel
-        - devroles.devel.packaging
-        - devroles.devel.sword
       loop_control:
         loop_var: role

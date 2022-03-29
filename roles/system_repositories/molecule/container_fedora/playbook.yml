@@ -1,0 +1,13 @@
+- name: Converge
+  hosts: all
+  roles:
+    - role: system_repositories
+  post_tasks:
+    - name: install gcc-debuginfo
+      become: true
+      package:
+        name: gcc-debuginfo
+        state: present
+      retries: 2
+      register: install_gcc
+      until: install_gcc is success

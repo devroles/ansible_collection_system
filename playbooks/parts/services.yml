@@ -6,7 +6,7 @@
 - name: configure firewall
   hosts: admin
   roles:
-    - role: oasis_roles.system.firewalld
+    - role: devroles.system.firewalld
       when:
         - ansible_pkg_mgr not in ['atomic_container']
         - "'WSLENV' not in ansible_facts.env"

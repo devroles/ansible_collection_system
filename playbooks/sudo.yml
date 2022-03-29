@@ -3,5 +3,5 @@
   roles:
     - role: devroles.system.authorized_key
       when: inventory_hostname != 'localhost'
-    - role: oasis_roles.system.sudoers
+    - role: devroles.system.sudoers
       ansible_ssh_pipelining: false

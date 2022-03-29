@@ -45,12 +45,10 @@ tags: []
 # range specifiers can be set and are separated by ','
 # yamllint enable
 dependencies:
-  oasis_roles.system: ">=1.0.0"
   containers.podman: ">=1.0.0"
-  devroles.devel: ">=1.0.0"
   community.crypto: ">=1.6"
   community.mysql: ">=2.0.0"
-  community.general: "4.1.0"
+  community.general: ">4.1.0"
   ansible.posix: ">=1.3.0"
 
 # The URL of the originating SCM repository

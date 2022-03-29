@@ -6,9 +6,9 @@
 - name: most baseline things
   hosts: admin
   roles:
-    - role: oasis_roles.system.system_repositories
+    - role: devroles.system.system_repositories
       system_repositories_configs: "{{ repositories }}"
       when: repositories is defined
     - devroles.system.common
     - devroles.system.mounts
-    - oasis_roles.system.update_ca_trust
+    - devroles.system.update_ca_trust

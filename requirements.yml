@@ -4,5 +4,3 @@ collections:
   - community.general
   - community.mysql
   - containers.podman
-  - devroles.devel
-  - oasis_roles.system

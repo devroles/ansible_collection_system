@@ -16,7 +16,7 @@
     state: present
   when: ansible_facts.pkg_mgr not in ['atomic_container']
 
-- name: install development boxen
+- name: install development flatpaks
   become: true
   ansible.builtin.flatpak:
     name: "{{ item }}"
@@ -26,3 +26,24 @@
     - ansible_facts.hostname != 'toolbox'
     - ansible_facts.distribution != 'MacOSX'
     - ansible_connection not in ['docker', 'podman']
+
+- name: configure user for mock
+  become: true
+  ansible.builtin.user:
+    groups: mock
+    name: "{{ dev_mock_user }}"
+    append: true
+
+- name: create .m2 directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.m2/"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    mode: "0755"
+
+- name: populate Maven settings file
+  ansible.builtin.template:
+    src: settings.xml
+    dest: "{{ ansible_user_dir }}/.m2/settings.xml"
+    owner: "{{ ansible_user_id }}"
+    mode: "0644"

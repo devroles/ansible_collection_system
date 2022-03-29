@@ -6,7 +6,7 @@
 
 - name: setup repositories
   ansible.builtin.import_role:
-    name: oasis_roles.system.system_repositories
+    name: devroles.system.system_repositories
   vars:
     system_repositories_configs: "{{ packages_workstation_repositories }}"
     system_repositories_rpm_keys: "{{ packages_workstation_gpg_keys }}"

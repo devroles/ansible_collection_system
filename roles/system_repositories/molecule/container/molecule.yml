@@ -1,0 +1,5 @@
+driver:
+  name: containers
+platforms:
+  - name: instance_docker
+    image: centos:7
