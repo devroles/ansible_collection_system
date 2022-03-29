@@ -1,0 +1,13 @@
+- name: register RHSM
+  hosts: all
+  roles:
+    - role: oasis_roles.system.rhsm
+      when: ansible_distribution == 'RedHat'
+  vars_files:
+    - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/../../../../tests/rhsm.yml"
+  vars:
+    rhsm_repositories:
+      enabled:
+        - rhel-7-server-rpms
+        - rhel-7-server-extras-rpms
+        - rhel-7-server-optional-rpms
