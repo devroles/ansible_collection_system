@@ -1,5 +1,5 @@
 - name: Set platform/version specific variables
-  include_vars: "{{ __rolename_vars_file }}"
+  ansible.builtin.include_vars: "{{ __rolename_vars_file }}"
   loop:
     - default.yml
     - "{{ ansible_facts.os_family }}.yml"
@@ -12,7 +12,7 @@
 
 - block:
     - name: install certs from URLs
-      get_url:
+      ansible.builtin.get_url:
         url: "{{ item }}"
         dest: "{{ update_ca_trust_anchors }}"
         owner: root
@@ -23,7 +23,7 @@
       notify: update-ca-trust
 
     - name: install certs from files
-      copy:
+      ansible.builtin.copy:
         content: "{{ lookup( update_ca_trust_template | bool | ternary('template', 'file'), item) }}\n"
         dest: "{{ update_ca_trust_anchors }}/{{ item | basename }}"
         owner: root
@@ -35,4 +35,4 @@
   become_user: "{{ update_ca_trust_become_user }}"
 
 - name: run handlers if necessary
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
