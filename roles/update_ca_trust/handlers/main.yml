@@ -1,0 +1,4 @@
+- name: update-ca-trust
+  command: "{{ update_ca_trust_command }}"
+  become: "{{ update_ca_trust_become }}"
+  become_user: "{{ update_ca_trust_become_user }}"

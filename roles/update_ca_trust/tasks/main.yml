@@ -1,0 +1,38 @@
+- name: Set platform/version specific variables
+  include_vars: "{{ __rolename_vars_file }}"
+  loop:
+    - default.yml
+    - "{{ ansible_facts.os_family }}.yml"
+    - "{{ ansible_facts.distribution }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version }}.yml"
+  vars:
+    __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
+  when: __rolename_vars_file is file
+
+- block:
+    - name: install certs from URLs
+      get_url:
+        url: "{{ item }}"
+        dest: "{{ update_ca_trust_anchors }}"
+        owner: root
+        group: root
+        mode: 0644
+        validate_certs: "{{ update_ca_trust_validate_certs }}"
+      with_items: "{{ update_ca_trust_urls }}"
+      notify: update-ca-trust
+
+    - name: install certs from files
+      copy:
+        content: "{{ lookup( update_ca_trust_template | bool | ternary('template', 'file'), item) }}\n"
+        dest: "{{ update_ca_trust_anchors }}/{{ item | basename }}"
+        owner: root
+        group: root
+        mode: 0644
+      with_items: "{{ update_ca_trust_files }}"
+      notify: update-ca-trust
+  become: "{{ update_ca_trust_become }}"
+  become_user: "{{ update_ca_trust_become_user }}"
+
+- name: run handlers if necessary
+  meta: flush_handlers
