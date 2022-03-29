@@ -13,7 +13,7 @@ env:
       - main
     paths-ignore:
       - .github/workflows/tox.yml
-  worflow_dispatch:
+  workflow_dispatch:
   release:
     types:
       - published
