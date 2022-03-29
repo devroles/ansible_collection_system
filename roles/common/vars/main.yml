@@ -2,6 +2,8 @@ common_selinux_packages:
   - python3-libselinux
   - selinux-policy
 common_packages:
+  - dnf-command(system-upgrade)
+  - dnf-plugins-core
   - vim
   - git
   - mlocate

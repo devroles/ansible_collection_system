@@ -20,16 +20,16 @@
       register: shared_tools
       until: shared_tools is success
 
-    - name: install dnf tools
-      ansible.builtin.package:
-        name:
-          - dnf-command(system-upgrade)
-        state: present
-      when: ansible_facts.pkg_mgr == 'dnf'
-      retries: 3
-      register: install_dnf_tools
-      until: install_dnf_tools is success
-
+    - name: configure dnf
+      ansible.builtin.ini_file:
+        path: /etc/dnf/dnf.conf
+        section: main
+        option: "{{ item.key }}"
+        value: "{{ item.value }}"
+        create: false
+      with_dict:
+        max_parallel_downloads: "5"
+        metadata_timer_sync: "3600"
     - when:
         - ansible_facts.os_family != 'Darwin'
         - ansible_connection not in ['docker', 'podman']
