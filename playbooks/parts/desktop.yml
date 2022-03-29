@@ -6,9 +6,10 @@
         - ansible_facts.distribution != 'MacOSX'
         - ansible_facts.pkg_mgr != 'atomic_container'
         - ansible_connection not in ['docker', 'podman']
-    - role: oasis_roles.system.container
+    - role: devroles.system.container
       when:
         - ansible_connection not in ['docker', 'podman']
+        - "'WSLENV' not in ansible_facts.env"
 
 - name: Install packages to non-atomic stations
   hosts: all
