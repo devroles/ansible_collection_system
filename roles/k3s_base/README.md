@@ -36,7 +36,7 @@ Example Playbook
 ```yaml
 - hosts: k3s_base-servers
   roles:
-    - role: oasis_roles.system.k3s_base
+    - role: devroles.system.k3s_base
 ```
 
 License

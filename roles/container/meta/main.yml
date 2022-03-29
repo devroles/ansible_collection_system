@@ -1,6 +1,5 @@
 galaxy_info:
-  author: oasis_roles
-  company: Red Hat, Inc.
+  author: devroles
   description: >-
     Installs and enables a container runtime. Also configures users with access
     to the service, the login user by default. It defaults to supporting
@@ -11,7 +10,6 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 7
         - 8
     - name: Fedora
       versions:

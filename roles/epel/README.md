@@ -37,7 +37,7 @@ Example Playbook
 ```yaml
 - hosts: epel-servers
   roles:
-    - role: oasis_roles.system.epel
+    - role: devroles.system.epel
 ```
 
 License

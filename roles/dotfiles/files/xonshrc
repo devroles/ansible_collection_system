@@ -58,7 +58,6 @@ aliases['vdown'] = 'vagrant destroy'
 aliases['ac'] = 'vox activate'
 aliases['d'] = 'vox deactivate'
 
-aliases['oasis'] = 'cd ~/src/ansible_collections/oasis_roles'
 aliases['devroles'] = 'cd ~/src/ansible_collections/devroles'
 aliases['molcol'] = 'molecule -c ../../tests/molecule.yml'
 

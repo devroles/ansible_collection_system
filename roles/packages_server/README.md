@@ -1,7 +1,7 @@
 packages_server
 ===========
 
-Basic description for packages_server
+The packages tha I want installed on all of my server devices
 
 Requirements
 ------------
@@ -36,7 +36,7 @@ Example Playbook
 ```yaml
 - hosts: packages_server-servers
   roles:
-    - role: oasis_roles.system.packages_server
+    - role: devroles.system.packages_server
 ```
 
 License
@@ -47,4 +47,4 @@ GPLv3
 Author Information
 ------------------
 
-Author Name <authoremail@domain.net>
+Greg Hellings <greg.hellings@gmail.com>

@@ -53,7 +53,7 @@ Example Playbook
 ```yaml
 - hosts: container-servers
   roles:
-    - role: oasis_roles.system.container
+    - role: devroles.system.container
 ```
 
 License
