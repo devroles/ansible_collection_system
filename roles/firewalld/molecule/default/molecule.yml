@@ -1,0 +1,7 @@
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+platforms:
+  - name: firewalld-default
+    box: generic/oracle8
