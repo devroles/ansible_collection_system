@@ -6,3 +6,6 @@
         name:
           - git
         state: present
+      retries: 3
+      register: _install_tools
+      until: _install_tools is success
