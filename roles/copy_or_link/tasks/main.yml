@@ -7,9 +7,7 @@
 
 - name: insert file
   devroles.system.copy_or_link:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    force: "{{ item.force | default(false) }}"
+  args: "{{ item }}"
   loop: "{{ copy_or_link_files }}"
   tags:
     - skip_ansible_lint  # TODO: Needs ansible-lint#642 resolved
