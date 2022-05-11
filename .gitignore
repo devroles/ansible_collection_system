@@ -9,3 +9,4 @@ devroles-system-*.tar.gz
 log
 .cache
 junit.xml
+.direnv
