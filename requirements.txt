@@ -1,5 +1,5 @@
 ansible==5.9.0
-ansible-lint==6.2.1
+ansible-lint==6.2.2
 flake8==4.0.1
 molecule==3.6.1
 yamllint==1.26.3
