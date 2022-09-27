@@ -10,7 +10,8 @@
     __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
   when: __rolename_vars_file is file
 
-- become: "{{ k3s_master_become }}"
+- name: Install and activate the service
+  become: "{{ k3s_master_become }}"
   become_user: "{{ k3s_master_become_user }}"
   block:
     - name: Execute installer

@@ -1,4 +1,4 @@
-- name: configure desktop systems
+- name: Configure desktop systems
   hosts: all
   roles:
     - role: devroles.system.flatpak

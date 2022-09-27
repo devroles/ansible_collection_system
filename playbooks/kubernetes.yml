@@ -1,4 +1,5 @@
-- hosts: localhost
+- name: Install Kubernetes helms
+  hosts: localhost
   tasks:
     - name: Configure repositories
       action: community.kubernetes.helm_repository

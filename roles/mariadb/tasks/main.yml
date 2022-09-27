@@ -1,9 +1,9 @@
-- name: check root password is defined
+- name: Check root password is defined
   ansible.builtin.assert:
     that: mariadb_admin_password is defined
     msg: You must provide an admin password for install
 
-- name: load distro vars
+- name: Load distro vars
   ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - "vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_version }}.yml"
@@ -16,7 +16,7 @@
   ansible.builtin.include_role:
     name: epel
 
-- name: install database
+- name: Install database
   become: true
   ansible.builtin.package:
     name: "{{ mariadb_packages }}"
@@ -25,7 +25,7 @@
   retries: 3
   until: __mariadb_install is success
 
-- name: setup mysql data structures for first run
+- name: Setup mysql data structures for first run
   become: true
   ansible.builtin.command: /usr/libexec/{{ mariadb_setup_dir_command }}
   args:
@@ -33,7 +33,7 @@
   register: _first_run
   ignore_errors: true
 
-- name: start database
+- name: Start database
   become: true
   ansible.builtin.service:
     name: mariadb
@@ -42,7 +42,7 @@
   when:
     - ansible_connection not in ['docker', 'podman']
 
-- name: start database standalone
+- name: Start database standalone
   become: true
   ansible.builtin.command: mysqld_safe --nowatch
   args:
@@ -50,11 +50,11 @@
   when:
     - ansible_connection in ['docker', 'podman']
 
-- name: secure system on first boot
+- name: Secure system on first boot
   ansible.builtin.include_tasks:
     file: secure.yml
   when: _first_run is changed
 
-- name: configure MariaDB access
+- name: Configure MariaDB access
   ansible.builtin.include_tasks:
     file: configure_access.yml

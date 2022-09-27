@@ -1,4 +1,4 @@
-- name: extract Hauppage firmware
+- name: Extract Hauppage firmware
   ansible.builtin.command: unzip -o -j HVR-950.zip Driver85/hcw85bda.sys
   args:
     chdir: "{{ ansible_user_dir }}"
@@ -7,7 +7,7 @@
   tags:
     - skip_ansible_lint
 
-- name: run extract
+- name: Run extract
   ansible.builtin.find:
     path: /usr/src/kernels
     recurse: false
@@ -17,13 +17,13 @@
   failed_when: (kernels.files | length) == 0
   changed_when: true
 
-- name: extract source
+- name: Extract source
   ansible.builtin.command: "{{ kernels.files[0].path }}/scripts/extract_xc3028.pl"
   args:
     chdir: "{{ ansible_user_dir }}"
     creates: "{{ ansible_user_dir }}/xc3028-v27.fw"
   notify: move firmware
 
-- name: move firmware
+- name: Move firmware
   become: true
   ansible.builtin.command: mv {{ ansible_user_dir }}/xc3028-v27.fw /lib/firmware

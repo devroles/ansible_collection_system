@@ -1,3 +1,6 @@
-- import_playbook: parts/baseline.yml
-- import_playbook: parts/services.yml
-- import_playbook: dotfiles.yml
+- name: Run baseline setup
+  import_playbook: parts/baseline.yml
+- name: Configure system services
+  import_playbook: parts/services.yml
+- name: Setup userland configuration
+  import_playbook: dotfiles.yml

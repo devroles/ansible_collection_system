@@ -1,4 +1,4 @@
-- name: set admin password
+- name: Set admin password
   become: "{{ mariadb_become }}"
   become_user: "{{ mariadb_become_user }}"
   mysql_user:
@@ -16,7 +16,7 @@
   until: configure_admin is success
   changed_when: false  # TODO: Remove when module is right
 
-- name: configure my.cnf
+- name: Configure my.cnf
   community.general.ini_file:
     path: "{{ ansible_user_dir }}/.my.cnf"
     section: client
@@ -29,13 +29,13 @@
     - option: user
       value: "{{ mariadb_admin_user }}"
 
-- name: create databases for caller
+- name: Create databases for caller
   mysql_db:
     name: "{{ item }}"
     state: present
   with_items: "{{ mariadb_databases }}"
 
-- name: configure database users
+- name: Configure database users
   mysql_user:
     check_implicit_admin: true
     name: "{{ item.username }}"

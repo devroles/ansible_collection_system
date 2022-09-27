@@ -4,29 +4,29 @@
       {{ (ansible_facts.pkg_mgr == 'atomic_container') |
       ternary('community.general.rpm_ostree_pkg', ansible_facts.pkg_mgr) }}
 
-- name: install CLI repos and packages
+- name: Install CLI repos and packages
   ansible.builtin.include_tasks: 01_cli.yml
   when: ansible_facts.pkg_mgr != 'atomic_container'
 
-- block:
-    - name: setup user-space virtualenvs
+- name: Setup systems for Linux (not WSL2)
+  when: "'WSLENV' not in ansible_facts.env"
+  block:
+    - name: Setup user-space virtualenvs
       ansible.builtin.include_tasks: 02_virtualenv.yml
 
-    - name: setup libvirt
+    - name: Setup libvirt
       ansible.builtin.include_tasks: 03_libvirt.yml
 
-    - name: setup packer
+    - name: Setup packer
       ansible.builtin.include_tasks: 04_packer.yml
 
-  when: "'WSLENV' not in ansible_facts.env"
-
-- name: setup kerberos
+- name: Setup kerberos
   ansible.builtin.include_tasks: 05_kerberos.yml
   when: kerberos is defined
 
-- name: setup blu-ray files
+- name: Setup blu-ray files
   ansible.builtin.include_tasks: 06_blu_ray.yml
 
-- name: install flatpaks
+- name: Install flatpaks
   ansible.builtin.include_tasks: 07_flatpaks.yml
   when: ansible_connection not in ['docker', 'podman']

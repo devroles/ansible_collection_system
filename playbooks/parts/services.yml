@@ -1,9 +1,9 @@
-- name: install basic packages
+- name: Install basic packages
   hosts: all
   roles:
     - devroles.system.packages_server
 
-- name: configure firewall
+- name: Configure firewall
   hosts: admin
   roles:
     - role: devroles.system.firewalld
@@ -12,37 +12,37 @@
         - "'WSLENV' not in ansible_facts.env"
         - ansible_distribution != 'MacOSX'
 
-- name: configure mariadb/mysql database
+- name: Configure mariadb/mysql database
   hosts: mariadb
   roles:
     - devroles.system.mariadb
 
-- name: configure webserver
+- name: Configure webserver
   hosts: webserver
   roles:
     - devroles.system.webserver
 
-- name: configure mythtv
+- name: Configure mythtv
   hosts: mythtv
   roles:
     - devroles.system.mythtv
 
-- name: prepare k3s nodes
+- name: Prepare k3s nodes
   hosts: k3s
   roles:
     - devroles.system.k3s_base
 
-- name: configure k3s
+- name: Configure k3s
   hosts: k3s_master
   roles:
     - devroles.system.k3s_master
 
-- name: configure k3s workers
+- name: Configure k3s workers
   hosts: k3s_workers
   roles:
     - devroles.system.k3s_worker
 
-- name: configure mirror
+- name: Configure mirror
   hosts: mirrors
   roles:
     - role: devroles.system.mirror

@@ -1,4 +1,4 @@
-- name: disable tmpfs for /tmp to make Packer space
+- name: Disable tmpfs for /tmp to make Packer space
   become: true
   ansible.builtin.systemd:
     masked: true

@@ -1,4 +1,4 @@
-- name: update-ca-trust
+- name: update-ca-trust  # noqa name[casing]
   ansible.builtin.command: "{{ update_ca_trust_command }}"
   become: "{{ update_ca_trust_become }}"
   become_user: "{{ update_ca_trust_become_user }}"

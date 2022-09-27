@@ -1,4 +1,4 @@
-- name: install Kerberos
+- name: Install Kerberos
   become: true
   ansible.builtin.package:
     name:
@@ -11,7 +11,7 @@
   until: install_kerberos is success
   when: ansible_facts.pkg_mgr not in ['atomic_container']
 
-- name: configure Kerberos
+- name: Configure Kerberos
   become: true
   ansible.builtin.template:
     src: krb5.conf

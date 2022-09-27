@@ -1,5 +1,8 @@
-- block:
-    - name: create base dir
+- name: Create mirror destination and shell
+  become: "{{ mirror_become }}"
+  become_user: "{{ mirror_become_user }}"
+  block:
+    - name: Create base dir
       ansible.builtin.file:
         dest: "{{ item.base }}/{{ item.dest }}"
         state: directory
@@ -7,8 +10,8 @@
         group: "{{ item.group | default(omit) }}"
         mode: "{{ item.mode | default('0755') }}"
 
-    - name: create mirror.sh file
-      ansible.builtin.copy:
+    - name: Create mirror.sh file
+      ansible.builtin.copy:  # noqa template-instead-of-copy
         content: |
           #!/bin/bash
           set -ex
@@ -28,5 +31,3 @@
         owner: "{{ item.owner | default(omit) }}"
         group: "{{ item.group | default(omit) }}"
         mode: "0755"
-  become: "{{ mirror_become }}"
-  become_user: "{{ mirror_become_user }}"

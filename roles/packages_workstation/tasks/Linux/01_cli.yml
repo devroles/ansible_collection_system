@@ -4,14 +4,14 @@
     name: distribution-gpg-keys
     state: present
 
-- name: setup repositories
+- name: Setup repositories
   ansible.builtin.import_role:
     name: devroles.system.system_repositories
   vars:
     system_repositories_configs: "{{ packages_workstation_repositories }}"
     system_repositories_rpm_keys: "{{ packages_workstation_gpg_keys }}"
 
-- name: install RPM Fusion packages
+- name: Install RPM Fusion packages
   become: true
   ansible.builtin.package:
     name: "{{ item }}"
@@ -19,7 +19,7 @@
     disable_gpg_check: true  # can't verify until installed!
   loop: "{{ packages_workstation_rpmfusion }}"
 
-- name: install CLI packages
+- name: Install CLI packages
   become: true
   ansible.builtin.package:
     name: "{{ packages_workstation_packages }}"
@@ -28,7 +28,7 @@
   register: install_cli
   until: install_cli is success
 
-- name: remove packages that shouldn't hang around
+- name: Remove packages that shouldn't hang around
   become: true
   ansible.builtin.package:
     name: "{{ packages_workstation_remove_packages }}"

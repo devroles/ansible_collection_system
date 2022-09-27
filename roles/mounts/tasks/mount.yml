@@ -1,4 +1,4 @@
-- name: mount and save
+- name: Mount and save
   become: true
   ansible.posix.mount:
     state: mounted
@@ -9,7 +9,7 @@
     passno: "{{ item.passno | default(omit) }}"
     opts: "{{ item.opts | default(omit) }}"
 
-- name: ensure mount point permissions are correct
+- name: Ensure mount point permissions are correct
   become: true
   ansible.builtin.file:
     dest: "{{ item.mount_point }}"

@@ -10,7 +10,8 @@
     __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
   when: __rolename_vars_file is file
 
-- become: "{{ sudoers_become }}"
+- name: Update sudoers file
+  become: "{{ sudoers_become }}"
   become_user: "{{ sudoers_become_user }}"
   block:
     - name: Disable RequireTTY and similar
@@ -22,7 +23,7 @@
         - "Defaults *requiretty"
         - "Defaults *!visiblepw"
 
-    - name: ensure that sudo is installed
+    - name: Ensure that sudo is installed
       ansible.builtin.package:
         name: "{{ sudoers_packages }}"
         state: present
@@ -30,13 +31,13 @@
         - ansible_facts.pkg_mgr not in ['atomic_container']
         - ansible_facts.distribution not in ['MacOSX']
 
-    - name: make sure include line is in file
+    - name: Make sure include line is in file
       ansible.builtin.lineinfile:
         line: "#includedir /etc/sudoers.d"
         path: /etc/sudoers
         create: false
 
-    - name: be sure that /etc/sudoers.d exists
+    - name: Be sure that /etc/sudoers.d exists
       ansible.builtin.file:
         path: /etc/sudoers.d
         state: directory
@@ -44,7 +45,7 @@
         group: "{{ sudoers_group }}"
         mode: 0750
 
-    - name: configure sudoers
+    - name: Configure sudoers
       ansible.builtin.template:
         src: "{{ item }}"
         dest: /etc/sudoers.d/

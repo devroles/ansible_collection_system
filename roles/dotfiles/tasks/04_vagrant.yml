@@ -1,4 +1,4 @@
-- name: checkout vagrant.d folder
+- name: Checkout vagrant.d folder
   ansible.builtin.git:
     repo: https://github.com/greg-hellings/vagrant.d.git
     dest: "{{ ansible_user_dir }}/.vagrant.d"

@@ -1,4 +1,4 @@
-- name: configure system repositories
+- name: Configure system repositories
   become: "{{ system_repositories_become }}"
   ansible.builtin.yum_repository:
     baseurl: "{{ item.baseurl | default(omit) }}"
@@ -29,7 +29,7 @@
     reposdir: "{{ system_repositories_destination_folder }}"
   loop: "{{ system_repositories_configs }}"
 
-- name: download repo files
+- name: Download repo files
   become: "{{ system_repositories_become }}"
   ansible.builtin.get_url:
     url: "{{ item }}"
@@ -43,7 +43,7 @@
   until: get_repo_file is success
   retries: 3
 
-- name: install RPM keys
+- name: Install RPM keys
   become: "{{ system_repositories_become }}"
   ansible.builtin.rpm_key:
     key: "{{ item }}"

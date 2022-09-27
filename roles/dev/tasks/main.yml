@@ -9,14 +9,14 @@
     __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
   when: __rolename_vars_file is file
 
-- name: install necessary devel packages
+- name: Install necessary devel packages
   become: "{{ ansible_facts.distribution != 'MacOSX' }}"
   ansible.builtin.package:
     name: "{{ dev_packages }}"
     state: present
   when: ansible_facts.pkg_mgr not in ['atomic_container']
 
-- name: install development flatpaks
+- name: Install development flatpaks
   become: true
   ansible.builtin.flatpak:
     name: "{{ item }}"
@@ -27,21 +27,21 @@
     - ansible_facts.distribution != 'MacOSX'
     - ansible_connection not in ['docker', 'podman']
 
-- name: configure user for mock
+- name: Configure user for mock
   become: true
   ansible.builtin.user:
     groups: mock
     name: "{{ dev_mock_user }}"
     append: true
 
-- name: create .m2 directory
+- name: Create .m2 directory
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.m2/"
     state: directory
     owner: "{{ ansible_user_id }}"
     mode: "0755"
 
-- name: populate Maven settings file
+- name: Populate Maven settings file
   ansible.builtin.template:
     src: settings.xml
     dest: "{{ ansible_user_dir }}/.m2/settings.xml"

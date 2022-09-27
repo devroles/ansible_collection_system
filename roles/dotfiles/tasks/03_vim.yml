@@ -1,4 +1,4 @@
-- name: ensure vim directory is created
+- name: Ensure vim directory is created
   ansible.builtin.file:
     dest: "{{ item }}"
     state: directory
@@ -10,7 +10,7 @@
     - "{{ ansible_user_dir }}/.vim/bundle"
     - "{{ ansible_user_dir }}/.vim/sessions"
 
-- name: install files
+- name: Install files
   devroles.system.copy_or_link:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -22,7 +22,7 @@
   tags:
     - skip_ansible_lint
 
-- name: download pathogen
+- name: Download pathogen
   ansible.builtin.get_url:
     # yamllint disable-line rule:line-length
     url: https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
@@ -30,7 +30,7 @@
     force: true
     mode: 0644
 
-- name: checkout vim plugins
+- name: Checkout vim plugins
   ansible.builtin.git:
     dest: "{{ ansible_user_dir }}/.vim/bundle/{{ item.name }}"
     repo: "{{ item.repo }}"

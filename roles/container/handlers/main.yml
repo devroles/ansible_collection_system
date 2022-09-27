@@ -1,4 +1,4 @@
-- name: restart service
+- name: Restart service
   become: "{{ container_become }}"
   become_user: "{{ container_become_user }}"
   ansible.builtin.service:

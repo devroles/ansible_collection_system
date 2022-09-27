@@ -1,4 +1,4 @@
-- name: basic user config files
+- name: Basic user config files
   hosts: all:!toolbox
   roles:
     - devroles.system.dotfiles

@@ -1,4 +1,4 @@
-- name: create python virtualenvs
+- name: Create python virtualenvs
   ansible.builtin.pip:
     virtualenv: "{{ ansible_user_dir }}/venv/tools{{ item }}"
     state: present
