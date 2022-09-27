@@ -9,7 +9,7 @@ driver:
 lint: ''
 platforms:
   - name: instance
-    box: generic/fedora35
+    box: generic/fedora36
     config_options:
       synced_folder: false
       cachier: false

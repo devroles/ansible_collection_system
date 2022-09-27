@@ -4,7 +4,7 @@ driver:
     name: libvirt
 platforms:
   - name: container-fedora
-    box: generic/fedora34
+    box: generic/fedora36
     memory: 2048
     config_options:
       synced_folder: false

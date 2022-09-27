@@ -9,7 +9,7 @@ driver:
 lint: ''
 platforms:
   - name: redhat
-    box: generic/fedora35
+    box: generic/fedora36
     config_options:
       synced_folder: false
       cachier: false
