@@ -14,6 +14,8 @@
     validate_certs: false
     mode: 0644
   register: _packages_workstation_aacs_zip
+  retries: 3
+  until: _packages_workstation_aacs_zip is success
 
 - name: Unpack Blu-Ray content
   when: _packages_workstation_aacs_zip is changed  # noqa no-handler
