@@ -37,7 +37,7 @@
       ansible.builtin.group:
         name: "{{ container_group }}"
         state: present
-      notify: restart service
+      notify: Restart service
 
     - name: Add users to group
       ansible.builtin.user:

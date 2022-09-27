@@ -9,7 +9,7 @@
 - name: Enable and start firewalld
   become: "{{ firewalld_become }}"
   ansible.builtin.service:
-    name: Firewalld
+    name: firewalld
     state: started
     enabled: true
 

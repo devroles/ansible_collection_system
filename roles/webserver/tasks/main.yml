@@ -32,7 +32,7 @@
     owner: root
     group: root
     mode: "0644"
-  notify: restart nginx
+  notify: Restart nginx
 
 - name: Install nginx configurations for redirect
   become: true
@@ -44,7 +44,7 @@
     mode: "0644"
   with_items: "{{ webserver_domains }}"
   when: item.redirect | default(true)
-  notify: restart nginx
+  notify: Restart nginx
 
 - name: Install nginx configurations for static serving
   become: true
@@ -56,7 +56,7 @@
     mode: "0644"
   with_items: "{{ webserver_domains }}"
   when: item.http | default(true)
-  notify: restart nginx
+  notify: Restart nginx
 
 - name: Enable nginx
   ansible.builtin.service:
@@ -83,7 +83,7 @@
     mode: "0644"
   with_items: "{{ webserver_domains }}"
   when: item.https | default(true)
-  notify: restart nginx
+  notify: Restart nginx
 
 - name: Set SELinux options
   become: true
@@ -91,7 +91,7 @@
     name: "{{ item }}"
     persistent: true
     state: true
-  notify: restart nginx
+  notify: Restart nginx
   when: 'ansible_selinux.status == "enabled"'
   loop:
     - httpd_read_user_content  # allows it to serve user-mounted files
