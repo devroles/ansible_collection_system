@@ -3,7 +3,7 @@
 - name: Install firewalld
   become: "{{ firewalld_become }}"
   ansible.builtin.package:
-    name: Firewalld
+    name: firewalld
     state: present
 
 - name: Enable and start firewalld
