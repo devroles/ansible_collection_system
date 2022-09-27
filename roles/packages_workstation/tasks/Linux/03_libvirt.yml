@@ -1,12 +1,13 @@
-- become: true
+- name: Install libvirt and configure basic storage
+  become: true
   block:
-    - name: install packages elsewhere
+    - name: Install packages elsewhere
       ansible.builtin.package:
         name: "{{ packages_workstation_libvirt }}"
         state: present
         use: "{{ packages_backend }}"
 
-    - name: create image storage
+    - name: Create image storage
       ansible.builtin.file:
         dest: "{{ packages_workstation_libvirt_storage }}"
         owner: root
@@ -14,7 +15,7 @@
         mode: 0711
         state: directory
 
-    - name: configure libvirt storage
+    - name: Configure libvirt storage
       ansible.builtin.template:
         src: storage
         dest: /etc/libvirt/storage/default.xml
@@ -24,7 +25,7 @@
       check_mode: true
       register: check
 
-    - name: create libvirt config directory
+    - name: Create libvirt config directory
       ansible.builtin.file:
         dest: /etc/libvirt/storage
         owner: root
@@ -33,7 +34,7 @@
         state: directory
       when: check is changed  # noqa no-handler
 
-    - name: make sure libvirt is stopped
+    - name: Make sure libvirt is stopped
       ansible.builtin.service:
         name: libvirtd
         state: stopped
@@ -41,7 +42,7 @@
         - check is changed  # noqa no-handler
         - ansible_connection not in ['docker', 'podman']
 
-    - name: configure libvirt storage
+    - name: Configure libvirt storage
       ansible.builtin.template:
         src: storage
         dest: /etc/libvirt/storage/default.xml
@@ -49,36 +50,37 @@
         group: root
         mode: 0755
 
-    - name: ensure the libvirt group exists
+    - name: Ensure the libvirt group exists
       ansible.builtin.group:
         name: libvirt
         state: present
 
-    - name: check for /usr/lib/group existence
+    - name: Check for /usr/lib/group existence
       ansible.builtin.stat:
         path: /usr/lib/group
       register: group_file
 
-    - when: group_file.stat.exists
+    - name: Set groups properly for virt-manager
+      when: group_file.stat.exists
       block:
-        - name: fix issue with some versions of virt-manager messing up groups
+        - name: Fix issue with some versions of virt-manager messing up groups
           ansible.builtin.command: grep -E '^libvirt:' /usr/lib/group
           register: libvirt_group_line
           changed_when: false
 
-        - name: ensure group is in /etc/group
+        - name: Ensure group is in /etc/group
           ansible.builtin.lineinfile:
             line: "{{ libvirt_group_line.stdout.strip() }}"
             path: /etc/group
             state: present
 
-    - name: add current user to libvirt group
+    - name: Add current user to libvirt group
       ansible.builtin.user:
         name: "{{ ansible_user_id }}"
         append: true
         groups: libvirt
 
-    - name: start and enable libvirtd
+    - name: Start and enable libvirtd
       ansible.builtin.service:
         name: libvirtd
         state: started

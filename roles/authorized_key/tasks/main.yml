@@ -1,4 +1,4 @@
-- name: give myself password-less SSH
+- name: Give myself password-less SSH
   authorized_key:
     user: "{{ ansible_user_id }}"
     key: "{{ authorized_key }}"

@@ -10,7 +10,8 @@
     __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
   when: __rolename_vars_file is file
 
-- become: "{{ k3s_base_become }}"
+- name: Prepare services and packages to k3s
+  become: "{{ k3s_base_become }}"
   become_user: "{{ k3s_base_become_user }}"
   block:
     - name: Disable necessarily bad services

@@ -1,4 +1,4 @@
-- name: install flatpaks
+- name: Install flatpaks
   become: true
   flatpak:
     name: "{{ item }}"

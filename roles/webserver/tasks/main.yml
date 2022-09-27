@@ -1,4 +1,4 @@
-- name: load vars
+- name: Load vars
   ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - "vars/{{ ansible_distribution }}-{{
@@ -9,13 +9,13 @@
   ansible.builtin.include_role:
     name: epel
 
-- name: install nginx packages
+- name: Install nginx packages
   ansible.builtin.package:
     name: "{{ webserver_packages }}"
     state: present
   become: true
 
-- name: create directory
+- name: Create directory
   become: true
   ansible.builtin.file:
     name: /var/www/{{ item.tld }}
@@ -24,7 +24,7 @@
     state: directory
   with_items: "{{ webserver_domains }}"
 
-- name: configure nginx to avoid dupes
+- name: Configure nginx to avoid dupes
   become: true
   ansible.builtin.template:
     src: nginx.conf
@@ -34,7 +34,7 @@
     mode: "0644"
   notify: restart nginx
 
-- name: install nginx configurations for redirect
+- name: Install nginx configurations for redirect
   become: true
   ansible.builtin.template:
     src: "0000_add_www_redirect.conf"
@@ -46,7 +46,7 @@
   when: item.redirect | default(true)
   notify: restart nginx
 
-- name: install nginx configurations for static serving
+- name: Install nginx configurations for static serving
   become: true
   ansible.builtin.template:
     src: "0001_serve_port_80.conf"
@@ -58,14 +58,14 @@
   when: item.http | default(true)
   notify: restart nginx
 
-- name: enable nginx
+- name: Enable nginx
   ansible.builtin.service:
     name: nginx
     state: started
     enabled: true
   become: true
 
-- name: create encryption
+- name: Create encryption
   include_tasks: letsencrypt.yml
   with_items: "{{ webserver_domains }}"
   loop_control:
@@ -73,7 +73,7 @@
   when: domain.https | default(true)
 
 # TODO: configure SSL on host
-- name: instal nginx configurations for HTTPS serving
+- name: Instal nginx configurations for HTTPS serving
   become: true
   ansible.builtin.template:
     src: "0002_serve_port_443.conf"
@@ -85,7 +85,7 @@
   when: item.https | default(true)
   notify: restart nginx
 
-- name: set SELinux options
+- name: Set SELinux options
   become: true
   ansible.posix.seboolean:
     name: "{{ item }}"

@@ -1,11 +1,11 @@
-- name: ensure that the path exists
+- name: Ensure that the path exists
   ansible.builtin.file:
     path: "{{ item.dest | dirname }}"
     state: directory
     mode: u+wx
   loop: "{{ copy_or_link_files }}"
 
-- name: insert file
+- name: Insert file
   devroles.system.copy_or_link:
   args: "{{ item }}"
   loop: "{{ copy_or_link_files }}"

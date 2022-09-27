@@ -1,9 +1,9 @@
-- name: setup the python executable correctly
+- name: Setup the python executable correctly
   hosts: admin
   roles:
     - devroles.system.python_prep
 
-- name: most baseline things
+- name: Most baseline things
   hosts: admin
   roles:
     - role: devroles.system.system_repositories

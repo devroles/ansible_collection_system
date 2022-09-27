@@ -1,4 +1,4 @@
-- name: setup webserver
+- name: Setup webserver
   ansible.builtin.import_role:
     name: webserver
   vars:
@@ -6,7 +6,7 @@
       - mail.{{ item }}
   with_items: "{{ mta_domains }}"
 
-- name: install mta software
+- name: Install mta software
   become: true
   ansible.builtin.package:
     name: "{{ mta_packages }}"

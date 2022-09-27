@@ -1,6 +1,7 @@
-- become: true
+- name: Secure the installation with user permissions
+  become: true
   block:
-    - name: remove anonymous users
+    - name: Remove anonymous users
       community.mysql.mysql_user:
         check_implicit_admin: true
         name: ""
@@ -8,14 +9,14 @@
         state: absent
         login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
 
-    - name: remove test database
+    - name: Remove test database
       community.mysql.mysql_db:
         check_implicit_admin: true
         name: test
         state: absent
         login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
 
-    - name: create admin for localhost only
+    - name: Create admin for localhost only
       community.mysql.mysql_user:
         check_implicit_admin: true
         name: "{{ mariadb_admin_user }}"
@@ -24,7 +25,7 @@
         login_unix_socket: "{{ mariadb_unix_socket | default(omit) }}"
       with_items: "{{ mariadb_admin_hosts }}"
 
-    - name: remove root user, if not admin
+    - name: Remove root user, if not admin
       community.mysql.mysql_user:
         check_implicit_admin: true
         name: root

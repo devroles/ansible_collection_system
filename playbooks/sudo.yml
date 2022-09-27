@@ -1,4 +1,4 @@
-- name: configure sudo access
+- name: Configure sudo access
   hosts: sudo
   roles:
     - role: devroles.system.authorized_key

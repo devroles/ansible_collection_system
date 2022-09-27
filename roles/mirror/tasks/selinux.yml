@@ -1,4 +1,4 @@
-- name: give rsync access to the things
+- name: Give rsync access to the things
   become: true
   seboolean:
     name: "{{ item }}"

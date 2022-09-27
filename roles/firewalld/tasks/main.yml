@@ -1,19 +1,19 @@
 # role tasks
 
-- name: install firewalld
+- name: Install firewalld
   become: "{{ firewalld_become }}"
   ansible.builtin.package:
-    name: firewalld
+    name: Firewalld
     state: present
 
-- name: enable and start firewalld
+- name: Enable and start firewalld
   become: "{{ firewalld_become }}"
   ansible.builtin.service:
-    name: firewalld
+    name: Firewalld
     state: started
     enabled: true
 
-- name: open ports for zone "{{ firewalld_zone }}" (IPv4+IPv6)
+- name: Open ports for (IPv4+IPv6) zone {{ firewalld_zone }}
   become: "{{ firewalld_become }}"
   ansible.posix.firewalld:
     port: "{{ item.port }}/{{ item.proto }}"
@@ -23,7 +23,7 @@
     zone: "{{ firewalld_zone }}"
   loop: "{{ firewalld_ports_open }}"
 
-- name: add services for zone "{{ firewalld_zone }}"
+- name: Add services for zone {{ firewalld_zone }}
   become: "{{ firewalld_become }}"
   ansible.posix.firewalld:
     service: "{{ item }}"
@@ -33,7 +33,7 @@
     zone: "{{ firewalld_zone }}"
   loop: "{{ firewalld_services }}"
 
-- name: locally forward ports for zone "{{ firewalld_zone }}" (IPv4+IPv6)
+- name: Locally forward ports for (IPv4+IPv6) zone {{ firewalld_zone }}
   become: "{{ firewalld_become }}"
   ansible.posix.firewalld:
     rich_rule: >
@@ -43,4 +43,4 @@
     permanent: true
     immediate: true
     zone: "{{ firewalld_zone }}"
-  loop: "{{ lookup('nested', [ 'ipv4', 'ipv6' ], firewalld_ports_forward) }}"
+  loop: "{{ lookup('nested', [ 'ipv4', 'ipv6' ], firewalld_ports_forward) }}"  # noqa jinja

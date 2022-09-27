@@ -1,3 +1,6 @@
-- import_playbook: parts/baseline.yml
-- import_playbook: parts/desktop.yml
-- import_playbook: dotfiles.yml
+- name: Configure baseline similarities
+  import_playbook: parts/baseline.yml
+- name: Configure host as a desktop
+  import_playbook: parts/desktop.yml
+- name: Configure userland files
+  import_playbook: dotfiles.yml

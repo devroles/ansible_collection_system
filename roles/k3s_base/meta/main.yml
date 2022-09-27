@@ -2,7 +2,7 @@ galaxy_info:
   author: devroles
   description: Sets up a node to be ready for k3s
   license: GPLv3
-  min_ansible_version: 2.8
+  min_ansible_version: "2.8"
   platforms:
     - name: Fedora
       versions:

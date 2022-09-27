@@ -1,7 +1,8 @@
-- when: ansible_facts.pkg_mgr not in ['atomic_container']
+- name: Install necessary tools, and break upgrade cyclic dep
   become: true
+  when: ansible_facts.pkg_mgr not in ['atomic_container']
   block:
-    - name: update selected packages
+    - name: Update selected packages
       ansible.builtin.package:
         name:
           - vim-minimal
@@ -12,7 +13,7 @@
       tags:
         - skip_ansible_lint
 
-    - name: install shared tools
+    - name: Install shared tools
       ansible.builtin.package:
         name: "{{ common_packages }}"
         state: present
@@ -20,7 +21,7 @@
       register: shared_tools
       until: shared_tools is success
 
-    - name: configure dnf
+    - name: Configure dnf
       ansible.builtin.ini_file:
         path: /etc/dnf/dnf.conf
         section: main
@@ -30,16 +31,17 @@
       with_dict:
         max_parallel_downloads: "5"
         metadata_timer_sync: "3600"
-    - when:
+    - name: Install SELinux tools when necessary
+      when:
         - ansible_facts.os_family != 'Darwin'
         - ansible_connection not in ['docker', 'podman']
       block:
-        - name: install python SELinux packages
+        - name: Install python SELinux packages
           ansible.builtin.package:
             name: "{{ common_selinux_packages }}"
             state: present
 
-- name: disable selinux
+- name: Disable selinux
   become: true
   ansible.builtin.selinux: state=disabled
   when:
@@ -47,7 +49,7 @@
     - ansible_connection not in ['docker', 'podman']
     - ansible_facts.distribution not in ('CentOS', 'RHEL')
 
-- name: enable SSHD
+- name: Enable SSHD
   become: true
   ansible.builtin.service:
     name: sshd

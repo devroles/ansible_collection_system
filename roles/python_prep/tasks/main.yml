@@ -1,11 +1,11 @@
-- name: set python package versions
+- name: Set python package versions
   ansible.builtin.set_fact:
     _short_version: "{{ ansible_python.version.major }}"
     _long_version: >-
       {{ ansible_python.version.major
       }}.{{ ansible_python.version.minor }}
 
-- name: install python{{ _short_version }}-dnf
+- name: Install python{{ _short_version }}-dnf
   become: true
   ansible.builtin.shell: "{{ ansible_facts.pkg_mgr }} install -y python{{ _short_version }}-dnf"
   args:

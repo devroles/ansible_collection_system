@@ -10,17 +10,16 @@
     __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
   when: __rolename_vars_file is file
 
-- become: "{{ k3s_worker_become }}"
+- name: Install k3s on this node
+  become: "{{ k3s_worker_become }}"
   become_user: "{{ k3s_worker_become_user }}"
-  block:
-    - name: Install k3s on this node
-      ansible.builtin.command: >-
-        /tmp/install-k3s.sh
-        --server {{ k3s_worker_server }}
-        --node-name {{ k3s_worker_node_name }}
-        --token {{ k3s_worker_token }}
-        {% for label in k3s_worker_node_labels %}
-        --node-label {{ label }}
-        {% endfor %}
-      args:
-        creates: /usr/local/bin/k3s
+  ansible.builtin.command: >-
+    /tmp/install-k3s.sh
+    --server {{ k3s_worker_server }}
+    --node-name {{ k3s_worker_node_name }}
+    --token {{ k3s_worker_token }}
+    {% for label in k3s_worker_node_labels %}
+    --node-label {{ label }}
+    {% endfor %}
+  args:
+    creates: /usr/local/bin/k3s
