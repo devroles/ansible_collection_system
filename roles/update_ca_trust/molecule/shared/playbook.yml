@@ -6,4 +6,4 @@
         update_ca_trust_urls:
           - https://raw.githubusercontent.com/oasis-roles/update_ca_trust/master/molecule/shared/localhost.localdomain.crt
         update_ca_trust_files:
-          - molecule/shared/localhost.localdomain.crt
+          - molecule/shared/rootCA.crt

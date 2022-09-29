@@ -1,5 +1,0 @@
-driver:
-  name: containers
-platforms:
-  - name: centos_7_epel
-    image: centos:7

@@ -2,4 +2,4 @@ driver:
   name: containers
 platforms:
   - name: instance_docker
-    image: centos:7
+    image: almalinux:9
