@@ -3,3 +3,17 @@ driver:
 platforms:
   - name: instance_docker
     image: almalinux:9
+provisioner:
+  playbooks:
+    converge: playbook.yml
+  inventory:
+    group_vars:
+      all:
+        system_repositories_configs:
+          - name: epel
+            baseurl: https://dl.fedoraproject.org/pub/epel/$$releasever/Everything/$$basearch/
+            gpgcheck: false
+            exclude:
+              - a
+              - b
+              - c
