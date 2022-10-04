@@ -1,0 +1,13 @@
+- name: Converge
+  hosts: all
+  roles:
+    - role: system_repositories
+  post_tasks:
+    - name: install sword
+      become: true
+      package:
+        name: lcov  # epel-only package
+        state: present
+      retries: 2
+      register: install_sword
+      until: install_sword is success

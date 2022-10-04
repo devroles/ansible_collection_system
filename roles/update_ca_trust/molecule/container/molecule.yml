@@ -2,4 +2,4 @@ driver:
   name: containers
 platforms:
   - name: update_ca_trust_docker
-    image: centos:7
+    image: almalinux:9

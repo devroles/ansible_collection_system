@@ -1,7 +1,0 @@
-driver:
-  name: containers
-platforms:
-  - name: mariadb_centos7
-    image: centos/systemd:latest
-    command: /usr/lib/systemd/systemd --system
-    privileged: true

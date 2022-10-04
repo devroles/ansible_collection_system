@@ -1,5 +1,0 @@
-driver:
-  name: containers
-platforms:
-  - name: cent7_sudoers
-    image: centos:7
