@@ -66,7 +66,6 @@ jobs:
 
   release:
     needs:
-      - lint
       - build
     if: github.event_name == 'release'
     uses: devroles/meta_test/.github/workflows/release.yml@master
