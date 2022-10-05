@@ -44,7 +44,7 @@ jobs:
       - id: vagrant
         uses: greg-hellings/tox-list@v1
         with:
-          tox-args: "--ansible-driver vagrant"
+          tox-args: --ansible-driver vagrant
       - id: zipped
         name: Zip arrays together
         shell: python
