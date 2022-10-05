@@ -70,7 +70,6 @@ jobs:
     needs:
       - lint
       - build
-      - vagrant_build
     if: github.event_name == 'release'
     uses: devroles/meta_test/.github/workflows/release.yml@master
     secrets:
