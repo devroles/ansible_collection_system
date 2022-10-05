@@ -57,9 +57,6 @@ jobs:
           mac_zip = [{'os': 'macos-10.15', 'scenario': m} for m in macos]
           print("::set-output name=scenarios::" + json.dumps(ub_zip + mac_zip))
 
-  lint:
-    uses: devroles/meta_test/.github/workflows/lint.yml@master
-
   build:
     needs:
       - collect
