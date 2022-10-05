@@ -27,6 +27,9 @@
       ansible.builtin.package:
         name: "{{ sudoers_packages }}"
         state: present
+      retries: 3
+      register: _ensure_sudo_installed
+      until: _ensure_sudo_installed is success
       when:
         - ansible_facts.pkg_mgr not in ['atomic_container']
         - ansible_facts.distribution not in ['MacOSX']
