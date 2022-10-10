@@ -1,5 +1,6 @@
 driver:
   name: vagrant
+  cachier: false
   provider:
     name: libvirt
 platforms:
@@ -7,7 +8,6 @@ platforms:
     box: generic/fedora36
     config_options:
       synced_folder: false
-      cachier: false
     provider_raw_config_args:
       - 'qemu_use_session = true'
       - 'driver = "qemu"'
