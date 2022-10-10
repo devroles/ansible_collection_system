@@ -23,7 +23,7 @@ name: tox
 
 jobs:
   build:
-    uses: devroles/meta_test/.github/workflows/build.yml@master
+    uses: devroles/meta_test/.github/workflows/build.yml@upgrade-host-oses
 
   release:
     needs:
