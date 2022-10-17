@@ -43,7 +43,8 @@
 
 - name: Disable selinux
   become: true
-  ansible.builtin.selinux: state=disabled
+  ansible.builtin.selinux:
+    state: disabled
   when:
     - ansible_facts.os_family != 'Darwin'
     - ansible_connection not in ['docker', 'podman']

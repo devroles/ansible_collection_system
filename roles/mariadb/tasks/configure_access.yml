@@ -1,7 +1,7 @@
 - name: Set admin password
   become: "{{ mariadb_become }}"
   become_user: "{{ mariadb_become_user }}"
-  mysql_user:
+  community.mysql.mysql_user:
     check_implicit_admin: true
     login_user: "{{ mariadb_admin_user }}"
     login_password: "{{ mariadb_admin_password }}"
@@ -30,13 +30,13 @@
       value: "{{ mariadb_admin_user }}"
 
 - name: Create databases for caller
-  mysql_db:
+  community.mysql.mysql_db:
     name: "{{ item }}"
     state: present
   with_items: "{{ mariadb_databases }}"
 
 - name: Configure database users
-  mysql_user:
+  community.mysql.mysql_user:
     check_implicit_admin: true
     name: "{{ item.username }}"
     priv: "{{ item.database }}.*:{{ item.privs | default('ALL') }}"
