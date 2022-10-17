@@ -66,7 +66,7 @@
   become: true
 
 - name: Create encryption
-  include_tasks: letsencrypt.yml
+  ansible.builtin.include_tasks: letsencrypt.yml
   with_items: "{{ webserver_domains }}"
   loop_control:
     loop_var: domain

@@ -53,7 +53,7 @@
 - name: Secure system on first boot
   ansible.builtin.include_tasks:
     file: secure.yml
-  when: _first_run is changed
+  when: _first_run is changed  # noqa no-handler
 
 - name: Configure MariaDB access
   ansible.builtin.include_tasks:

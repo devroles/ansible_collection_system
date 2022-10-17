@@ -1,6 +1,6 @@
 - name: Install flatpaks
   become: true
-  flatpak:
+  community.general.flatpak:
     name: "{{ item }}"
   loop: "{{ packages_workstation_flatpaks }}"
   changed_when: false

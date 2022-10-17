@@ -1,6 +1,6 @@
 - name: Give rsync access to the things
   become: true
-  seboolean:
+  ansible.posix.seboolean:
     name: "{{ item }}"
     persistent: true
     state: true
