@@ -4,7 +4,7 @@ dependency:
     requirements-file: ../requirements.yml
 driver:
   name: vagrant
-  cachier: false
+  cachier: none
   provider:
     name: libvirt
 platforms:
