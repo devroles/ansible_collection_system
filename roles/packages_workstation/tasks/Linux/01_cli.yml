@@ -18,6 +18,9 @@
     state: present
     disable_gpg_check: true  # can't verify until installed!
   loop: "{{ packages_workstation_rpmfusion }}"
+  register: __install_rpm_fusion_pkgs
+  until: __install_rpm_fusion_pkgs is success
+  retries: 3
 
 - name: Install CLI packages
   become: true
