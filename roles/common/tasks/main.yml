@@ -22,7 +22,7 @@
       until: shared_tools is success
 
     - name: Configure dnf
-      ansible.builtin.ini_file:
+      community.general.files.ini_file:
         path: /etc/dnf/dnf.conf
         section: main
         option: "{{ item.key }}"
@@ -43,7 +43,7 @@
 
 - name: Disable selinux
   become: true
-  ansible.builtin.selinux:
+  ansible.posix.selinux:
     state: disabled
   when:
     - ansible_facts.os_family != 'Darwin'

@@ -18,7 +18,7 @@
 
 - name: Install development flatpaks
   become: true
-  ansible.builtin.flatpak:
+  community.general.packaging.os.flatpak:
     name: "{{ item }}"
     state: present
   loop: "{{ dev_paks }}"
