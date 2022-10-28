@@ -51,7 +51,7 @@ jobs:
           set -exo pipefail
           fed_version=$(podman run -it --rm registry.fedoraproject.org/fedora:latest \
                         /bin/bash -c "cat /etc/fedora-release | sed -s 's/[^0-9]//g'" | tr -d "\r")
-          echo "::set-output name=fed_version::${fed_version}"
+          echo "fed_version=${fed_version}" >> $GITHUB_OUTPUT
           podman run -d -t --name toolbox registry.fedoraproject.org/fedora-toolbox:${fed_version} sleep infinity
           cat > inventory.ini << INVENTORY
           [admin]

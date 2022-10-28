@@ -23,12 +23,12 @@ name: tox
 
 jobs:
   build:
-    uses: devroles/meta_test/.github/workflows/build.yml@master
+    uses: devroles/meta_test/.github/workflows/build.yml@main
 
   release:
     needs:
       - build
     if: github.event_name == 'release'
-    uses: devroles/meta_test/.github/workflows/release.yml@master
+    uses: devroles/meta_test/.github/workflows/release.yml@main
     secrets:
       galaxy_api_key: "${{ secrets.GALAXY_API_KEY }}"
